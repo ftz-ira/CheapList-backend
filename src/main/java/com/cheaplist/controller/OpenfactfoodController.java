@@ -46,17 +46,24 @@ public class OpenfactfoodController {
 		 * String.class,"90 rue Baudin, 92300 Levallois Perret");
 		 */
 		int chiffre = 1;
-		String nombre = "0000000000000";
+		String nombre = "3000000000000";
+		
+		int checkpoint = 0;
 
-		while (!nombre.equals("1000000000000")) {
+		while (!nombre.equals("4000000000000")) {
 			Seb = restTemplate.getForObject("http://fr.openfoodfacts.org/api/v0/produit/{idjson}.json", String.class,
 					nombre);
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readTree(new StringReader(Seb));
-
+		
+				JsonNode test = rootNode.get("status_verbose");
+				String Trouver = mapper.treeToValue(test,String.class);
+				if (!Trouver.equals("product not found"))
+				{
+					System.out.println("CheckSeb "+nombre);
+				
 				Openfactfood off = new Openfactfood();
-
 				JsonNode innerNode = rootNode.get("product");
 
 				String[] Categorie;
@@ -138,18 +145,16 @@ public class OpenfactfoodController {
 					
 				}
 				off.setTruecategory("nothing"); // off.toString();
-
-				if (off.getBrands() != null)
-				{
-					System.out.print("Donnees Inseree");
-					openfactfoodService.create(off);
+				System.out.print("Donnees Inseree");
+				openfactfoodService.create(off);
 				}
 					
-
+				
 			} catch (IOException e) { // TODO Auto-generated catch block
 			
 				e.printStackTrace();
 			}
+			
 
 			int retenue = 1;
 			while (chiffre < 14 && retenue == 1) {
@@ -166,13 +171,20 @@ public class OpenfactfoodController {
 				}
 				mynombre[mynombre.length - chiffre] = (char) Tempo;
 				nombre = nombre.valueOf(mynombre);
-				// System.out.println("CheckSeb2 : "+nombre);
 				chiffre++;
 			}
 			chiffre = 1;
+			++checkpoint;
+			if(checkpoint>1000)
+			{
+				System.out.println("Check : +" + nombre);
+				checkpoint = 0;
+			}
 		}
 
-		return Seb;
-	}
+
+
+	return Seb;
+}
 
 }
