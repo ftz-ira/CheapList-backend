@@ -40,11 +40,11 @@ public class OpenfactfoodController {
 	public String googleTest() {
 		RestTemplate restTemplate = new RestTemplate();
 		String Seb = new String();
-		/*
-		 * Seb = restTemplate.getForObject(
-		 * "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false",
-		 * String.class,"90 rue Baudin, 92300 Levallois Perret");
-		 */
+		
+		 Seb = restTemplate.getForObject(
+		 "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false",
+		 String.class,"90 rue Baudin, 92300 Levallois Perret");
+		 
 		/*
 		for (BigInteger a = BigInteger.ONE; 
 			     a.compareTo(10000000000000) < 0; 
