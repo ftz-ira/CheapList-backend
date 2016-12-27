@@ -40,109 +40,138 @@ public class OpenfactfoodController {
 	public String googleTest() {
 		RestTemplate restTemplate = new RestTemplate();
 		String Seb = new String();
-		
-		 Seb = restTemplate.getForObject(
-		 "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false",
-		 String.class,"90 rue Baudin, 92300 Levallois Perret");
-		 
 		/*
-		for (BigInteger a = BigInteger.ONE; 
-			     a.compareTo(10000000000000) < 0; 
-			     a = a.add(BigInteger.ONE)) {
+		 * Seb = restTemplate.getForObject(
+		 * "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false",
+		 * String.class,"90 rue Baudin, 92300 Levallois Perret");
+		 */
+		int chiffre = 1;
+		String nombre = "0000000000000";
 
-		        System.out.println(bi);
-		    }
-		    
-		Seb = restTemplate.getForObject("http://fr.openfoodfacts.org/api/v0/produit/{address}.json", String.class,i);
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			JsonNode rootNode = mapper.readTree(new StringReader(Seb));
-			
-			Openfactfood off = new Openfactfood();
-
-			JsonNode innerNode = rootNode.get("product"); // Get the only
-															// element in the
-			
-			
-			String[] Categorie;
+		while (!nombre.equals("1000000000000")) {
+			Seb = restTemplate.getForObject("http://fr.openfoodfacts.org/api/v0/produit/{idjson}.json", String.class,
+					nombre);
 			try {
-				JsonNode aField = innerNode.get("categories");
-				String Categories = mapper.treeToValue(aField, String.class);
-				Categorie = Categories.split(",");
-				if (Categorie.length > 0)
-					off.setCategorie1(Categorie[1]);
+				ObjectMapper mapper = new ObjectMapper();
+				JsonNode rootNode = mapper.readTree(new StringReader(Seb));
 
-				if (Categorie.length > 1)
-					off.setCategorie2(Categorie[2]);
+				Openfactfood off = new Openfactfood();
 
-				if (Categorie.length > 2)
-					off.setCategorie3(Categorie[3]);
+				JsonNode innerNode = rootNode.get("product");
 
-				if (Categorie.length > 3)
-					off.setCategorie4(Categorie[4]);
+				String[] Categorie;
+				try {
+					JsonNode aField = innerNode.get("categories");
+					String Categories = mapper.treeToValue(aField, String.class);
+					Categorie = Categories.split(",");
+					if (Categorie.length > 0)
+						off.setCategorie1(Categorie[0]);
 
-				if (Categorie.length > 4)
-					off.setCategorie5(Categorie[5]);
+					if (Categorie.length > 1)
+						off.setCategorie2(Categorie[1]);
 
-				if (Categorie.length > 5)
-					off.setCategorie6(Categorie[6]);
+					if (Categorie.length > 2)
+						off.setCategorie3(Categorie[2]);
 
-				if (Categorie.length > 6)
-					off.setCategorie7(Categorie[7]);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
+					if (Categorie.length > 3)
+						off.setCategorie4(Categorie[3]);
+
+					if (Categorie.length > 4)
+						off.setCategorie5(Categorie[4]);
+
+					if (Categorie.length > 5)
+						off.setCategorie6(Categorie[5]);
+
+					if (Categorie.length > 6)
+						off.setCategorie7(Categorie[6]);
+				} catch (Exception e) { // TODO Auto-generated catch block
+					
+				}
+
+				try {
+					JsonNode bField = innerNode.get("brands");
+					String brands = mapper.treeToValue(bField, String.class);
+					off.setBrands(brands.split(",")[0]);
+				} catch (Exception e) { // TODO Auto-generated catch block
+				
+				}
+
+				try {
+					JsonNode bField = innerNode.get("image_front_small_url");
+					String url = mapper.treeToValue(bField, String.class);
+					off.setUrl((url));
+				} catch (Exception e) { // TODO Auto-generated catch block
+					
+				}
+
+				try {
+					JsonNode bField = innerNode.get("code");
+					BigInteger code = mapper.treeToValue(bField, BigInteger.class);
+					off.setEan(code);
+				} catch (Exception e) { // TODO Auto-generated catch block
+					
+				}
+
+				try {
+					JsonNode cField = innerNode.get("product_name_fr");
+					String name = mapper.treeToValue(cField, String.class);
+					off.setName(name);
+				} catch (Exception e) { // TODO Auto-generated catch block
+				
+				}
+
+				try {
+					JsonNode dField = innerNode.get("generic_name");
+					String generic = mapper.treeToValue(dField, String.class);
+					off.setGeneric(generic);
+				} catch (Exception e) { // TODO Auto-generated catch block
+					
+				}
+
+				try {
+					JsonNode eField = innerNode.get("quantity");
+					String quantity = mapper.treeToValue(eField, String.class);
+					off.setQuantity(quantity.split(" ")[1]);
+					off.setVolume(Integer.parseInt((quantity.split(" ")[0])));
+					
+				} catch (Exception e) { // TODO Auto-generated catch block
+					
+				}
+				off.setTruecategory("nothing"); // off.toString();
+
+				if (off.getBrands() != null)
+				{
+					System.out.print("Donnees Inseree");
+					openfactfoodService.create(off);
+				}
+					
+
+			} catch (IOException e) { // TODO Auto-generated catch block
+			
 				e.printStackTrace();
 			}
-			
-			try {
-				JsonNode bField = innerNode.get("brands");
-				String brands = mapper.treeToValue(bField, String.class);
-				off.setBrands(brands);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
-			try {
-				JsonNode cField = innerNode.get("product_name_fr");
-				String name = mapper.treeToValue(cField, String.class);
-				off.setName(name);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			int retenue = 1;
+			while (chiffre < 14 && retenue == 1) {
+				char[] mynombre = nombre.toCharArray();
+				// System.out.println("Test mynombre : "+mynombre.length+"
+				// "+nombre.length());
+				int Tempo = ((int) (mynombre[mynombre.length - chiffre]) + 1);
+				// System.out.println("Tempo : "+Tempo+" :"+ (char)Tempo);
+				if (Tempo > 57) {
+					retenue = 1;
+					Tempo = 48;
+				} else {
+					retenue = 0;
+				}
+				mynombre[mynombre.length - chiffre] = (char) Tempo;
+				nombre = nombre.valueOf(mynombre);
+				// System.out.println("CheckSeb2 : "+nombre);
+				chiffre++;
 			}
-
-			try {
-				JsonNode dField = innerNode.get("generic_name");
-				String generic = mapper.treeToValue(dField, String.class);
-				off.setGeneric(generic);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				JsonNode eField = innerNode.get("quantity");
-				String quantity = mapper.treeToValue(eField, String.class);
-				off.setQuantity(quantity);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("Seboou");
-			off.setTruecategory("nothing");
-		//	off.toString();
-			
-			if (off.getBrands() != null)
-			openfactfoodService.create(off);
-			System.out.print("Yes!!");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Seboou");
-			e.printStackTrace();
+			chiffre = 1;
 		}
-*/
+
 		return Seb;
 	}
 

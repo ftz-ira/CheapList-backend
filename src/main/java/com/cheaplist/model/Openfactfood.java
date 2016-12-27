@@ -1,7 +1,15 @@
 package com.cheaplist.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.math.BigInteger;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -23,6 +31,9 @@ public class Openfactfood implements Serializable {
 
 	@Column(length=255)
 	private String brands;
+	
+	@Column(length=255)
+	private String url;
 
 	@Column(length=255)
 	private String categorie1;
@@ -56,6 +67,11 @@ public class Openfactfood implements Serializable {
 
 	@Column(length=255)
 	private String truecategory;
+	
+	@Column(nullable=false)
+	private BigInteger ean;
+	
+	private int volume;
 
 	public Openfactfood() {
 	}
@@ -74,6 +90,14 @@ public class Openfactfood implements Serializable {
 
 	public void setBrands(String brands) {
 		this.brands = brands;
+	}
+	
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getCategorie1() {
@@ -162,6 +186,22 @@ public class Openfactfood implements Serializable {
 
 	public void setTruecategory(String truecategory) {
 		this.truecategory = truecategory;
+	}
+	
+	public BigInteger getEan() {
+		return this.ean;
+	}
+
+	public void setEan(BigInteger ean) {
+		this.ean = ean;
+	}
+	
+	public int getVolume() {
+		return this.volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
 	}
 	@Override
 	public String toString() {
