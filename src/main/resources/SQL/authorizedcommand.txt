@@ -1,0 +1,12 @@
+// Avoir tous les rayons (sections)
+http://localhost:8080/cheaplist/section/gets/
+
+
+// Avoir les catégories d'un rayon précis (ID = id du rayon)
+http://localhost:8080/cheaplist/section/findbyid/1
+
+// Avoir tous les produits d'une catégorie précise
+
+
+
+// Creation d'un membre
