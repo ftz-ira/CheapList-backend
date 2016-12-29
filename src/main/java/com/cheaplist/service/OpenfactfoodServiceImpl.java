@@ -56,7 +56,18 @@ public class OpenfactfoodServiceImpl implements OpenfactfoodService {
 		updatedOpenfactfood.setBrands(openfactfood.getBrands());
 		updatedOpenfactfood.setCategorie1(openfactfood.getCategorie1());
 		updatedOpenfactfood.setCategorie2(openfactfood.getCategorie2());
-		updatedOpenfactfood.setCategorie3(openfactfood.getCategorie3());
+		updatedOpenfactfood.setCategorie3(openfactfood.getCategorie3());	
+		updatedOpenfactfood.setCategorie4(openfactfood.getCategorie4());
+		updatedOpenfactfood.setCategorie5(openfactfood.getCategorie5());
+		updatedOpenfactfood.setCategorie6(openfactfood.getCategorie6());	
+		updatedOpenfactfood.setCategorie7(openfactfood.getCategorie7());
+		updatedOpenfactfood.setName(openfactfood.getName());
+		updatedOpenfactfood.setGeneric(openfactfood.getGeneric());
+		updatedOpenfactfood.setTruecategory(openfactfood.getTruecategory());
+		updatedOpenfactfood.setQuantity(openfactfood.getQuantity());
+		updatedOpenfactfood.setEan(openfactfood.getEan());
+		updatedOpenfactfood.setUrl(openfactfood.getUrl());
+		updatedOpenfactfood.setVolume(openfactfood.getVolume());
 		
 		
 		return updatedOpenfactfood;
