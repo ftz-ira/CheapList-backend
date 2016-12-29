@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cheaplist.exception.MemberNotFound;
 import com.cheaplist.model.Member;
 import com.cheaplist.model.ShoppingList;
 import com.cheaplist.model.View;
 import com.cheaplist.service.MemberService;
+import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
@@ -31,20 +31,22 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	/*
-	 * @Autowired private ShopValidator memberValidator;
-	 * 
-	 * /*
-	 * 
-	 * @InitBinder private void initBinder(WebDataBinder binder) {
-	 * binder.setValidator(memberValidator); }
-	 */
+	
+	 @Autowired private MemberValidator memberValidator;
+			
+	 @InitBinder private void initBinder(WebDataBinder binder) {
+	  binder.setValidator(memberValidator); }
+	 
 
-	/*
-	 * @RequestMapping(value="/create", method=RequestMethod.GET) public
-	 * ModelAndView newShopPage() { ModelAndView mav = new
-	 * ModelAndView("member-new", "member", new Member()); return mav; }
-	 */
+	 @RequestMapping(value="/create", method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	 List<ObjectError> createNewShop(@RequestBody Member member,BindingResult result) 			
+	 { 
+		 	System.out.println("Test Member : "+member.getName());
+		 	memberValidator.validate(member,result);
+		 	if (result.hasErrors()) return result.getAllErrors();		
+		 	return null;
+	 }
+	 
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(value = "/identity/findall/")
 	public List<Member> identityFindAll() {
@@ -70,7 +72,7 @@ public class MemberController {
 	}
 
 	@JsonView(View.MemberIdentity.class)
-	@RequestMapping(value = "/identity/findbyid/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/identity/findbyid/{id}")
 	public Member identityFindId(@PathVariable Integer id) {
 
 		Member member;

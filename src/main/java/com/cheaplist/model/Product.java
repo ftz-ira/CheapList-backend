@@ -20,7 +20,7 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ListProduct.class,View.SectionProduct.class,View.ProductSection.class,View.ProductShop.class})
+	@JsonView({View.ListProduct.class,View.ProductSection.class,View.ProductShop.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -30,7 +30,7 @@ public class Product implements Serializable {
 	private BigInteger ean;
 
 	@Column(nullable=false, length=45)
-	@JsonView({View.ListProduct.class,View.SectionProduct.class,View.ProductSection.class, View.ProductShop.class})
+	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class,View.CategoryProduct.class})
 	private String name;
 
 	@Column(name="unit_name", nullable=false, length=45)

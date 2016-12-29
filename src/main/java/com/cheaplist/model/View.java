@@ -5,11 +5,11 @@ public class View {
 	public interface MemberList {}
 	public interface MemberShop {}
 	public interface ListProduct {}
-	public interface SectionProduct {}
+	public interface SectionCategory {} 
+	public interface CategoryProduct{}
 	public interface ProductShop {}
 	public interface ProductSection {}	
 	public interface ShopAddress {}
-	
 	
 	
 }

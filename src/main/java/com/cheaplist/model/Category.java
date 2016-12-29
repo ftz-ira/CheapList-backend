@@ -19,7 +19,7 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.SectionProduct.class,View.ProductSection.class})
+	@JsonView({View.SectionCategory.class,View.ProductSection.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -27,7 +27,7 @@ public class Category implements Serializable {
 	@Column(name="is_active", nullable=false)
 	private byte isActive;
 	
-	@JsonView({View.SectionProduct.class,View.ProductSection.class})
+	@JsonView({View.SectionCategory.class,View.ProductSection.class,View.CategoryProduct.class})
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -38,7 +38,7 @@ public class Category implements Serializable {
 	private Section section;
 
 	//bi-directional many-to-many association to Brand
-	@JsonView(View.SectionProduct.class)
+	@JsonView(View.CategoryProduct.class)
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 		name="category_brand"

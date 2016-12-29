@@ -19,36 +19,24 @@ public class Section implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@JsonView(View.SectionCategory.class)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView({View.SectionProduct.class,View.ProductSection.class})
+	@JsonView(View.ProductSection.class)
 	@Column(nullable=false, length=45)
 	private String description;
 
-	@JsonView({View.SectionProduct.class,View.ProductSection.class})
+	@JsonView(View.ProductSection.class)
 	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to Category
-	@JsonView(View.SectionProduct.class)
+	@JsonView(View.SectionCategory.class)
 	@OneToMany(mappedBy="section",fetch=FetchType.EAGER)
 	private Set<Category> categories;
-/*
-	//bi-directional many-to-many association to ShoppingList
-	@ManyToMany
-	@JoinTable(
-		name="section_list"
-		, joinColumns={
-			@JoinColumn(name="section_id", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="list_id", nullable=false)
-			}
-		)
-	private Set<ShoppingList> shoppingLists;
-*/
+
 	public Section() {
 	}
 
@@ -75,7 +63,7 @@ public class Section implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-/*
+
 	public Set<Category> getCategories() {
 		return this.categories;
 	}
@@ -98,12 +86,4 @@ public class Section implements Serializable {
 		return category;
 	}
 
-	public Set<ShoppingList> getShoppingLists() {
-		return this.shoppingLists;
-	}
-
-	public void setShoppingLists(Set<ShoppingList> shoppingLists) {
-		this.shoppingLists = shoppingLists;
-	}
-*/
 }
