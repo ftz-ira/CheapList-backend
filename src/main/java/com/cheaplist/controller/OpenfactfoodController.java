@@ -33,7 +33,7 @@ public class OpenfactfoodController {
 	/** test Google Map **/
 	@RequestMapping(value = "/go")
 	public String googleTest() {
-
+System.out.println("Seb");
 
 		return "ok";
 	}
