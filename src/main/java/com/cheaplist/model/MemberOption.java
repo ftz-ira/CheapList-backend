@@ -2,6 +2,7 @@ package com.cheaplist.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +39,7 @@ public class MemberOption implements Serializable {
 
 	//bi-directional many-to-one association to Member
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name="member_id", nullable=false)
 	private Member member;
 

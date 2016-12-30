@@ -1,3 +1,5 @@
+Vous pouvez les tester avec l'extension google Chrome : PostMan pour voir le JSON qu'il renvoie
+
 // Avoir tous les rayons (sections)
 http://localhost:8080/cheaplist/section/gets/
 
@@ -7,6 +9,11 @@ http://localhost:8080/cheaplist/section/findbyid/1
 
 // Avoir tous les produits d'une catégorie précise
 
+// Avec l'ID d'un membre, recevoir la liste de la table Shopping-List 
+http://localhost:8080/cheaplist/member/getLists/1
 
+// Fiche d'un membre (par ID : On a ses options et ses magasins favoris)
+http://localhost:8080/cheaplist/member/getIdentity/1
 
 // Creation d'un membre
+http://localhost:8080/cheaplist/member/create

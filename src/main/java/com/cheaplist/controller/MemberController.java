@@ -43,7 +43,11 @@ public class MemberController {
 	 { 
 		 	System.out.println("Test Member : "+member.getName());
 		 	memberValidator.validate(member,result);
-		 	if (result.hasErrors()) return result.getAllErrors();		
+		 	
+		 	
+		 	if (result.hasErrors()) return result.getAllErrors();	
+		 	member =memberService.create(member);	
+		 	System.out.println(member.getId());
 		 	return null;
 	 }
 	 
@@ -58,55 +62,22 @@ public class MemberController {
 		return memberList;
 
 	}
-	
-	@JsonView(View.MemberShop.class)
-	@RequestMapping(value = "/shop/findall/")
-	public List<Member> shopFindAll() {
-		ArrayList<Member> memberList = (ArrayList<Member>) memberService.findAll();
-		for (Member member : memberList) {
-			System.out.println(member.toString());
-			System.out.println("Name :" + member.getName() + "  Id : " + member.getEmail());
-		}
-		return memberList;
-
-	}
-
 	@JsonView(View.MemberIdentity.class)
-	@RequestMapping(value = "/identity/findbyid/{id}")
+	@RequestMapping(value = "/getIdentity/{id}")
 	public Member identityFindId(@PathVariable Integer id) {
 
 		Member member;
-		if (id == null) {
-			member = null;
-		} else {
-			// System.out.println("Test Seb");
-			member = memberService.findById(id.intValue());
-			// System.out.println("Test Seb2");
-			System.out.println(member.toString());
-			System.out.println("Seb : " + member.getAddress().getCity());
-
-		}
-		System.out.println("Test Seb4");
+		member = memberService.findById(id.intValue());
 		return member;
 
 	}
 
 	@JsonView(View.MemberList.class)
-	@RequestMapping(value = "/list/findbyid/{id}")
+	@RequestMapping(value = "/getLists/{id}")
 	public Member listFindid(@PathVariable Integer id) {
 		Member member;
-		if (id == null) {
-			member = null;
-		} else {
-			member = memberService.findById(id.intValue());
-			Set<ShoppingList> Test = member.getShoppingLists();
-			for (ShoppingList Shop : Test) {
-				System.out.println(Shop.getName());
-			}
-		}
-		System.out.println("Test Seb4");
+		member = memberService.findById(id.intValue());
 		return member;
-
 	}
 
 	/** test Google Map **/

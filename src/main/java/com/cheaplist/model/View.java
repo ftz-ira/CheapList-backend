@@ -3,7 +3,6 @@ package com.cheaplist.model;
 public class View {
 	public interface MemberIdentity {}
 	public interface MemberList {}
-	public interface MemberShop {}
 	public interface ListProduct {}
 	public interface SectionCategory {} 
 	public interface CategoryProduct{}

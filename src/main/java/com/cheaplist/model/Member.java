@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +35,7 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.MemberIdentity.class,View.MemberList.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.MemberList.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -64,18 +65,18 @@ public class Member implements Serializable {
 
 	//bi-directional many-to-one association to Address
 	@JsonView(View.MemberIdentity.class)
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 
 	//bi-directional many-to-one association to MemberOption
 	@JsonView(View.MemberIdentity.class)
-	@OneToMany(mappedBy="member", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="member", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<MemberOption> memberOptions;
 
 	//bi-directional many-to-many association to Shop
-	@JsonView(View.MemberShop.class)
-	@ManyToMany(fetch=FetchType.EAGER)
+	@JsonView(View.MemberIdentity.class)
+	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(
 		name="member_shop"
 		, joinColumns={

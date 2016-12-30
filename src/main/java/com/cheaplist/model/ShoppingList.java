@@ -44,7 +44,6 @@ public class ShoppingList implements Serializable {
 	@Column(name="created_date")
 	private Date createdDate;
 
-	@JsonView(View.MemberList.class)
 	@Column(name="is_actif", nullable=false)
 	private byte isActif;
 
@@ -64,11 +63,7 @@ public class ShoppingList implements Serializable {
 	@JsonView(View.ListProduct.class)
 	@OneToMany(mappedBy="shoppingList",fetch=FetchType.EAGER)
 	private Set<ListProduct> listProducts;
-/*
-	//bi-directional many-to-many association to Section
-	@ManyToMany(mappedBy="shoppingLists")
-	private Set<Section> sections;
-*/
+
 	//bi-directional many-to-one association to Member
 	@JsonView(View.MemberIdentity.class)
 	@ManyToOne (fetch=FetchType.EAGER)
@@ -147,15 +142,7 @@ public class ShoppingList implements Serializable {
 
 		return listProduct;
 	}
-/*
-	public Set<Section> getSections() {
-		return this.sections;
-	}
 
-	public void setSections(Set<Section> sections) {
-		this.sections = sections;
-	}
-*/
 	public Member getMember() {
 		return this.member;
 	}

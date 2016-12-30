@@ -21,34 +21,34 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private int id;
 
 	@Column(nullable=false, length=45)
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private String city;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private double lag;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private double lng;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="street_name", length=45)
 	private String streetName;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="street_number")
 	private int streetNumber;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class,View.MemberShop.class})
+	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="zip_code", nullable=false)
 	private int zipCode;
 
 
 	//bi-directional many-to-one association to Member
-	@OneToMany(mappedBy="address",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="address",fetch=FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<Member> members;
 
 	//bi-directional many-to-one association to Shop
