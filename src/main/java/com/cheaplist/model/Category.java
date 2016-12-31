@@ -27,7 +27,7 @@ public class Category implements Serializable {
 	@Column(name="is_active", nullable=false)
 	private byte isActive;
 	
-	@JsonView({View.SectionCategory.class,View.ProductSection.class,View.CategoryProduct.class})
+	@JsonView({View.SectionCategory.class,View.ProductSection.class})
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -39,17 +39,9 @@ public class Category implements Serializable {
 
 	//bi-directional many-to-many association to Brand
 	@JsonView(View.CategoryProduct.class)
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(
-		name="category_brand"
-		, joinColumns={
-			@JoinColumn(name="category_id", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="brand_id", nullable=false)
-			}
-		)
-	private Set<Brand> brands;
+	//bi-directional many-to-one association to Product
+		@OneToMany(mappedBy="category", fetch=FetchType.EAGER)
+		private Set<Product> products;
 
 	public Category() {
 	}
@@ -86,12 +78,26 @@ public class Category implements Serializable {
 		this.section = section;
 	}
 
-	public Set<Brand> getBrands() {
-		return this.brands;
+	public Set<Product> getProducts() {
+		return this.products;
 	}
 
-	public void setBrands(Set<Brand> brands) {
-		this.brands = brands;
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public Product addProduct(Product product) {
+		getProducts().add(product);
+		product.setCategory(this);
+
+		return product;
+	}
+
+	public Product removeProduct(Product product) {
+		getProducts().remove(product);
+		product.setCategory(null);
+
+		return product;
 	}
 
 }

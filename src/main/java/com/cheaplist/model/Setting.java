@@ -22,6 +22,9 @@ public class Setting implements Serializable {
 	@Column(length=45)
 	private String name;
 
+	@Column(length=45)
+	private String value;
+
 	public Setting() {
 	}
 
@@ -39,6 +42,14 @@ public class Setting implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getValue() {
+		return this.value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }

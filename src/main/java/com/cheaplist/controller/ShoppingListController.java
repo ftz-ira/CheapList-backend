@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cheaplist.model.ListProduct;
-import com.cheaplist.model.Product;
 import com.cheaplist.model.ShoppingList;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ShoppingListService;

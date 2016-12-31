@@ -1,21 +1,9 @@
 package com.cheaplist.controller;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import com.cheaplist.exception.OpenfactfoodNotFound;
-import com.cheaplist.model.Openfactfood;
 import com.cheaplist.service.OpenfactfoodService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(value = "/off")

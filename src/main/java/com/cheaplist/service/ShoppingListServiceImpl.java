@@ -3,8 +3,6 @@ package com.cheaplist.service;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.Column;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

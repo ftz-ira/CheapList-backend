@@ -25,9 +25,16 @@ public class Product implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
+	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class})
+	@Column(length=90)
+	private String brand;
+
 	@Column(nullable=false)
 	@JsonView(View.ListProduct.class)
 	private BigInteger ean;
+
+	@Column(length=90)
+	private String implementation;
 
 	@Column(nullable=false, length=45)
 	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class,View.CategoryProduct.class})
@@ -42,18 +49,18 @@ public class Product implements Serializable {
 	private float volume;
 
 	//bi-directional many-to-one association to ListProduct
-	@OneToMany(mappedBy="product",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
 	private Set<ListProduct> listProducts;
 
-	//bi-directional many-to-one association to Brand
+	//bi-directional many-to-one association to Category
 	@JsonView(View.ProductSection.class)
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="brand_id", nullable=false)
-	private Brand brand;
+	@ManyToOne
+	@JoinColumn(name="category_id", nullable=false)
+	private Category category;
 
 	//bi-directional many-to-one association to ShopProduct
 	@JsonView(View.ProductShop.class)
-	@OneToMany(mappedBy="product",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
 	private Set<ShopProduct> shopProducts;
 
 	public Product() {
@@ -67,12 +74,28 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
+	public String getBrand() {
+		return this.brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public BigInteger getEan() {
 		return this.ean;
 	}
 
 	public void setEan(BigInteger ean) {
 		this.ean = ean;
+	}
+
+	public String getImplementation() {
+		return this.implementation;
+	}
+
+	public void setImplementation(String implementation) {
+		this.implementation = implementation;
 	}
 
 	public String getName() {
@@ -121,12 +144,12 @@ public class Product implements Serializable {
 		return listProduct;
 	}
 
-	public Brand getBrand() {
-		return this.brand;
+	public Category getCategory() {
+		return this.category;
 	}
 
-	public void setBrand(Brand brand) {
-		this.brand = brand;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Set<ShopProduct> getShopProducts() {
