@@ -40,6 +40,7 @@ public class Member implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
+	@JsonView({View.MemberIdentity.class,View.MemberList.class})
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
 	private Date createdDate;

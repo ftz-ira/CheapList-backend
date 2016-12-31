@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Member create(Member member) {
 		Member createdMember = member;
+		
 		return memberRepository.save(createdMember);
 	}
 	
