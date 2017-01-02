@@ -26,7 +26,8 @@ public class SectionController {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
 		for ( Section section  : sectionList)
 		{
-			 System.out.println(section.toString());
+			
+			System.out.println(section.toString());
 			System.out.println("Name :"+section.getId());
 		}
 		return sectionList;

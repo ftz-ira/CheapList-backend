@@ -28,7 +28,7 @@ public class Section implements Serializable {
 	@Column(nullable=false, length=45)
 	private String description;
 
-	@JsonView(View.ProductSection.class)
+	@JsonView({View.ProductSection.class,View.SectionCategory.class})
 	@Column(nullable=false, length=45)
 	private String name;
 

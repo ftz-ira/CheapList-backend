@@ -44,9 +44,8 @@ public class Product implements Serializable {
 	@JsonView({View.ListProduct.class,View.ProductShop.class})
 	private String unitName;
 
-	@Column(nullable=false)
-	@JsonView(View.ListProduct.class)
 	private float volume;
+
 
 	//bi-directional many-to-one association to ListProduct
 	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
