@@ -20,7 +20,7 @@ public class ProductController {
 
 	@JsonView(View.Product.class)
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public Product newBrandproduct(@PathVariable Integer id) {
+	public Product productOne(@PathVariable Integer id) {
 	 Product product = productService.findById(id.intValue());
 		return product;
 			
