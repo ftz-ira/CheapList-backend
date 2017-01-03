@@ -7,41 +7,39 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Set;
 
-
 /**
  * The persistent class for the category database table.
  * 
  */
 @Entity
-@Table(name="category")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@Table(name = "category")
+@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.SectionCategory.class}/*,View.ProductSection.class}*/)
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
+	@JsonView(View.SectionCategory.class)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column(name="is_active", nullable=false)
+	@JsonView(View.Category.class)
+	@Column(name = "is_active", nullable = false)
 	private byte isActive;
-	
-	@JsonView({View.SectionCategory.class}/*,View.ProductSection.class}*/)
-	@Column(nullable=false, length=45)
+
+	@JsonView({ View.SectionCategory.class, View.Category.class })
+	@Column(nullable = false, length = 45)
 	private String name;
 
-	//bi-directional many-to-one association to Section
-//	@JsonView(View.ProductSection.class)
+	// bi-directional many-to-one association to Section
 	@ManyToOne
-	@JoinColumn(name="section_id", nullable=false)
+	@JoinColumn(name = "section_id", nullable = false)
 	private Section section;
 
-	//bi-directional many-to-many association to Brand
-//	@JsonView(View.CategoryProduct.class)
-	//bi-directional many-to-one association to Product
-		@OneToMany(mappedBy="category", fetch=FetchType.EAGER)
-		private Set<Product> products;
+	// bi-directional many-to-one association to Product
+	@JsonView(View.CategoryProduct.class)
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	private Set<Product> products;
 
 	public Category() {
 	}
@@ -89,14 +87,12 @@ public class Category implements Serializable {
 	public Product addProduct(Product product) {
 		getProducts().add(product);
 		product.setCategory(this);
-
 		return product;
 	}
 
 	public Product removeProduct(Product product) {
 		getProducts().remove(product);
 		product.setCategory(null);
-
 		return product;
 	}
 

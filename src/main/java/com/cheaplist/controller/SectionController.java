@@ -22,28 +22,29 @@ public class SectionController {
 	@Autowired
 	private SectionService sectionService;
 
+	/***  READ ALL SECTION  ****/
 	@JsonView(View.Section.class)
 	@RequestMapping(value="",method=RequestMethod.GET)
-	public List<Section> SectionAll() {
+	public List<Section> sectionAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
 		return sectionList;
 	
 	}
 	
-	
+	/***  READ ONE SECTION BY ID  ****/
 	@JsonView(View.Section.class)
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public Section SectionOne(@PathVariable Integer id) {
+	public Section sectionOne(@PathVariable Integer id) {
 		Section section = sectionService.findById(id.intValue());		
 		return section;
 				
 	}
 	
 	
-	/***  READ ONE SECTION ALL CATEGORIES              ****/
+	/***  READ ALL CATEGORIES BY ID SECTION  ****/
 	@JsonView(View.SectionCategory.class)
 	@RequestMapping(value="/{id}/categories/",method=RequestMethod.GET)
-	public Section SectionAllCategories(@PathVariable Integer id) {
+	public Section sectionAllCategories(@PathVariable Integer id) {
 		Section section = sectionService.findById(id.intValue());
 		return section;				
 	}

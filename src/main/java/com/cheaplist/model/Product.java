@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import java.math.BigInteger;
 import java.util.Set;
 
-
 /**
  * The persistent class for the product database table.
  * 
@@ -20,30 +19,31 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@JsonView({View.ListProduct.class,View.ProductSection.class,View.ProductShop.class})
+	@JsonView(View.CategoryProduct.class)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-//	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class})
+	@JsonView(View.CategoryProduct.class)
 	@Column(length=90)
 	private String brand;
 
 	@Column(nullable=false)
-//	@JsonView(View.ListProduct.class)
+	@JsonView(View.CategoryProduct.class)
 	private BigInteger ean;
 
 	@Column(length=90)
 	private String implementation;
 
 	@Column(nullable=false, length=45)
-//	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class,View.CategoryProduct.class})
+	@JsonView(View.CategoryProduct.class)
 	private String name;
 
 	@Column(name="unit_name", nullable=false, length=45)
-//	@JsonView({View.ListProduct.class,View.ProductShop.class})
+	@JsonView(View.CategoryProduct.class)
 	private String unitName;
 
+	@JsonView(View.CategoryProduct.class)
 	private float volume;
 
 
