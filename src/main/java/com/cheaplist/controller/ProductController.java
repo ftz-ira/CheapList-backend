@@ -18,12 +18,13 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	/**** READ ONE PRODUCT  *****/
 	@JsonView(View.Product.class)
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public Product productOne(@PathVariable Integer id) {
 	 Product product = productService.findById(id.intValue());
 		return product;
-			
 	}
+
 
 }

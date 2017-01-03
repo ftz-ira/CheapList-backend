@@ -22,19 +22,19 @@ public class ShopProduct implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-//	@JsonView(View.ProductShop.class)
+	@JsonView(View.ProductShop.class)
 	private double price;
 
 	private float ratio;
 
 	//bi-directional many-to-one association to Product
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="product_id", nullable=false)
 	private Product product;
 
 	//bi-directional many-to-one association to Shop
 //	@JsonView(View.ProductShop.class)
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="shop_id", nullable=false)
 	private Shop shop;
 

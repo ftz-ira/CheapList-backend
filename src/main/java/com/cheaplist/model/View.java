@@ -6,11 +6,11 @@ public class View {
 	public interface Category {}
 	public interface CategoryProduct{}
 	public interface Product{}
+	public interface ProductShop{}
 		
 	public interface MemberIdentity {}
 	public interface MemberList {}
 	public interface ListProduct {}
-	public interface ProductShop {}
 	public interface ProductSection {}	
 	public interface ShopAddress {}
 	

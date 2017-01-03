@@ -50,7 +50,7 @@ public class Shop implements Serializable {
 	private Address address;
 
 	//bi-directional many-to-one association to ShopProduct
-	@OneToMany(mappedBy="shop",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="shop")
 	private Set<ShopProduct> shopProducts;
 	
 	@Column(nullable=false, length=45)
