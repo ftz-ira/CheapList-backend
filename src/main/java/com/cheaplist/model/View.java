@@ -5,6 +5,7 @@ public class View {
 	public interface SectionCategory {}
 	public interface Category {}
 	public interface CategoryProduct{}
+	public interface Product{}
 		
 	public interface MemberIdentity {}
 	public interface MemberList {}

@@ -19,31 +19,32 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	@Column(length=90)
 	private String brand;
 
 	@Column(nullable=false)
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	private BigInteger ean;
 
 	@Column(length=90)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	private String implementation;
 
 	@Column(nullable=false, length=45)
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	private String name;
 
 	@Column(name="unit_name", nullable=false, length=45)
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	private String unitName;
 
-	@JsonView(View.CategoryProduct.class)
+	@JsonView({View.CategoryProduct.class,View.Product.class})
 	private float volume;
 
 
@@ -52,13 +53,11 @@ public class Product implements Serializable {
 	private Set<ListProduct> listProducts;
 
 	//bi-directional many-to-one association to Category
-//	@JsonView(View.ProductSection.class)
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
 
 	//bi-directional many-to-one association to ShopProduct
-//	@JsonView(View.ProductShop.class)
 	@OneToMany(mappedBy="product")
 	private Set<ShopProduct> shopProducts;
 
