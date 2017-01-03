@@ -17,7 +17,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@JsonView(View.CategoryProduct.class)
+//	@JsonView(View.CategoryProduct.class)
 	@RequestMapping(value="/get/{id}")
 	public Category newBrandcategory(@PathVariable Integer id) {
 		Category category;

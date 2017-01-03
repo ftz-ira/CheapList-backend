@@ -21,7 +21,7 @@ import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
-@RequestMapping(value = "/member")
+@RequestMapping(value = "/members")
 public class MemberController {
 
 	@Autowired
@@ -33,22 +33,22 @@ public class MemberController {
 	 @InitBinder private void initBinder(WebDataBinder binder) {
 	  binder.setValidator(memberValidator); }
 	 
-
-	 @RequestMapping(value="/create", method=RequestMethod.POST,consumes="application/json",produces="application/json")
+	 /*****  CREATE METHODE     ******/
+	 @RequestMapping(value="/",method=RequestMethod.PUT,consumes="application/json",produces="application/json")
 	 List<ObjectError> createNewShop(@RequestBody Member member,BindingResult result) 			
 	 { 
 		 	System.out.println("Test Member : "+member.getName());
-		 	memberValidator.validate(member,result);
-		 	
-		 	
+		 	memberValidator.validate(member,result);		 	
 		 	if (result.hasErrors()) return result.getAllErrors();	
 		 	member =memberService.create(member);	
 		 	System.out.println(member.getId());
 		 	return null;
 	 }
 	 
-	@JsonView(View.MemberIdentity.class)
-	@RequestMapping(value = "/identity/findall/")
+	 
+	 /*****  READ ALL METHODE  : ALL MEMBER  ******/
+	//@JsonView(View.MemberIdentity.class)
+	@RequestMapping(method=RequestMethod.GET)
 	public List<Member> identityFindAll() {
 		ArrayList<Member> memberList = (ArrayList<Member>) memberService.findAll();
 		for (Member member : memberList) {
@@ -58,8 +58,10 @@ public class MemberController {
 		return memberList;
 
 	}
-	@JsonView(View.MemberIdentity.class)
-	@RequestMapping(value = "/getIdentity/{id}")
+	
+	 /*****  READ ONE METHODE : ONE MEMBER   ******/
+	//@JsonView(View.MemberIdentity.class)
+	@RequestMapping(value = "/{id}")
 	public Member identityFindId(@PathVariable Integer id) {
 
 		Member member;
@@ -68,31 +70,16 @@ public class MemberController {
 
 	}
 
-	@JsonView(View.MemberList.class)
-	@RequestMapping(value = "/getLists/{id}")
+	
+	/*****  READ ONE MEMBER : ALL LIST BY MEMBER   ******/
+	//@JsonView(View.MemberList.class)
+	@RequestMapping(value = "/lists/{id}")
 	public Member listFindid(@PathVariable Integer id) {
 		Member member;
 		member = memberService.findById(id.intValue());
 		return member;
 	}
 
-	/** test Google Map **/
-	@RequestMapping(value = "/googlemap")
-	public String googleTest() {
-		RestTemplate restTemplate = new RestTemplate();
-		String Seb = new String();
-		/*
-		 * Seb = restTemplate.getForObject(
-		 * "http://maps.googleapis.com/maps/api/geocode/json?address={address}&sensor=false",
-		 * String.class,"90 rue Baudin, 92300 Levallois Perret");
-		 */
-		
-		  Seb = restTemplate.getForObject(
-	 "https://maps.googleapis.com/maps/api/distancematrix/json?origins=50.6138111,3.0423598999999997&destinations=50.73797619999999,3.1360174&language=fr-FR&key=AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA",String.class);
-		  System.out.println(Seb);
-
-		return Seb;
-	}
 
 	/*
 	  @RequestMapping(value="/create", method=RequestMethod.POST) public

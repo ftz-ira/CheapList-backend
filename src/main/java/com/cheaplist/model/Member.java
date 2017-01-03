@@ -35,12 +35,12 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.MemberIdentity.class,View.MemberList.class})
+//	@JsonView({View.MemberIdentity.class,View.MemberList.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView({View.MemberIdentity.class,View.MemberList.class})
+//	@JsonView({View.MemberIdentity.class,View.MemberList.class})
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
 	private Date createdDate;
@@ -54,7 +54,7 @@ public class Member implements Serializable {
 	@Column(nullable=false, length=45)
 	private String login;
 
-	@JsonView(View.MemberIdentity.class)
+//	@JsonView(View.MemberIdentity.class)
 	@Column(length=45)
 	private String name;
 
@@ -65,18 +65,18 @@ public class Member implements Serializable {
 	private String token;
 
 	//bi-directional many-to-one association to Address
-	@JsonView(View.MemberIdentity.class)
+//	@JsonView(View.MemberIdentity.class)
 	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 
 	//bi-directional many-to-one association to MemberOption
-	@JsonView(View.MemberIdentity.class)
+	//@JsonView(View.MemberIdentity.class)
 	@OneToMany(mappedBy="member", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<MemberOption> memberOptions;
 
 	//bi-directional many-to-many association to Shop
-	@JsonView(View.MemberIdentity.class)
+	//@JsonView(View.MemberIdentity.class)
 	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(
 		name="member_shop"
@@ -91,7 +91,7 @@ public class Member implements Serializable {
 	private Set<Shop> shops;
 
 	//bi-directional many-to-one association to ShoppingSet
-	@JsonView(View.MemberList.class)
+//	@JsonView(View.MemberList.class)
 	@OneToMany(mappedBy="member",fetch=FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;
 

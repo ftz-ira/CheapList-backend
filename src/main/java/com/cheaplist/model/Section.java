@@ -7,34 +7,37 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Set;
 
-
 /**
  * The persistent class for the section database table.
  * 
  */
 @Entity
-@Table(name="section")
-@NamedQuery(name="Section.findAll", query="SELECT s FROM Section s")
+@Table(name = "section")
+@NamedQuery(name = "Section.findAll", query = "SELECT s FROM Section s")
 public class Section implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.SectionCategory.class)
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
+	@JsonView(View.Section.class)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int id;
 
-	@JsonView(View.ProductSection.class)
-	@Column(nullable=false, length=45)
+	@JsonView(View.Section.class)
+	@Column(nullable = false, length = 45)
 	private String description;
 
-	@JsonView({View.ProductSection.class,View.SectionCategory.class})
-	@Column(nullable=false, length=45)
+	@JsonView(View.Section.class)
+	@Column(nullable = false, length = 45)
 	private String name;
 
-	//bi-directional many-to-one association to Category
+	@JsonView(View.Section.class)
+	@Column(name = "url_image")
+	private String urlImage;
+
+	// bi-directional many-to-one association to Category
 	@JsonView(View.SectionCategory.class)
-	@OneToMany(mappedBy="section",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
 	private Set<Category> categories;
 
 	public Section() {
@@ -62,6 +65,14 @@ public class Section implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUrlImage() {
+		return this.urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Set<Category> getCategories() {

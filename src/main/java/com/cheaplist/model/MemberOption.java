@@ -28,12 +28,12 @@ public class MemberOption implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.MemberIdentity.class)
+//	@JsonView(View.MemberIdentity.class)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 	
-	@JsonView(View.MemberIdentity.class)
+	//@JsonView(View.MemberIdentity.class)
 	@Column(length=45)
 	private String name;
 

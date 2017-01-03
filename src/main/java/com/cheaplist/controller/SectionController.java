@@ -3,9 +3,11 @@ package com.cheaplist.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Section;
 import com.cheaplist.model.View;
@@ -20,25 +22,29 @@ public class SectionController {
 	@Autowired
 	private SectionService sectionService;
 
-	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="")
-	public List<Section> AdressFindAll() {
+	@JsonView(View.Section.class)
+	@RequestMapping(value="",method=RequestMethod.GET)
+	public List<Section> SectionAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
-		for ( Section section  : sectionList)
-		{
-			
-			System.out.println(section.toString());
-			System.out.println("Name :"+section.getId());
-		}
 		return sectionList;
+	
+	}
+	
+	
+	@JsonView(View.Section.class)
+	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	public Section SectionOne(@PathVariable Integer id) {
+		Section section = sectionService.findById(id.intValue());		
+		return section;
 				
 	}
 	
+	
+	/***  READ ONE SECTION ALL CATEGORIES              ****/
 	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="/{id}")
-	public Section newBrandsection(@PathVariable Integer id) {
-		Section section;
-		section = sectionService.findById(id.intValue());
+	@RequestMapping(value="/{id}/categories/",method=RequestMethod.GET)
+	public Section SectionAllCategories(@PathVariable Integer id) {
+		Section section = sectionService.findById(id.intValue());
 		return section;				
 	}
 	

@@ -21,24 +21,24 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+//	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private int id;
 
 	@Column(nullable=false, length=45)
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	//@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private String city;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	//@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private double lag;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+//	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	private double lng;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+//	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="street_name")
 	private String streetName;
 
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+//	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="zip_code", nullable=false)
 	private int zipCode;
 

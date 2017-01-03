@@ -69,7 +69,7 @@ public class ShoppingListController {
 				
 	}
 	
-	@JsonView(View.ListProduct.class)
+	//@JsonView(View.ListProduct.class)
 	@RequestMapping(value="/findbyids/{id}")
 	public ShoppingList  listProductId(@PathVariable Integer id) {
 		ShoppingList  shoppingList;

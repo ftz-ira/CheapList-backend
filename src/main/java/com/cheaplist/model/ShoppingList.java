@@ -33,7 +33,7 @@ public class ShoppingList implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+//	@JsonView({View.ListProduct.class,View.MemberList.class})
 	@OrderBy("id asc")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
@@ -47,25 +47,25 @@ public class ShoppingList implements Serializable {
 	@Column(name="is_actif", nullable=false)
 	private byte isActif;
 
-	@JsonView(View.MemberList.class)
+//	@JsonView(View.MemberList.class)
 	@Column(name="is_close", nullable=false)
 	private byte isClose;
 	
-	@JsonView(View.MemberList.class)
+//	@JsonView(View.MemberList.class)
 	@Column(name="is_done", nullable=false)
 	private byte isDone;
 
-	@JsonView(View.MemberList.class)
+//	@JsonView(View.MemberList.class)
 	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to ListProduct
-	@JsonView(View.ListProduct.class)
+//	@JsonView(View.ListProduct.class)
 	@OneToMany(mappedBy="shoppingList",fetch=FetchType.EAGER)
 	private Set<ListProduct> listProducts;
 
 	//bi-directional many-to-one association to Member
-	@JsonView(View.MemberIdentity.class)
+//	@JsonView(View.MemberIdentity.class)
 	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name="member_id", nullable=false)
 	private Member member;

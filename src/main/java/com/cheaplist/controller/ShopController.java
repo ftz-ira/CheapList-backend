@@ -36,7 +36,7 @@ public class ShopController {
 		return mav;
 	}
 	*/
-	@JsonView(View.ShopAddress.class)
+//	@JsonView(View.ShopAddress.class)
 	@RequestMapping(value="/findall")
 	public List<Shop> AdressFindAll() {
 		ArrayList<Shop> shopList = (ArrayList<Shop>) shopService.findAll();
@@ -49,7 +49,7 @@ public class ShopController {
 				
 	}
 	
-	@JsonView(View.ShopAddress.class)
+	//@JsonView(View.ShopAddress.class)
 	@RequestMapping(value="/findbyid/{id}")
 	public Shop newBrandshop(@PathVariable Integer id) {
 		Shop shop;

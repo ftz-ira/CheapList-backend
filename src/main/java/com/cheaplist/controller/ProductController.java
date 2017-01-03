@@ -48,7 +48,7 @@ public class ProductController {
 				
 	}
 	
-	@JsonView(View.ProductShop.class)
+//	@JsonView(View.ProductShop.class)
 	@RequestMapping(value="/findbyid/{id}")
 	public Product newBrandproduct(@PathVariable Integer id) {
 		Product product;
@@ -67,7 +67,7 @@ public class ProductController {
 				
 	}
 	
-	@JsonView(View.ProductSection.class)
+//	@JsonView(View.ProductSection.class)
 	@RequestMapping(value="/section/{id}")
 	public Product productSection(@PathVariable Integer id) {
 		Product product;

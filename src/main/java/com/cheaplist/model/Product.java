@@ -20,46 +20,46 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ListProduct.class,View.ProductSection.class,View.ProductShop.class})
+//	@JsonView({View.ListProduct.class,View.ProductSection.class,View.ProductShop.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class})
+//	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class})
 	@Column(length=90)
 	private String brand;
 
 	@Column(nullable=false)
-	@JsonView(View.ListProduct.class)
+//	@JsonView(View.ListProduct.class)
 	private BigInteger ean;
 
 	@Column(length=90)
 	private String implementation;
 
 	@Column(nullable=false, length=45)
-	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class,View.CategoryProduct.class})
+//	@JsonView({View.ListProduct.class,View.ProductSection.class, View.ProductShop.class,View.CategoryProduct.class})
 	private String name;
 
 	@Column(name="unit_name", nullable=false, length=45)
-	@JsonView({View.ListProduct.class,View.ProductShop.class})
+//	@JsonView({View.ListProduct.class,View.ProductShop.class})
 	private String unitName;
 
 	private float volume;
 
 
 	//bi-directional many-to-one association to ListProduct
-	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="product")
 	private Set<ListProduct> listProducts;
 
 	//bi-directional many-to-one association to Category
-	@JsonView(View.ProductSection.class)
+//	@JsonView(View.ProductSection.class)
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
 
 	//bi-directional many-to-one association to ShopProduct
-	@JsonView(View.ProductShop.class)
-	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
+//	@JsonView(View.ProductShop.class)
+	@OneToMany(mappedBy="product")
 	private Set<ShopProduct> shopProducts;
 
 	public Product() {

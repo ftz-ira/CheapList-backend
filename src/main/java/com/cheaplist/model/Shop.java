@@ -20,7 +20,7 @@ public class Shop implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
+//	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -35,7 +35,7 @@ public class Shop implements Serializable {
 	@Column(name="is_active")
 	private byte isActive;
 
-	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
+//	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -44,7 +44,7 @@ public class Shop implements Serializable {
 	private Set<Member> members;
 
 	//bi-directional many-to-one association to Address
-	@JsonView(View.ShopAddress.class)
+//	@JsonView(View.ShopAddress.class)
 	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;

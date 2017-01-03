@@ -17,12 +17,12 @@ public class ShopProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.ProductShop.class)
+//	@JsonView(View.ProductShop.class)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView(View.ProductShop.class)
+//	@JsonView(View.ProductShop.class)
 	private double price;
 
 	private float ratio;
@@ -33,7 +33,7 @@ public class ShopProduct implements Serializable {
 	private Product product;
 
 	//bi-directional many-to-one association to Shop
-	@JsonView(View.ProductShop.class)
+//	@JsonView(View.ProductShop.class)
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="shop_id", nullable=false)
 	private Shop shop;
