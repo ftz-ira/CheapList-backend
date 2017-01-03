@@ -45,13 +45,17 @@ public class Shop implements Serializable {
 
 	//bi-directional many-to-one association to Address
 	@JsonView(View.ShopAddress.class)
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 
 	//bi-directional many-to-one association to ShopProduct
 	@OneToMany(mappedBy="shop",fetch=FetchType.EAGER)
 	private Set<ShopProduct> shopProducts;
+	
+	@Column(nullable=false, length=45)
+	private String idgoogle;
+	
 
 	public Shop() {
 	}
@@ -78,6 +82,14 @@ public class Shop implements Serializable {
 
 	public void setEmblem(String emblem) {
 		this.emblem = emblem;
+	}
+	
+	public String getIdgoogle() {
+		return this.idgoogle;
+	}
+
+	public void setIdgoogle(String idgoogle) {
+		this.idgoogle = idgoogle;
 	}
 
 	public byte getIsActive() {

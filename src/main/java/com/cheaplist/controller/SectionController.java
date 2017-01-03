@@ -14,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 
 @RestController
-@RequestMapping(value="/section")
+@RequestMapping(value="/sections")
 public class SectionController {
 	
 	@Autowired
 	private SectionService sectionService;
 
 	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="/gets/")
+	@RequestMapping(value="")
 	public List<Section> AdressFindAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
 		for ( Section section  : sectionList)
@@ -35,7 +35,7 @@ public class SectionController {
 	}
 	
 	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="/get/{id}")
+	@RequestMapping(value="/{id}")
 	public Section newBrandsection(@PathVariable Integer id) {
 		Section section;
 		section = sectionService.findById(id.intValue());

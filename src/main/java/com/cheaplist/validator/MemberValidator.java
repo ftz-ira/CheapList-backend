@@ -10,7 +10,6 @@ import com.cheaplist.model.Member;
 @Component
 public class MemberValidator implements Validator {
 	
-	private final static String EMPLOYEES_NUMBER = "emplNumber";
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -23,9 +22,9 @@ public class MemberValidator implements Validator {
 		Member member = (Member) target;
 		
 		ValidationUtils.rejectIfEmpty(errors,"name","name missing");
-		ValidationUtils.rejectIfEmpty(errors,"login","name missing");
-		ValidationUtils.rejectIfEmpty(errors,"password","name missing");
-		ValidationUtils.rejectIfEmpty(errors,"email","name missing");
+		ValidationUtils.rejectIfEmpty(errors,"login","login missing");
+		ValidationUtils.rejectIfEmpty(errors,"password","password missing");
+		ValidationUtils.rejectIfEmpty(errors,"email","rmail missing");
 			
 		/*Shop shop = (Shop) target;
 		

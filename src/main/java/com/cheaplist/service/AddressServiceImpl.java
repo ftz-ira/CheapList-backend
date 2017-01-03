@@ -57,7 +57,6 @@ public class AddressServiceImpl implements AddressService {
 			throw new AddressNotFound();
 
 		updatedAddress.setCity(address.getCity());
-		updatedAddress.setStreetNumber(address.getStreetNumber());
 		updatedAddress.setStreetName(address.getStreetName());
 		updatedAddress.setZipCode(address.getZipCode());
 		updatedAddress.setLag(address.getLag());

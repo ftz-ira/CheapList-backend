@@ -35,12 +35,8 @@ public class Address implements Serializable {
 	private double lng;
 
 	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
-	@Column(name="street_name", length=45)
+	@Column(name="street_name")
 	private String streetName;
-
-	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
-	@Column(name="street_number")
-	private int streetNumber;
 
 	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
 	@Column(name="zip_code", nullable=false)
@@ -96,14 +92,6 @@ public class Address implements Serializable {
 
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
-	}
-
-	public int getStreetNumber() {
-		return this.streetNumber;
-	}
-
-	public void setStreetNumber(int streetNumber) {
-		this.streetNumber = streetNumber;
 	}
 
 	public int getZipCode() {

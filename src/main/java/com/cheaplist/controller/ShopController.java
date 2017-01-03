@@ -53,17 +53,8 @@ public class ShopController {
 	@RequestMapping(value="/findbyid/{id}")
 	public Shop newBrandshop(@PathVariable Integer id) {
 		Shop shop;
-		if (id == null)
-		{
-			shop = null;
-		}
-		else
-		{
-			System.out.println("Test Seb");
-			 shop = shopService.findById(id.intValue());
-			 System.out.println(shop.toString());
-		}
-		
+		 shop = shopService.findById(id.intValue());
+	
 		return shop;
 				
 	}
