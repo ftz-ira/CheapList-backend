@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.service.ShopProductService;
+import com.cheaplist.service.ShopProductServiceImpl;
 
 
 @RestController
-@RequestMapping(value="/shopProduct")
+@RequestMapping(value="/prices")
 public class ShopProductController {
 	
 	@Autowired
@@ -37,11 +38,6 @@ public class ShopProductController {
 	@RequestMapping(value="/findall")
 	public List<ShopProduct> AdressFindAll() {
 		ArrayList<ShopProduct> shopProductList = (ArrayList<ShopProduct>) shopProductService.findAll();
-		for ( ShopProduct shopProduct  : shopProductList)
-		{
-			 System.out.println(shopProduct.toString());
-			System.out.println("Name :"+shopProduct.getId());
-		}
 		return shopProductList;
 				
 	}
@@ -62,6 +58,12 @@ public class ShopProductController {
 		
 		return shopProduct;
 				
+	}
+	
+	@RequestMapping(value="/{id}")
+	public List<ShopProduct> PriceProduct(@PathVariable Integer id) {
+		return shopProductService.findPriceByProduct(id.intValue());
+		//return shopProductList;
 	}
 	/*
 	@RequestMapping(value="/create", method=RequestMethod.POST)

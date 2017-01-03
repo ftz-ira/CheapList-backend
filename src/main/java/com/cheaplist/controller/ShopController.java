@@ -58,6 +58,8 @@ public class ShopController {
 		return shop;
 				
 	}
+	
+	
 	/*
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public ModelAndView createNewShop(@ModelAttribute @Valid Shop shop,
