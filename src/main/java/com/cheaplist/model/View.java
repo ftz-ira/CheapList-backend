@@ -7,13 +7,11 @@ public class View {
 	public interface CategoryProduct{}
 	public interface Product{}
 	public interface ProductShop{}
-		
+	public interface PriceProduct{}
+	
 	public interface MemberIdentity {}
 	public interface MemberList {}
 	public interface ListProduct {}
 	public interface ProductSection {}	
 	public interface ShopAddress {}
-	
-	
-	
 }
