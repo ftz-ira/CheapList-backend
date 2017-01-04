@@ -4,12 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheaplist.exception.ShopProductNotFound;
-import com.cheaplist.model.Product;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.repository.ShopProductRepository;
 
@@ -70,10 +68,11 @@ public class ShopProductServiceImpl implements ShopProductService {
 		return shopProductRepository.findPriceByProduct(idProduct);
 	}
 	
-	/*public List<ShopProduct> findPriceByProduct(int idProduct)
-	{
-		return 
+	@Override
+	@Transactional
+	public List<ShopProduct> findPriceByProductShop(int idProduct, int idShop) {
+		return shopProductRepository.findPriceByProductShop(idProduct,idShop);
 	}
-	*/
+
 
 }

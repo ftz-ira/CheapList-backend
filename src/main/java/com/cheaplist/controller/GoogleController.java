@@ -22,14 +22,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping(value = "/google")
 
-
 public class GoogleController {
 	
 	@Autowired
 	private ShopService shopService;
 
-	/** test Google Map **/
-	@RequestMapping(value = "/shop")
+	/*********                  ***************/
+	@RequestMapping(value = "/")
 	public String googleTest() {
 		RestTemplate restTemplate = new RestTemplate();
 		String Seb = new String();		

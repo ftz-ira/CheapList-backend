@@ -1,6 +1,6 @@
 package com.cheaplist.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,9 @@ import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.cheaplist.service.ShopProductService;
-import com.cheaplist.service.ShopProductServiceImpl;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 @RestController
-@RequestMapping(value = "/price")
+@RequestMapping(value = "/prices")
 public class ShopProductController {
 
 	@Autowired
@@ -33,8 +31,9 @@ public class ShopProductController {
 	@JsonView(View.PriceProduct.class)
 	@RequestMapping(value = "/{idproduct}/shop/{idshop}")
 	public List<ShopProduct> PriceProductShop(@PathVariable Integer idproduct,@PathVariable Integer idshop) {
-		return shopProductService.findPriceByProduct(idproduct.intValue(), idshop.intValue());
+		return shopProductService.findPriceByProductShop(idproduct.intValue(), idshop.intValue());
 	}
+	
 	
 	
 
