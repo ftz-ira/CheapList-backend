@@ -1,0 +1,58 @@
+Mise à jour des commandes autorisées en URL (HTTP Methode Filtrée):
+
+/***** SECTION (Rayons) ******/
+
+Tous les sections :
+
+HTTP GET : http://localhost:8080/cheaplist/sections/
+
+Une section : 
+
+HTTP GET : http://localhost:8080/cheaplist/sections/1
+
+Les catégories d'une section précise :
+
+HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
+
+
+
+/***** CATEGORIES ***********/
+
+Une categorie précise : 
+HTTP GET : http://localhost:8080/cheaplist/categories/1
+
+Tous les produits d'une catégorie précise : 
+HTTP GET :  http://localhost:8080/cheaplist/categories/1/products/
+
+
+/**** PRODUCT **********************/
+
+Fiche d'identité d'un produit :
+
+HTTP GET : http://localhost:8080/cheaplist/products/356
+
+
+/********  PRICES     ***************************/
+
+Donner les prix pour un produit :
+
+Donner le prix d'un produit par rapport à un magasin :
+
+
+
+
+
+/***** Google ***************************/
+
+Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
+HTTP POST : http://localhost:8080/cheaplist/google/shops/
+
+JSON Entrée Exemple : 
+{
+	"lng":50.6138111,
+	"lat":3.0423598999999997
+	
+}
+
+
+
