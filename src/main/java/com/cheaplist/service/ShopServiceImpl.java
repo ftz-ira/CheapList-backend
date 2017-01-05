@@ -65,4 +65,9 @@ public class ShopServiceImpl implements ShopService {
 		return updatedShop;
 	}
 
+	@Override
+	public Shop findShopByIdgoogle(String idGoogle) {
+		return shopRepository.findShopByIdgoogle(idGoogle);
+	}
+
 }

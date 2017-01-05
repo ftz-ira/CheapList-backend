@@ -33,8 +33,7 @@ public class ShopProductController {
 	public List<ShopProduct> PriceProductShop(@PathVariable Integer idproduct,@PathVariable Integer idshop) {
 		return shopProductService.findPriceByProductShop(idproduct.intValue(), idshop.intValue());
 	}
-	
-	
+		
 	
 
 }

@@ -36,7 +36,7 @@ public class Shop implements Serializable {
 	private byte isActive;
 
 //	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
-	@JsonView(View.PriceProduct.class)
+	@JsonView({View.PriceProduct.class,View.GoogleView.class})
 	@Column(nullable=false, length=45)
 	private String name;
 

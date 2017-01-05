@@ -12,5 +12,5 @@ public interface ShopService {
 	public List<Shop> findAll();
 	public Shop update(Shop shop) throws ShopNotFound;
 	public Shop findById(int id);
-
+	Shop findShopByIdgoogle(String idGoogle);
 }

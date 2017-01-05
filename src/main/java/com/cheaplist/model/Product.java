@@ -48,7 +48,7 @@ public class Product implements Serializable {
 	private float volume;
 
 	// bi-directional many-to-one association to ListProduct
-	@OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product")
 	private Set<ListProduct> listProducts;
 
 	// bi-directional many-to-one association to Category

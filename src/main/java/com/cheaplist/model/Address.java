@@ -44,7 +44,7 @@ public class Address implements Serializable {
 
 
 	//bi-directional many-to-one association to Member
-	@OneToMany(mappedBy="address",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="address")
 	private Set<Member> members;
 
 	//bi-directional many-to-one association to Shop

@@ -2,13 +2,15 @@ package com.cheaplist.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cheaplist.model.Category;
 import com.cheaplist.model.Section;
 import com.cheaplist.model.View;
 import com.cheaplist.service.SectionService;
@@ -27,6 +29,14 @@ public class SectionController {
 	@RequestMapping(value="",method=RequestMethod.GET)
 	public List<Section> sectionAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
+		for ( Section section : sectionList)
+		{
+			Set<Category> categories = section.getCategories();
+			for (Category category : categories)
+			{
+				category.setProducts(null);
+			}
+		}
 		return sectionList;
 	
 	}
