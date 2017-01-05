@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ShopService;
+import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @RestController
-@RequestMapping(value = "/google")
+@RequestMapping(value = "/shops/distances")
 
 public class GoogleController {
 
@@ -30,21 +31,14 @@ public class GoogleController {
 
 	/********* GET LIST SHOPS ACCORDING TO USER POSITION GPS ***************/
 	@JsonView(View.GoogleShop.class)
-	@RequestMapping(value = "/shops/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	public String googleTest(@RequestBody String coordinate) {
-
-		/*
-		 * Algorithme retenu: Le front envoie les coordonnÈes GPS (pour le
-		 * moment le radius sera par dÈfaut) -- A travailler sur la bdd
-		 */
-		System.out.println(coordinate);
 
 		/*** Mettre un validator coordinate (plus tard) ****/
 
-		/** SI le flag error n'est pas levÈ **/
+		/** SI le flag error n'est pas leve **/
 
 		String answerGoogle = "";
-		ArrayList<Shop> shops = new ArrayList<Shop>();
 		ObjectMapper mapper;
 		ArrayNode arrayNode;
 		String answerJson = null;
@@ -54,60 +48,45 @@ public class GoogleController {
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
-			String radius = "2000"; // Par dÈfaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|GÈant Casino";
+			String radius = "2000"; // Par defaut
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G√©ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
+			// On r√©cup√®re la liste des magasins √† partir du GPS du client
 			RestTemplate restTemplate = new RestTemplate();
 			answerGoogle = restTemplate.getForObject(
-					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lng + "," + lat
+					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
 							+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key,
-					String.class); // System.out.println(Seb);
+					String.class);
 
+			// On trie le JSON donn√©e par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
 			arrayNode = mapper.createArrayNode();
 			for (JsonNode node : googleNode.path("results")) {
 
+				// Pour chaque magasin donn√© par GOOGLE, on v√©rifie qu'il est bien dans notre BD
+				// Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
-				System.out.println("Test Seb : " + idgoogle);
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
 				if (shop != null) {
-					/*** A vÈrifier si on peut le faire sans ***/
-					shop.getAddress().setMembers(null);
-					shop.setMembers(null);
-					String latShop = String.valueOf(shop.getAddress().getLag());
-					String lntShop = String.valueOf(shop.getAddress().getLng());				
-					
-					  restTemplate = new RestTemplate(); 
-					  answerGoogle =
-							  restTemplate.getForObject(
-							  "https://maps.googleapis.com/maps/api/distancematrix/json?origins="
-							  +lng+","+lat+"&destinations="+latShop+","+lntShop+"&language=fr-FR&key="+
-							  key ,String.class); System.out.println(answerGoogle);
-					
-							  System.out.println(answerGoogle);
-					/**** JSON MANUELLE car il est customise *****/
-				JsonNode googleNode2 = mapper.readTree(new StringReader(answerGoogle));	
-				String idgoogle2 = googleNode2.path("rows").path("elements").asText();
-							  
-							  
-							  
+					// ID Valid√©, on prend les coordonn√©es GPS du magasin et on calcule la distance entre l'user et les magasins. 
+
+					double latShop = shop.getAddress().getLag();
+					double lntShop = shop.getAddress().getLng();
+
+					double resultat = MathGPS.distance(Double.parseDouble(lat), Double.parseDouble(lng), latShop,
+							lntShop, "K");
 					ObjectNode objectNode1 = mapper.createObjectNode();
-					objectNode1.put("name",shop.getName());
-					objectNode1.put("distance","50");
+					objectNode1.put("id", shop.getId());
+					objectNode1.put("name", shop.getName());
+					objectNode1.put("distance", resultat);
 					arrayNode.add(objectNode1);
-					
 				}
-
-		
-
 			}
-			 answerJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
-			
-		
-			 
+			answerJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,6 +95,6 @@ public class GoogleController {
 		return answerJson;
 	}
 
-	// https://maps.googleapis.com/maps/api/distancematrix/json?origins=Vancouver+BC|Seattle&destinations=San+Francisco|Victoria+BC&mode=bicycling&language=fr-FR&key=YOUR_API_KEY
+	// https://maps.googleapis.com/maps/api/distancematrix/json?origins=50.6138111,3.0423598999999997&destinations=50.6222098,3.060641599999999&key=AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA
 
 }

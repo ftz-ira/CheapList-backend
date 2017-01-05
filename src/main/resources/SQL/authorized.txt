@@ -33,16 +33,20 @@ HTTP GET : http://localhost:8080/cheaplist/products/356
 
 /********  PRICES     ***************************/
 
-Donner les prix pour un produit :
+Donner tous les prix pour un produit (donc en fonction des magasins):
+
+HTTP GET : http://localhost:8080/cheaplist/prices/15320
 
 
-Donner le prix d'un produit par rapport à un magasin :
+Donner le prix d'un produit par rapport à un magasin (ici ID Magasin 112):
+
+HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
 
 /***** Google ***************************/
 
 Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
-HTTP POST : http://localhost:8080/cheaplist/google/shops/
+HTTP POST : http://localhost:8080/cheaplist/google/shops
 
 JSON Entrée Exemple : 
 {
