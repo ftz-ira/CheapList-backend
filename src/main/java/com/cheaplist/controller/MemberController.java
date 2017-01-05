@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Member;
+import com.cheaplist.model.View;
 import com.cheaplist.service.MemberService;
 import com.cheaplist.validator.MemberValidator;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value = "/members")
@@ -33,7 +35,6 @@ public class MemberController {
 	 @RequestMapping(value="/",method=RequestMethod.PUT,consumes="application/json",produces="application/json")
 	 List<ObjectError> createNewShop(@RequestBody Member member,BindingResult result) 			
 	 { 
-		 	System.out.println("Test Member : "+member.getName());
 		 	memberValidator.validate(member,result);		 	
 		 	if (result.hasErrors()) return result.getAllErrors();	
 		 	member =memberService.create(member);	
@@ -43,21 +44,17 @@ public class MemberController {
 	 
 	 
 	 /*****  READ ALL METHODE  : ALL MEMBER  ******/
-	//@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Member> identityFindAll() {
 		ArrayList<Member> memberList = (ArrayList<Member>) memberService.findAll();
-		for (Member member : memberList) {
-			System.out.println(member.toString());
-			System.out.println("Name :" + member.getName() + "  Id : " + member.getEmail());
-		}
 		return memberList;
 
 	}
 	
 	 /*****  READ ONE METHODE : ONE MEMBER   ******/
-	//@JsonView(View.MemberIdentity.class)
-	@RequestMapping(value = "/{id}")
+	@JsonView(View.MemberIdentity.class)
+	@RequestMapping(value = "/{id}",method=RequestMethod.GET)
 	public Member identityFindId(@PathVariable Integer id) {
 
 		Member member;

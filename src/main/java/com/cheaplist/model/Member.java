@@ -21,6 +21,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 /**
  * The persistent class for the member database table.
@@ -33,29 +35,31 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@JsonView({View.MemberIdentity.class,View.MemberList.class})
+	@JsonView(View.MemberIdentity.class)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-//	@JsonView({View.MemberIdentity.class,View.MemberList.class})
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
 	private Date createdDate;
 
+	@JsonView(View.MemberIdentity.class)
 	@Column(nullable=false, length=45)
 	private String email;
 
 	@Column(name="is_active")
 	private byte isActive;
 
+	@JsonView(View.MemberIdentity.class)
 	@Column(nullable=false, length=45)
 	private String login;
 
-//	@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberIdentity.class)
 	@Column(length=45)
 	private String name;
 
+	@JsonView(View.MemberIdentity.class)
 	@Column(nullable=false, length=45)
 	private String password;
 
@@ -63,18 +67,18 @@ public class Member implements Serializable {
 	private String token;
 
 	//bi-directional many-to-one association to Address
-//	@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberIdentity.class)
 	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 
 	//bi-directional many-to-one association to MemberOption
-	//@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberIdentity.class)
 	@OneToMany(mappedBy="member", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private Set<MemberOption> memberOptions;
 
 	//bi-directional many-to-many association to Shop
-	//@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberIdentity.class)
 	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(
 		name="member_shop"

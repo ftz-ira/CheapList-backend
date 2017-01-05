@@ -8,9 +8,9 @@ public class View {
 	public interface Product{}
 	public interface ProductShop{}
 	public interface PriceProduct{}
-	public interface GoogleShop{}
-	
+	public interface GoogleShop{}	
 	public interface MemberIdentity {}
+	
 	public interface MemberList {}
 	public interface ListProduct {}
 	public interface ProductSection {}	

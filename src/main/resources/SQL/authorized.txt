@@ -12,8 +12,7 @@ HTTP GET : http://localhost:8080/cheaplist/sections/1
 
 Les catégories d'une section précise :
 
-HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
-
+HTTP GET : http://localhost:8080/cheaplist/categories/1
 
 /***** CATEGORIES ***********/
 
@@ -50,10 +49,30 @@ HTTP POST : http://localhost:8080/cheaplist/google/shops
 
 JSON Entrée Exemple : 
 {
-	"lng":50.6138111,
-	"lat":3.0423598999999997
+	"lat":50.6138111,
+	"lng":3.0423598999999997
 	
 }
 
+/***** MEMBER *************************/
+
+Lister tous les membres (avec leurs options choisis et les magasins favoris) :
+
+HTTP GET http://localhost:8080/cheaplist/members
+
+Profil d'un membre : 
+
+HTTP GET http://localhost:8080/cheaplist/members/69
+
+Création d'un membre (en cours : Mise en place des validators, prévu Dimanche) :
+
+Suppression d'un membre  (en cours, prévu Dimanche)
+
+Mise à jour d'un membre :  (en cours, prévu Dimanche)
+
+
+/***** DEVIS ***************/
+
+Calculer le prix d'une liste en fonction d'un magasin (prévu Samedi soir)
 
 
