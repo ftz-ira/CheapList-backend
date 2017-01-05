@@ -1,6 +1,5 @@
 package com.cheaplist.controller;
 
-import java.awt.List;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.cheaplist.model.Shop;
+import com.cheaplist.model.View;
 import com.cheaplist.service.ShopService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,8 +27,9 @@ public class GoogleController {
 	private ShopService shopService;
 
 	/********* GET LIST SHOPS ACCORDING TO USER POSITION GPS ***************/
+	@JsonView(View.GoogleShop.class)
 	@RequestMapping(value = "/shops/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ArrayList googleTest(@RequestBody String coordinate) {
+	public ArrayList<Shop> googleTest(@RequestBody String coordinate) {
 
 		/*
 		 * Algorithme retenu: Le front envoie les coordonnées GPS (pour le
@@ -67,6 +69,7 @@ public class GoogleController {
 				
 				if (shop != null)
 				{
+					shop.getAddress().setMembers(null);
 					shop.setMembers(null);
 					shops.add(shop);
 				}

@@ -3,9 +3,6 @@ package com.cheaplist.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonView;
-
-
 /**
  * The persistent class for the list_product database table.
  * 

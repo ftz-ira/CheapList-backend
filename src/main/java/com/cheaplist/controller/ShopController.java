@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Shop;
-import com.cheaplist.model.View;
 import com.cheaplist.service.ShopService;
-import com.fasterxml.jackson.annotation.JsonView;
 
 
 @RestController

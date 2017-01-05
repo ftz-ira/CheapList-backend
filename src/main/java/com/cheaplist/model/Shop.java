@@ -36,7 +36,7 @@ public class Shop implements Serializable {
 	private byte isActive;
 
 //	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
-	@JsonView({View.PriceProduct.class,View.GoogleView.class})
+	@JsonView({View.PriceProduct.class,View.GoogleShop.class})
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -45,8 +45,8 @@ public class Shop implements Serializable {
 	private Set<Member> members;
 
 	//bi-directional many-to-one association to Address
-//	@JsonView(View.ShopAddress.class)
-	@ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+	@JsonView(View.GoogleShop.class)
+	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 

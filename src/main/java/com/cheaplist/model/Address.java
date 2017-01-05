@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import java.util.Set;
 
 
 /**
@@ -26,15 +25,19 @@ public class Address implements Serializable {
 
 	@Column(nullable=false, length=45)
 	//@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	@JsonView(View.GoogleShop.class)
 	private String city;
 
 	//@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	@JsonView(View.GoogleShop.class)
 	private double lag;
 
 //	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	@JsonView(View.GoogleShop.class)
 	private double lng;
 
 //	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
+	@JsonView(View.GoogleShop.class)
 	@Column(name="street_name")
 	private String streetName;
 
@@ -44,12 +47,12 @@ public class Address implements Serializable {
 
 
 	//bi-directional many-to-one association to Member
-	@OneToMany(mappedBy="address")
-	private Set<Member> members;
+	@OneToOne(mappedBy="address")
+	private Member member;
 
 	//bi-directional many-to-one association to Shop
-	@OneToMany(mappedBy="address")
-	private Set<Shop> shops;
+	@OneToOne(mappedBy="address")
+	private Shop shop;
 
 	public Address() {
 	}
@@ -102,48 +105,19 @@ public class Address implements Serializable {
 		this.zipCode = zipCode;
 	}
 
-	public Set<Member> getMembers() {
-		return this.members;
+	public Member getMembers() {
+		return this.member;
 	}
 
-	public void setMembers(Set<Member> members) {
-		this.members = members;
+	public void setMembers(Member member) {
+		this.member = member;
 	}
 
-	public Member addMember(Member member) {
-		getMembers().add(member);
-		member.setAddress(this);
-
-		return member;
+	public Shop getShops() {
+		return this.shop;
 	}
 
-	public Member removeMember(Member member) {
-		getMembers().remove(member);
-		member.setAddress(null);
-
-		return member;
+	public void setShops(Shop shops) {
+		this.shop = shops;
 	}
-
-	public Set<Shop> getShops() {
-		return this.shops;
-	}
-
-	public void setShops(Set<Shop> shops) {
-		this.shops = shops;
-	}
-
-	public Shop addShop(Shop shop) {
-		getShops().add(shop);
-		shop.setAddress(this);
-
-		return shop;
-	}
-
-	public Shop removeShop(Shop shop) {
-		getShops().remove(shop);
-		shop.setAddress(null);
-
-		return shop;
-	}
-
 }

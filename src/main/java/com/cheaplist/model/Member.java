@@ -14,14 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 
 /**
@@ -66,7 +64,7 @@ public class Member implements Serializable {
 
 	//bi-directional many-to-one association to Address
 //	@JsonView(View.MemberIdentity.class)
-	@ManyToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 

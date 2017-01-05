@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
 import com.cheaplist.model.Member;
-import com.cheaplist.model.View;
 import com.cheaplist.service.MemberService;
 import com.cheaplist.validator.MemberValidator;
-import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping(value = "/members")
