@@ -18,6 +18,8 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 
+	
+	/*** "Il inspire PLUS QU'il gere *****/
 	/*
 	@Autowired
 	private ShopValidator addressValidator;
@@ -61,74 +63,6 @@ public class AddressController {
 		return UneAdresse;
 				
 	}
-	/*
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public ModelAndView createNewShop(@ModelAttribute @Valid Address address,
-			BindingResult result,
-			final RedirectAttributes redirectAttributes) {
-		
-		if (result.hasErrors())
-			return new ModelAndView("address-new");
-		
-		ModelAndView mav = new ModelAndView();
-		String message = "New address "+address.getCity()+" was successfully created.";
-		
-		addressService.create(address);
-		mav.setViewName("redirect:/index.html");
-				
-		redirectAttributes.addFlashAttribute("message", message);	
-		return mav;		
-	}
-	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public ModelAndView addressListPage() {
-		ModelAndView mav = new ModelAndView("address-list");
-		List<Address> addressList = addressService.findAll();
-		mav.addObject("addressList", addressList);
-		return mav;
-	}
-	
-	
-	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public ModelAndView editShopPage(@PathVariable Integer id) {
-		ModelAndView mav = new ModelAndView("address-edit");
-		Address address = addressService.findById(id);
-		mav.addObject("address", address);
-		return mav;
-	}
-	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView editShop(@ModelAttribute @Valid Address address,
-			BindingResult result,
-			@PathVariable Integer id,
-			final RedirectAttributes redirectAttributes) throws AddressNotFound {
-		
-		if (result.hasErrors())
-			return new ModelAndView("address-edit");
-		
-		ModelAndView mav = new ModelAndView("redirect:/index.html");
-		String message = "Shop was successfully updated.";
 
-		addressService.update(address);
-		
-		redirectAttributes.addFlashAttribute("message", message);	
-		return mav;
-	}
-	
-	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
-	public ModelAndView deleteShop(@PathVariable Integer id,
-			final RedirectAttributes redirectAttributes) throws AddressNotFound {
-		
-		ModelAndView mav = new ModelAndView("redirect:/index.html");		
-		
-		Address address = addressService.delete(id);
-		String message = "The address "+address.getCity()+" was successfully deleted.";
-		
-		redirectAttributes.addFlashAttribute("message", message);
-		return mav;
-	}
-	
-	*/
 	
 }

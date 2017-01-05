@@ -2,7 +2,7 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtrée):
 
 /***** SECTION (Rayons) ******/
 
-Tous les sections :
+Toutes les sections :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/
 
@@ -13,7 +13,6 @@ HTTP GET : http://localhost:8080/cheaplist/sections/1
 Les catégories d'une section précise :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
-
 
 
 /***** CATEGORIES ***********/
@@ -36,10 +35,8 @@ HTTP GET : http://localhost:8080/cheaplist/products/356
 
 Donner les prix pour un produit :
 
+
 Donner le prix d'un produit par rapport à un magasin :
-
-
-
 
 
 /***** Google ***************************/

@@ -59,8 +59,7 @@ public class GoogleController {
 					  ,String.class); // System.out.println(Seb);
 			String Seb="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+lng+","+lat+"&radius="+radius+"&types=grocery_or_supermarket&name="+emblem+"&key=AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 			System.out.println(Seb);
-			
-			
+						
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			for (JsonNode node : googleNode.path("results")) {
 				String idgoogle = node.path("id").asText();
@@ -73,7 +72,6 @@ public class GoogleController {
 					shop.setMembers(null);
 					shops.add(shop);
 				}
-				
 				
 			}
 			
