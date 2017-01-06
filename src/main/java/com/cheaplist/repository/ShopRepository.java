@@ -8,7 +8,7 @@ import com.cheaplist.model.Shop;
 
 public interface ShopRepository extends JpaRepository<Shop, Integer> {
 	
-	@Query("SELECT sh FROM Shop sh where idgoogle = :idGoogle")
+	@Query("SELECT DISTINCT sh FROM Shop sh where idgoogle = :idGoogle")
 	Shop findShopByIdgoogle(@Param("idGoogle") String idGoogle);
 
 }

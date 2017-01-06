@@ -42,14 +42,15 @@ public class GoogleController {
 		ObjectMapper mapper;
 		ArrayNode arrayNode;
 		String answerJson = null;
+	
 
 		try {
 			mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
-			String radius = "2000"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
+			String radius = "50000"; // Par defaut
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On récupère la liste des magasins à partir du GPS du client
@@ -59,18 +60,26 @@ public class GoogleController {
 							+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key,
 					String.class);
 
+			System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
+					+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key);
 			// On trie le JSON donnée par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
 			arrayNode = mapper.createArrayNode();
+			
+			int i=0;
 			for (JsonNode node : googleNode.path("results")) {
-
+			
 				// Pour chaque magasin donné par GOOGLE, on vérifie qu'il est bien dans notre BD
 				// Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
+				System.out.println("Seb: "+idgoogle);
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
 				if (shop != null) {
+					
+					i++;
+					System.out.println("Test i :"+i);
 					// ID Validé, on prend les coordonnées GPS du magasin et on calcule la distance entre l'user et les magasins. 
 
 					double latShop = shop.getAddress().getLag();
