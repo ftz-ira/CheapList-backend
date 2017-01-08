@@ -12,7 +12,7 @@ HTTP GET : http://localhost:8080/cheaplist/sections/1
 
 Les catégories d'une section précise :
 
-HTTP GET : http://localhost:8080/cheaplist/categories/1
+HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
 
 /***** CATEGORIES ***********/
 
