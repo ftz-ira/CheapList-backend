@@ -87,12 +87,13 @@ Affiche les produits d'une ID List ********/
 HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 
-Affiche un produit d'un ID List (attention c'est l'ID du produit)
+Affiche un produit d'un ID List (attention c'est l'ID de l'element)
 
-HHTP GET : http://localhost:8080/cheaplist/lists/22/product/36117
+HHTP GET : http://localhost:8080/cheaplist/lists/22/element/36117
 
 PATCH d'un produit 
 
+HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
 
 /***** DEVIS ***************/
