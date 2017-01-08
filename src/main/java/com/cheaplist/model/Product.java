@@ -19,7 +19,7 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class})
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
 	private int id;
@@ -37,7 +37,7 @@ public class Product implements Serializable {
 	private String implementation;
 
 	@Column(nullable = false, length = 45)
-	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class})
 	private String name;
 
 	@Column(name = "unit_name", nullable = false, length = 45)
@@ -53,6 +53,7 @@ public class Product implements Serializable {
 
 	// bi-directional many-to-one association to Category
 	@ManyToOne
+	@JsonView(View.ListProduct.class)
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 

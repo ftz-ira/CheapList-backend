@@ -76,6 +76,17 @@ Affiche les listes d'un membre :
 HTTP GET   http://localhost:8080/cheaplist/members/69/lists
 
 
+/********* Lists **************/
+Avoir les ID des lists d'un membre 
+
+HTTP GET  http://localhost:8080/cheaplist/members/69/lists
+
+
+Affiche les produits d'une ID List ********/
+
+HTTP GET   http://localhost:8080/cheaplist/lists/22
+
+
 /***** DEVIS ***************/
 
 Calculer le prix d'une liste en fonction d'un magasin (prévu Samedi soir)

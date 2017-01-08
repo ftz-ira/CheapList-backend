@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.ListProduct;
+import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 @RestController
-@RequestMapping(value="/listProduct")
+@RequestMapping(value="/lists")
 public class ListProductController {
 	
 	@Autowired
@@ -33,14 +36,14 @@ public class ListProductController {
 		return mav;
 	}
 	*/
-	@RequestMapping(value="/findall")
-	public List<ListProduct> AdressFindAll() {
-		ArrayList<ListProduct> listProductList = (ArrayList<ListProduct>) listProductService.findAll();
-		for ( ListProduct listProduct  : listProductList)
-		{
-			 System.out.println(listProduct.toString());
-			System.out.println("Name :"+listProduct.getId());
-		}
+	
+	/*****  GET ALL PRODUCT ID BY LIST ID ******/
+	
+	
+	@JsonView(View.ListProduct.class)
+	@RequestMapping(value = "/{id}")
+	public List<ListProduct> ListProductAll(@PathVariable Integer id) {
+		List<ListProduct> listProductList = listProductService.findProductsByList(id.intValue());
 		return listProductList;
 				
 	}

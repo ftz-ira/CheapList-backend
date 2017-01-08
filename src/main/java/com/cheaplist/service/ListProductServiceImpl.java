@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cheaplist.exception.ListProductNotFound;
 import com.cheaplist.model.ListProduct;
+import com.cheaplist.model.ShopProduct;
 import com.cheaplist.repository.ListProductRepository;
 
 @Service
@@ -59,6 +60,12 @@ public class ListProductServiceImpl implements ListProductService {
 		updatedListProduct.setId(listProduct.getId());
 		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());
 		return updatedListProduct;
+	}
+	
+	@Override
+	@Transactional
+	public List<ListProduct> findProductsByList(int idList) {
+		return listProductRepository.findProductsByList(idList);
 	}
 
 }

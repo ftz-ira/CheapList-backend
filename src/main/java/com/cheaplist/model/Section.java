@@ -18,7 +18,7 @@ public class Section implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.Section.class)
+	@JsonView({View.ListProduct.class,View.Section.class})
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
 	private int id;
@@ -27,7 +27,7 @@ public class Section implements Serializable {
 	@Column(nullable = false, length = 45)
 	private String description;
 
-	@JsonView(View.Section.class)
+	@JsonView({View.ListProduct.class,View.Section.class})
 	@Column(nullable = false, length = 45)
 	private String name;
 
