@@ -27,7 +27,7 @@ HTTP GET :  http://localhost:8080/cheaplist/categories/1/products/
 
 Fiche d'identité d'un produit :
 
-HTTP GET : http://localhost:8080/cheaplist/products/356
+HTTP GET : http://localhost:8080/cheaplist/products/8780
 
 
 /********  PRICES     ***************************/
@@ -45,7 +45,7 @@ HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 /***** Google ***************************/
 
 Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
-HTTP POST : http://localhost:8080/cheaplist/google/shops
+HTTP POST : http://localhost:8080/cheaplist/shops/distances
 
 JSON Entrée Exemple : 
 {
