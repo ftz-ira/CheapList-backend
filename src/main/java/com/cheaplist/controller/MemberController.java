@@ -65,8 +65,8 @@ public class MemberController {
 
 	
 	/*****  READ ONE MEMBER : ALL LIST BY MEMBER   ******/
-	//@JsonView(View.MemberList.class)
-	@RequestMapping(value = "/lists/{id}")
+	@JsonView(View.MemberList.class)
+	@RequestMapping(value = "/{id}/lists")
 	public Member listFindid(@PathVariable Integer id) {
 		Member member;
 		member = memberService.findById(id.intValue());

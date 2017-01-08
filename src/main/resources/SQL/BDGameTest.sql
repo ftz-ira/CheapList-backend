@@ -359,7 +359,7 @@ CREATE TABLE `shopping_list` (
 
 LOCK TABLES `shopping_list` WRITE;
 /*!40000 ALTER TABLE `shopping_list` DISABLE KEYS */;
-INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,'2016-12-29 00:00:00',69),(22,'LeGrandSeb2',0,0,0,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',1,0,0,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',1,0,0,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,'2016-12-29 00:00:00',69),(29,'LeGrandSeb9',1,0,1,'2016-12-29 00:00:00',69),(30,'LeGrandSeb10',1,0,0,'2016-12-29 00:00:00',69);
+INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,'2016-12-29 00:00:00',69),(22,'LeGrandSeb2',0,0,0,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',1,0,0,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',1,0,0,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,'2016-12-29 00:00:00',69),(30,'LeGrandSeb10',1,0,0,'2016-12-29 00:00:00',69);
 /*!40000 ALTER TABLE `shopping_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -372,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-08 14:28:30
+-- Dump completed on 2017-01-08 14:49:25

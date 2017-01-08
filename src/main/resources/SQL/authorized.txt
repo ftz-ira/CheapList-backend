@@ -70,6 +70,11 @@ Suppression d'un membre  (en cours, prévu Dimanche)
 
 Mise à jour d'un membre :  (en cours, prévu Dimanche)
 
+/******** Page d'accueil   ***********/
+Affiche les listes d'un membre :
+
+HTTP GET   http://localhost:8080/cheaplist/members/69/lists
+
 
 /***** DEVIS ***************/
 
