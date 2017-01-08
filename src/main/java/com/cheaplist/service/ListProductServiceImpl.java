@@ -63,6 +63,38 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 	
 	@Override
+	@Transactional(rollbackFor=ListProductNotFound.class)
+	public ListProduct patch(int idList,int idElement,ListProduct listProduct) throws ListProductNotFound {
+		System.out.println("Test ID:"+ idList);
+		ListProduct updatedListProduct = listProductRepository.findProductByList(idList,idElement);
+		if (updatedListProduct == null)
+			throw new ListProductNotFound();
+		
+		if (listProduct.getProduct() != null)
+		{
+		updatedListProduct.setProduct(listProduct.getProduct());	
+		}
+		
+		if (listProduct.getProductQuantity() != 0)
+		{
+		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());	
+		}
+		
+		if (listProduct.getShoppingList() != null)
+		{
+			updatedListProduct.setShoppingList(listProduct.getShoppingList());
+		}
+		return updatedListProduct;
+	}
+	
+	@Override
+	@Transactional
+	public ListProduct findProductByList(int idList, int idElement) {
+		return listProductRepository.findProductByList(idList,idElement);
+	}
+	
+	
+	@Override
 	@Transactional
 	public List<ListProduct> findProductsByList(int idList) {
 		return listProductRepository.findProductsByList(idList);

@@ -13,5 +13,8 @@ public interface ListProductRepository extends JpaRepository<ListProduct, Intege
 	
 	@Query("SELECT lp FROM ListProduct lp where lp.shoppingList.id = :idList")
 	List<ListProduct> findProductsByList(@Param("idList") int idList);
+	
+	@Query("SELECT lp FROM ListProduct lp where lp.shoppingList.id = :idList and lp.id = :idElement")
+	ListProduct findProductByList(@Param("idList") int idList, @Param("idElement") int idElement);
 
 }

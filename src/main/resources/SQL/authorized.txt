@@ -87,6 +87,14 @@ Affiche les produits d'une ID List ********/
 HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 
+Affiche un produit d'un ID List (attention c'est l'ID du produit)
+
+HHTP GET : http://localhost:8080/cheaplist/lists/22/product/36117
+
+PATCH d'un produit 
+
+
+
 /***** DEVIS ***************/
 
 Calculer le prix d'une liste en fonction d'un magasin (prévu Samedi soir)

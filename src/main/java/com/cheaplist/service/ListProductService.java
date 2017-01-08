@@ -14,5 +14,7 @@ public interface ListProductService {
 	public ListProduct update(ListProduct listProduct) throws ListProductNotFound;
 	public ListProduct findById(int id);
 	List<ListProduct> findProductsByList(int idList);
+	ListProduct findProductByList(int idList, int idProduct);
 
+	ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ListProductNotFound;
 }
