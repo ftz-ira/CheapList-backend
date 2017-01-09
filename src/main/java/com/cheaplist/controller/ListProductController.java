@@ -1,9 +1,13 @@
 package com.cheaplist.controller;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,9 @@ import com.cheaplist.model.Member;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping(value = "/lists")
@@ -69,6 +76,46 @@ public class ListProductController {
 		return listProduct;
 
 	}
+	
+	/*** ADD ONE ELEMENT FROM ONE LIST ***/
+	@JsonView(View.ListProduct.class)
+	@RequestMapping(value = "/{idList}/element/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	public ListProduct AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) throws ListProductNotFound {
+
+			ObjectMapper mapper = new ObjectMapper();
+			ListProduct listProduct= null;
+			JsonNode rootNode;
+			try {
+				rootNode = mapper.readTree(new StringReader(addElement));
+				int productQuantity = rootNode.path("productQuantity").asInt();
+				int idProduct = rootNode.path("idProduct").asInt();
+				// Si le JSON est incorrect
+				if (productQuantity <1 || idProduct <1) return null;				
+				listProduct = listProductService.createOneElement(idList,idProduct,productQuantity);
+				System.out.println(listProduct.getId());
+				
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		return listProduct;
+	}
+	
+	/*** REMOVE ONE ELEMENT FROM ONE LIST
+	 * 
+	 */
+	@JsonView(View.ListProduct.class)
+	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> RemoveOneElement(@PathVariable Integer idList, @PathVariable Integer idElement) throws ListProductNotFound {
+
+		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
+		listProductService.delete(listProduct.getId());
+		return new ResponseEntity<String>("ELEMENT DELETED",HttpStatus.OK);
+	}
+	
 
 	/*
 	 * @RequestMapping(value="/create", method=RequestMethod.POST) public

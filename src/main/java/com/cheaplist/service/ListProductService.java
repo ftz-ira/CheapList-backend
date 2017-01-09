@@ -13,8 +13,10 @@ public interface ListProductService {
 	public List<ListProduct> findAll();
 	public ListProduct update(ListProduct listProduct) throws ListProductNotFound;
 	public ListProduct findById(int id);
+
+	/*** CUSTOM METHOD ***/
 	List<ListProduct> findProductsByList(int idList);
 	ListProduct findProductByList(int idList, int idProduct);
-
 	ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ListProductNotFound;
+	ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ListProductNotFound;
 }

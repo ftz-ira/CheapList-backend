@@ -70,7 +70,7 @@ public class GoogleController {
 			int i=0;
 			for (JsonNode node : googleNode.path("results")) {
 			
-				// Pour chaque magasin donné par GOOGLE, on vérifie qu'il est bien dans notre BD
+				// Pour chaque magasin donné par GOOGLE, on v�rifie qu'il est bien dans notre BD
 				// Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
 				System.out.println("Seb: "+idgoogle);

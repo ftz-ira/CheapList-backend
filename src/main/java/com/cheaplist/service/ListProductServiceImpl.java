@@ -4,12 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheaplist.exception.ListProductNotFound;
 import com.cheaplist.model.ListProduct;
-import com.cheaplist.model.ShopProduct;
+import com.cheaplist.model.Product;
+import com.cheaplist.model.ShoppingList;
 import com.cheaplist.repository.ListProductRepository;
 
 @Service
@@ -17,13 +19,43 @@ public class ListProductServiceImpl implements ListProductService {
 	
 	@Resource
 	private ListProductRepository listProductRepository;
+	
+	@Autowired
+	private ShoppingListService shoppingListService;
+	
+	@Autowired
+	private ProductService productService;
+	
 
+	
+	/******* INSERT ONE ELEMENT INTO ONE LIST   *********/
 	@Override
 	@Transactional
 	public ListProduct create(ListProduct listProduct) {
 		ListProduct createdListProduct = listProduct;
 		return listProductRepository.save(createdListProduct);
 	}
+	
+	/******* INSERT ONE ELEMENT INTO ONE LIST   *********/
+	
+	@Override
+	@Transactional(rollbackFor=ListProductNotFound.class)
+	public ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ListProductNotFound {
+		ShoppingList shoppingList = shoppingListService.findById(idShoppingList);
+		Product product = productService.findById(idproduct);
+		
+		if (shoppingList == null || product == null)
+			throw new ListProductNotFound();
+		
+		ListProduct createdListProduct = new ListProduct();
+		createdListProduct.setProduct(product);
+		createdListProduct.setProductQuantity(quantity);
+		createdListProduct.setShoppingList(shoppingList);		
+		return listProductRepository.save(createdListProduct);
+	}
+	
+	
+	
 	
 	@Override
 	@Transactional
@@ -75,7 +107,7 @@ public class ListProductServiceImpl implements ListProductService {
 		updatedListProduct.setProduct(listProduct.getProduct());	
 		}
 		
-		if (listProduct.getProductQuantity() != 0)
+		if (listProduct.getProductQuantity() > 0)
 		{
 		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());	
 		}
