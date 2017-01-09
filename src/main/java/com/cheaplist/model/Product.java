@@ -47,6 +47,10 @@ public class Product implements Serializable {
 	@JsonView({ View.CategoryProduct.class, View.Product.class })
 	private float volume;
 
+	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	
+	private String url;
+	
 	// bi-directional many-to-one association to ListProduct
 	@OneToMany(mappedBy = "product")
 	private Set<ListProduct> listProducts;
@@ -119,6 +123,14 @@ public class Product implements Serializable {
 
 	public void setVolume(float volume) {
 		this.volume = volume;
+	}
+	
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Set<ListProduct> getListProducts() {

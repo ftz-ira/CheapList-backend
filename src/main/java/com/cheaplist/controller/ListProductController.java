@@ -25,6 +25,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping(value = "/lists")
 public class ListProductController {
 
+	/*
+	 * Attention BUG: Contrôler l'ajout d'un element (vérifier que le produit n'est pas dans la liste des élements au préable)
+	 * 
+	 * 
+	 */
+	
+	
 	@Autowired
 	private ListProductService listProductService;
 

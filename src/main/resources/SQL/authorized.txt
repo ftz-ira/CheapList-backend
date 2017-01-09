@@ -108,7 +108,7 @@ JSON FORMAT :
 }
 
 
-/*** Suppresion un element dans une liste *****/
+/*** Suppression un element dans une liste *****/
 
 Ici, Liste ID n°22, Element ID n°5
 
