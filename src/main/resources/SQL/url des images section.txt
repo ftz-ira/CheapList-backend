@@ -1,0 +1,11 @@
+img/section-img/bio_et_ecologie.jpeg
+img/section-img/boissons.jpeg
+img/section-img/charcuterie_traiteur.jpeg
+img/section-img/epicerie_salee.jpeg
+img/section-img/epicerie_sucree.jpeg
+img/section-img/fruits_et_legumes.jpeg
+img/section-img/pains_et_patisserie.jpeg
+img/section-img/produits_frais.jpeg
+img/section-img/surgeles.jpeg
+img/section-img/viandes_poissons.jpeg
+
