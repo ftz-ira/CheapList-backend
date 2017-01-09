@@ -30,7 +30,7 @@ public class ListProductController {
 
 	/*
 	 * @Autowired private ListProductValidator listProductValidator;
-	*/
+	 */
 
 	/***** GET ALL PRODUCT ID BY LIST ID ******/
 
@@ -61,42 +61,45 @@ public class ListProductController {
 		return listProduct;
 
 	}
-	
+
 	/*** ADD ONE ELEMENT FROM ONE LIST ***/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public ListProduct AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) throws ListProductNotFound {
+	public ListProduct AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) {
 
-			ObjectMapper mapper = new ObjectMapper();
-			ListProduct listProduct= null;
-			JsonNode rootNode;
-			try {
-				rootNode = mapper.readTree(new StringReader(addElement));
-				int productQuantity = rootNode.path("productQuantity").asInt();
-				int idProduct = rootNode.path("idProduct").asInt();
-				// Si le JSON est incorrect
-				if (productQuantity <1 || idProduct <1) return null;				
-				listProduct = listProductService.createOneElement(idList,idProduct,productQuantity);
-				System.out.println(listProduct.getId());
-				
-			} catch (IOException  e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		ObjectMapper mapper = new ObjectMapper();
+		ListProduct listProduct = null;
+		JsonNode rootNode;
+
+		try {
+			rootNode = mapper.readTree(new StringReader(addElement));
+			int productQuantity = rootNode.path("productQuantity").asInt();
+			int idProduct = rootNode.path("idProduct").asInt();
+			// Si le JSON est incorrect
+			if (productQuantity < 1 || idProduct < 1)
+				return null;
+			listProduct = listProductService.createOneElement(idList, idProduct, productQuantity);
+			System.out.println(listProduct.getId());
+		} catch (IOException | ListProductNotFound e) { 
+			e.printStackTrace();
+			return null;
+		}
+
 		return listProduct;
 	}
-	
-	/*** REMOVE ONE ELEMENT FROM ONE LIST
+
+	/***
+	 * REMOVE ONE ELEMENT FROM ONE LIST
 	 * 
 	 */
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> RemoveOneElement(@PathVariable Integer idList, @PathVariable Integer idElement) throws ListProductNotFound {
+	public ResponseEntity<String> RemoveOneElement(@PathVariable Integer idList, @PathVariable Integer idElement)
+			throws ListProductNotFound {
 
 		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
 		listProductService.delete(listProduct.getId());
-		return new ResponseEntity<String>("ELEMENT DELETED",HttpStatus.OK);
+		return new ResponseEntity<String>("ELEMENT DELETED", HttpStatus.OK);
 	}
-
 
 }

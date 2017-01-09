@@ -101,9 +101,10 @@ Ici , on ajoute un element IDn° 11096, avec la quantité :
 HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/
 
 JSON FORMAT :
+
 {
 "idProduct" : 11096,
-"productQuantity" : 0
+"productQuantity" : 10
 }
 
 
