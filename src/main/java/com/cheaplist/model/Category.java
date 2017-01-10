@@ -36,6 +36,10 @@ public class Category implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "section_id", nullable = false)
 	private Section section;
+	
+	@JsonView(View.SectionCategory.class)
+	@Column(name = "url_image")
+	private String urlImage;
 
 	// bi-directional many-to-one association to Product
 	@JsonView(View.CategoryProduct.class)
@@ -67,6 +71,14 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getUrlImage() {
+		return this.urlImage;
+	}
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
 	}
 
 	public Section getSection() {

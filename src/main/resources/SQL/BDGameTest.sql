@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cheaplist
+-- Host: localhost    Database: cheaplist
 -- ------------------------------------------------------
--- Server version	5.7.16-log
+-- Server version	5.7.15-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -55,6 +55,7 @@ CREATE TABLE `category` (
   `name` varchar(45) NOT NULL,
   `is_active` tinyint(4) NOT NULL,
   `section_id` int(11) NOT NULL,
+  `url_image` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_catégorie_rayon1_idx` (`section_id`),
   CONSTRAINT `fk_catégorie_rayon1` FOREIGN KEY (`section_id`) REFERENCES `section` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -67,7 +68,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'boucherie',1,1),(2,'rotisserie',1,1),(3,'volaille',1,1),(4,'poissonnerie',1,1),(5,'fruits frais',1,2),(6,' legumes frais',1,2),(7,'fruits secs',1,2),(8,'legumes secs',1,2),(9,'plats cuisines',1,3),(10,'pizza et tartes',1,3),(11,'legumes et frites',1,3),(12,'glaces',1,3),(13,'entrees et snacks',1,3),(14,'aperitifs',1,4),(15,'conserve',1,4),(16,'feculents',1,4),(17,'condiments',1,4),(18,'soupe et accompagnements',1,4),(19,'café et thé',1,5),(20,'confiserie',1,5),(21,'petit dejeuner',1,5),(22,'biscuits et gateaux',1,5),(23,'dessert et farine',1,5),(24,'cremerie',1,6),(25,'fromage et specialités',1,6),(26,'yaourt et dessert',1,6),(27,'charcuterie',1,7),(28,'traiteur',1,7),(29,'eaux et laits',1,8),(30,'jus et soft drinks',1,8),(31,'bière et cidre',1,8),(32,'apero et alcools',1,8),(33,'la cave',1,8),(34,'boulangerie',1,9),(35,'patisserie',1,9),(36,'viennoiserie',1,9),(37,'divers',1,10);
+INSERT INTO `category` VALUES (1,'boucherie',1,1,NULL),(2,'rotisserie',1,1,NULL),(3,'volaille',1,1,NULL),(4,'poissonnerie',1,1,NULL),(5,'fruits frais',1,2,NULL),(6,' legumes frais',1,2,NULL),(7,'fruits secs',1,2,NULL),(8,'legumes secs',1,2,NULL),(9,'plats cuisines',1,3,NULL),(10,'pizza et tartes',1,3,NULL),(11,'legumes et frites',1,3,NULL),(12,'glaces',1,3,NULL),(13,'entrees et snacks',1,3,NULL),(14,'aperitifs',1,4,NULL),(15,'conserve',1,4,NULL),(16,'feculents',1,4,NULL),(17,'condiments',1,4,NULL),(18,'soupe et accompagnements',1,4,NULL),(19,'café et thé',1,5,NULL),(20,'confiserie',1,5,NULL),(21,'petit dejeuner',1,5,NULL),(22,'biscuits et gateaux',1,5,NULL),(23,'dessert et farine',1,5,NULL),(24,'cremerie',1,6,NULL),(25,'fromage et specialités',1,6,NULL),(26,'yaourt et dessert',1,6,NULL),(27,'charcuterie',1,7,NULL),(28,'traiteur',1,7,NULL),(29,'eaux et laits',1,8,NULL),(30,'jus et soft drinks',1,8,NULL),(31,'bière et cidre',1,8,NULL),(32,'apero et alcools',1,8,NULL),(33,'la cave',1,8,NULL),(34,'boulangerie',1,9,NULL),(35,'patisserie',1,9,NULL),(36,'viennoiserie',1,9,NULL),(37,'divers',1,10,NULL);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +89,7 @@ CREATE TABLE `list_product` (
   KEY `fk_list_has_product_list1_idx` (`list_id`),
   CONSTRAINT `fk_list_has_product_list1` FOREIGN KEY (`list_id`) REFERENCES `shopping_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_list_has_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +98,7 @@ CREATE TABLE `list_product` (
 
 LOCK TABLES `list_product` WRITE;
 /*!40000 ALTER TABLE `list_product` DISABLE KEYS */;
-INSERT INTO `list_product` VALUES (3,4,22,36117),(4,1,22,36369),(5,1,22,35176),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,140,22,20321);
+INSERT INTO `list_product` VALUES (3,4,22,36117),(4,10,22,36369),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,140,22,20321),(11,10,22,11096),(12,10,22,11096),(13,10,22,11096),(14,10,22,11096),(15,10,22,11096);
 /*!40000 ALTER TABLE `list_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +209,7 @@ CREATE TABLE `product` (
   PRIMARY KEY (`id`),
   KEY `fk_product_category1_idx` (`category_id`),
   CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=65536 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36379 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +244,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores',NULL),(2,'fruits et legumes','pour les vegetariens',NULL),(3,'surgeles','pour les faineants',NULL),(4,'epicerie salee','on prépare l apero',NULL),(5,'epicerie sucree','pour les depressifs',NULL),(6,'produits frais','pour les esquimau',NULL),(7,'charcuterie traiteur','pour les bon vivants',NULL),(8,'boissons et cave','pour sa soif',NULL),(9,'pains et patisserie','la france a un icroyable talent',NULL),(10,'divers','poubelle seb',NULL);
+INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores','img/section-img/viandes_poissons.jpeg'),(2,'fruits et legumes','pour les vegetariens','img/section-img/fruits_et_legumes.jpeg'),(3,'surgeles','pour les faineants','img/section-img/surgeles.jpeg'),(4,'epicerie salee','on prépare l apero','img/section-img/epicerie_salee.jpeg'),(5,'epicerie sucree','pour les depressifs','img/section-img/epicerie_sucree.jpeg'),(6,'produits frais','pour les esquimau','img/section-img/produits_frais.jpeg'),(7,'charcuterie traiteur','pour les bon vivants','img/section-img/charcuterie_traiteur.jpeg'),(8,'boissons et cave','pour sa soif','img/section-img/boissons.jpeg'),(9,'pains et patisserie','la france a un icroyable talent','img/section-img/pains_et_patisserie.jpeg'),(10,'divers','poubelle seb','img/section-img/bio_et_ecologie.jpeg');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-08 22:24:16
+-- Dump completed on 2017-01-10 10:19:37
