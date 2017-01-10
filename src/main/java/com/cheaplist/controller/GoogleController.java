@@ -49,7 +49,7 @@ public class GoogleController {
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
-			String radius = "50000"; // Par defaut
+			String radius = "1500"; // Par defaut
 			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 

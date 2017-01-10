@@ -15,13 +15,13 @@ img/category-img/volaille.jpeg
 img/category-img/poissonnerie.jpeg
 img/category-img/fruit_frais.jpeg
 img/category-img/legumes_frais.jpeg
-img/category-img/fruits_frais.jpeg
+img/category-img/fruits_secs.jpeg
 img/category-img/legumes_secs.jpeg
 img/category-img/plats_cuisines.jpeg
 img/category-img/pizzas_et_tartes.jpeg
 img/category-img/legumes_frites.jpeg
 img/category-img/glaces.jpeg
-img/category-img/entrees_snacksv
+img/category-img/entrees_snacks.jpeg
 img/category-img/aperitifs.jpeg
 img/category-img/conserve.jpeg
 img/category-img/feculents.jpeg
