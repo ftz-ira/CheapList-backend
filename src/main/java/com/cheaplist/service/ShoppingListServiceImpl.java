@@ -12,7 +12,7 @@ import com.cheaplist.repository.ShoppingListRepository;
 
 @Service
 public class ShoppingListServiceImpl implements ShoppingListService {
-	
+
 	@Resource
 	private ShoppingListRepository shoppingListRepository;
 
@@ -22,7 +22,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 		ShoppingList createdShoppingList = shoppingList;
 		return shoppingListRepository.save(createdShoppingList);
 	}
-	
+
 	@Override
 	@Transactional
 	public ShoppingList findById(int id) {
@@ -30,13 +30,13 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShoppingListNotFound.class)
+	@Transactional(rollbackFor = ShoppingListNotFound.class)
 	public ShoppingList delete(int id) throws ShoppingListNotFound {
 		ShoppingList deletedShop = shoppingListRepository.findOne(id);
-		
+
 		if (deletedShop == null)
 			throw new ShoppingListNotFound();
-		
+
 		shoppingListRepository.delete(deletedShop);
 		return deletedShop;
 	}
@@ -48,7 +48,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShoppingListNotFound.class)
+	@Transactional(rollbackFor = ShoppingListNotFound.class)
 	public ShoppingList update(ShoppingList shoppingList) throws ShoppingListNotFound {
 		ShoppingList updatedShoppingList = shoppingListRepository.findOne(shoppingList.getId());
 		updatedShoppingList.setId(shoppingList.getId());
@@ -56,8 +56,19 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 		updatedShoppingList.setIsActif(shoppingList.getIsActif());
 		updatedShoppingList.setIsClose(shoppingList.getIsClose());
 		updatedShoppingList.setCreatedDate(shoppingList.getCreatedDate());
-		
+
 		return updatedShoppingList;
+	}
+
+	@Override
+	public ShoppingList patch(Integer idList, ShoppingList newshoppingList) throws ShoppingListNotFound {
+		ShoppingList oldshoppingList = shoppingListRepository.findOne(idList);
+		if (oldshoppingList == null) {
+			throw new ShoppingListNotFound();
+		}
+		
+		
+		return oldshoppingList;
 	}
 
 }

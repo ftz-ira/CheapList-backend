@@ -12,5 +12,6 @@ public interface ShoppingListService {
 	public List<ShoppingList> findAll();
 	public ShoppingList update(ShoppingList shoppingList) throws ShoppingListNotFound;
 	public ShoppingList findById(int id);
+	public ShoppingList patch(Integer idList, ShoppingList shoppingList) throws ShoppingListNotFound;
 
 }

@@ -4,7 +4,7 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtrée):
 
 Toutes les sections :
 
-HTTP GET : http://localhost:8080/cheaplist/sections/
+HTTP GET : http://localhost:8080/cheaplist/sections
 
 Une section : 
 
