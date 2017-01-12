@@ -16,47 +16,42 @@ import com.cheaplist.repository.ListProductRepository;
 
 @Service
 public class ListProductServiceImpl implements ListProductService {
-	
+
 	@Resource
 	private ListProductRepository listProductRepository;
-	
+
 	@Autowired
 	private ShoppingListService shoppingListService;
-	
+
 	@Autowired
 	private ProductService productService;
-	
 
-	
-	/******* INSERT ONE ELEMENT INTO ONE LIST   *********/
+	/******* INSERT ONE ELEMENT INTO ONE LIST *********/
 	@Override
 	@Transactional
 	public ListProduct create(ListProduct listProduct) {
 		ListProduct createdListProduct = listProduct;
 		return listProductRepository.save(createdListProduct);
 	}
-	
-	/******* INSERT ONE ELEMENT INTO ONE LIST   *********/
-	
+
+	/******* INSERT ONE ELEMENT INTO ONE LIST *********/
+
 	@Override
-	@Transactional(rollbackFor=ListProductNotFound.class)
+	@Transactional(rollbackFor = ListProductNotFound.class)
 	public ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ListProductNotFound {
 		ShoppingList shoppingList = shoppingListService.findById(idShoppingList);
 		Product product = productService.findById(idproduct);
-		
+
 		if (shoppingList == null || product == null)
 			throw new ListProductNotFound();
-		
+
 		ListProduct createdListProduct = new ListProduct();
 		createdListProduct.setProduct(product);
 		createdListProduct.setProductQuantity(quantity);
-		createdListProduct.setShoppingList(shoppingList);		
+		createdListProduct.setShoppingList(shoppingList);
 		return listProductRepository.save(createdListProduct);
 	}
-	
-	
-	
-	
+
 	@Override
 	@Transactional
 	public ListProduct findById(int id) {
@@ -64,13 +59,13 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ListProductNotFound.class)
+	@Transactional(rollbackFor = ListProductNotFound.class)
 	public ListProduct delete(int id) throws ListProductNotFound {
 		ListProduct deletedListProduct = listProductRepository.findOne(id);
-		
+
 		if (deletedListProduct == null)
 			throw new ListProductNotFound();
-		
+
 		listProductRepository.delete(deletedListProduct);
 		return deletedListProduct;
 	}
@@ -82,10 +77,10 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ListProductNotFound.class)
+	@Transactional(rollbackFor = ListProductNotFound.class)
 	public ListProduct update(ListProduct listProduct) throws ListProductNotFound {
 		ListProduct updatedListProduct = listProductRepository.findOne(listProduct.getId());
-		
+
 		if (updatedListProduct == null)
 			throw new ListProductNotFound();
 
@@ -93,39 +88,35 @@ public class ListProductServiceImpl implements ListProductService {
 		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());
 		return updatedListProduct;
 	}
-	
+
 	@Override
-	@Transactional(rollbackFor=ListProductNotFound.class)
-	public ListProduct patch(int idList,int idElement,ListProduct listProduct) throws ListProductNotFound {
-		System.out.println("Test ID:"+ idList);
-		ListProduct updatedListProduct = listProductRepository.findProductByList(idList,idElement);
+	@Transactional(rollbackFor = ListProductNotFound.class)
+	public ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ListProductNotFound {
+		System.out.println("Test ID:" + idList);
+		ListProduct updatedListProduct = listProductRepository.findProductByList(idList, idElement);
 		if (updatedListProduct == null)
 			throw new ListProductNotFound();
+
+		if (listProduct.getProduct() != null) 
+			updatedListProduct.setProduct(listProduct.getProduct());
 		
-		if (listProduct.getProduct() != null)
-		{
-		updatedListProduct.setProduct(listProduct.getProduct());	
-		}
+
+		if (listProduct.getProductQuantity() != null) 
+			updatedListProduct.setProductQuantity(listProduct.getProductQuantity());
 		
-		if (listProduct.getProductQuantity() != null)
-		{
-		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());	
-		}
-		
-		if (listProduct.getShoppingList() != null)
-		{
+
+		if (listProduct.getShoppingList() != null) 
 			updatedListProduct.setShoppingList(listProduct.getShoppingList());
-		}
+		
 		return updatedListProduct;
 	}
-	
+
 	@Override
 	@Transactional
 	public ListProduct findProductByList(int idList, int idElement) {
-		return listProductRepository.findProductByList(idList,idElement);
+		return listProductRepository.findProductByList(idList, idElement);
 	}
-	
-	
+
 	@Override
 	@Transactional
 	public List<ListProduct> findProductsByList(int idList) {

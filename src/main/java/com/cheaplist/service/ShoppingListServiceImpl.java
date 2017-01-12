@@ -61,22 +61,24 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 	}
 
 	@Override
-	public ShoppingList patch(Integer idList, ShoppingList newshoppingList) throws ShoppingListNotFound {
+	@Transactional(rollbackFor = ShoppingListNotFound.class)
+	public ShoppingList patch(Integer idList, ShoppingList shoppingList) throws ShoppingListNotFound {
 		ShoppingList oldshoppingList = shoppingListRepository.findOne(idList);
 		if (oldshoppingList == null) {
 			throw new ShoppingListNotFound();
 		}
-		
-		
-		if (newshoppingList.getCreatedDate() != null)
-			oldshoppingList.setCreatedDate(newshoppingList.getCreatedDate());
-	/*	if (newshoppingList.getIsActif() != null) oldshoppingList.setIsActif(newshoppingList.getIsActif());
-		if (newshoppingList.getIsClose() != null) oldshoppingList.setIsClose(newshoppingList.getIsClose());
-		if (newshoppingList.getIsDone() != null) oldshoppingList.setIsDone(newshoppingList.getIsDone());
-	*/	if (newshoppingList.getName() != null) oldshoppingList.setName(newshoppingList.getName());
-					
+		if (shoppingList.getIsActif() != null)
+			oldshoppingList.setIsActif(shoppingList.getIsActif());
+		if (shoppingList.getIsClose() != null)
+			oldshoppingList.setIsClose(shoppingList.getIsClose());
+		if (shoppingList.getIsFavor() != null)
+			oldshoppingList.setIsFavor(shoppingList.getIsFavor());
+		if (shoppingList.getIsDone() != null)
+			oldshoppingList.setIsDone(shoppingList.getIsDone());
+		if (shoppingList.getName() != null)
+			oldshoppingList.setName(shoppingList.getName());
 
-					return oldshoppingList;
+		return oldshoppingList;
 	}
 
 }

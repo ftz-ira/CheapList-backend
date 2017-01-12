@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +35,7 @@ public class ShoppingList implements Serializable {
 	@JsonView({View.ListProduct.class,View.MemberList.class, View.List.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	private int id;
+	private Integer id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
@@ -46,15 +45,15 @@ public class ShoppingList implements Serializable {
 	@Column(name="is_actif", nullable=false, columnDefinition = "TINYINT(1)")
 	private Boolean isActif;
 
-	@JsonView(View.MemberList.class)
+	@JsonView({View.List.class,View.MemberList.class})
 	@Column(name="is_close", nullable=false, columnDefinition = "TINYINT(1)")
 	private Boolean isClose;
 	
-	@JsonView(View.MemberList.class)
+	@JsonView({View.List.class,View.MemberList.class})
 	@Column(name="is_done", nullable=false, columnDefinition = "TINYINT(1)")
 	private Boolean isDone;
 	
-	@JsonView(View.MemberList.class)
+	@JsonView({View.List.class,View.MemberList.class})
 	@Column(name="is_favor",columnDefinition = "TINYINT(1)")
 	private Boolean isFavor;
 
@@ -76,11 +75,11 @@ public class ShoppingList implements Serializable {
 	public ShoppingList() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

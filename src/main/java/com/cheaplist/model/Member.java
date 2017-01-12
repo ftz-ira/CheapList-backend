@@ -22,6 +22,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 
@@ -96,6 +98,7 @@ public class Member implements Serializable {
 	//bi-directional many-to-one association to ShoppingSet
 	@JsonView(View.MemberList.class)
 	@OrderBy("id asc")
+	@Where(clause = "is_Actif =1 ")
 	@OneToMany(mappedBy="member",fetch=FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;
 

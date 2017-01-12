@@ -89,17 +89,40 @@ HTTP GET  http://localhost:8080/cheaplist/members/69/lists
 HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 
---> Modifie le nom d'une liste 
+--> Modifie les paramètres d'une liste
 
-HTTP PAtch: *** En cours ce soir *****
+HTTP PAtch: http://localhost:8080/cheaplist/lists/22
 
+{
+  
+"isActif": true,
+
+  "isClose": false,
+
+  "isDone": false,
+
+  "isFavor": true,
+ 
+ "name": "Seasb"
+
+}
+
+
+--> Mode DEBUG ONLY : voir les informations d'une liste (sans ses élements)
+
+HTTP PUT : http://localhost:8080/cheaplist/lists/22
+
+--> Supprimer une liste (elle est enregisté et une nouvelle liste est remis en place)
+
+HTTP DELETE : http://localhost:8080/cheaplist/lists/32
 
 
 Affiche un élement d'un ID List (attention c'est l'ID de l'element)
 
 HHTP GET : http://localhost:8080/cheaplist/lists/22/element/10
 
-PATCH d'un produit 
+
+Modifie un element d'un ID List (comme la quantité )
 
 HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
