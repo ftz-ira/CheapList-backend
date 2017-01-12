@@ -23,9 +23,12 @@ public class Category implements Serializable {
 	@Column(unique = true, nullable = false)
 	private int id;
 
+	
+	/*@Column(name = "is_active", nullable = false)
+	private byte isActive;*/
 	@JsonView(View.Category.class)
-	@Column(name = "is_active", nullable = false)
-	private byte isActive;
+	@Column(name="is_active", columnDefinition = "TINYINT(1)")
+	private Boolean isActive;
 
 	@JsonView({ View.SectionCategory.class, View.Category.class,View.ListProduct.class})
 	@Column(nullable = false, length = 45)
@@ -57,11 +60,11 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public byte getIsActive() {
+	public Boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 

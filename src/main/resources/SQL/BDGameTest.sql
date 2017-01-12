@@ -53,7 +53,7 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `is_active` tinyint(4) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
   `section_id` int(11) NOT NULL,
   `url_image` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -68,7 +68,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'boucherie',1,1,NULL),(2,'rotisserie',1,1,NULL),(3,'volaille',1,1,NULL),(4,'poissonnerie',1,1,NULL),(5,'fruits frais',1,2,NULL),(6,' legumes frais',1,2,NULL),(7,'fruits secs',1,2,NULL),(8,'legumes secs',1,2,NULL),(9,'plats cuisines',1,3,NULL),(10,'pizza et tartes',1,3,NULL),(11,'legumes et frites',1,3,NULL),(12,'glaces',1,3,NULL),(13,'entrees et snacks',1,3,NULL),(14,'aperitifs',1,4,NULL),(15,'conserve',1,4,NULL),(16,'feculents',1,4,NULL),(17,'condiments',1,4,NULL),(18,'soupe et accompagnements',1,4,NULL),(19,'café et thé',1,5,NULL),(20,'confiserie',1,5,NULL),(21,'petit dejeuner',1,5,NULL),(22,'biscuits et gateaux',1,5,NULL),(23,'dessert et farine',1,5,NULL),(24,'cremerie',1,6,NULL),(25,'fromage et specialités',1,6,NULL),(26,'yaourt et dessert',1,6,NULL),(27,'charcuterie',1,7,NULL),(28,'traiteur',1,7,NULL),(29,'eaux et laits',1,8,NULL),(30,'jus et soft drinks',1,8,NULL),(31,'bière et cidre',1,8,NULL),(32,'apero et alcools',1,8,NULL),(33,'la cave',1,8,NULL),(34,'boulangerie',1,9,NULL),(35,'patisserie',1,9,NULL),(36,'viennoiserie',1,9,NULL),(37,'divers',1,10,NULL);
+INSERT INTO `category` VALUES (1,'boucherie',1,1,'img/category-img/boucherie.jpg'),(2,'rotisserie',1,1,'img/category-img/rotisserie.jpg'),(3,'volaille',0,1,'img/category-img/volaille.jpg'),(4,'poissonnerie',1,1,'img/category-img/poissonnerie.jpg'),(5,'fruits frais',1,2,'img/category-img/fruits_frais.jpg'),(6,' legumes frais',1,2,'img/category-img/legumes_frais.jpg'),(7,'fruits secs',1,2,'img/category-img/fruits_secs.jpg'),(8,'legumes secs',1,2,'img/category-img/legumes_secs.jpg'),(9,'plats cuisines',1,3,'img/category-img/plats_cuisines.jpg'),(10,'pizza et tartes',1,3,'img/category-img/pizzas_et_tartes.jpg'),(11,'legumes et frites',1,3,'img/category-img/legumes_frites.jpg'),(12,'glaces',1,3,'img/category-img/glaces.jpg'),(13,'entrees et snacks',1,3,'img/category-img/entrees_snacks.jpg'),(14,'aperitifs',1,4,'img/category-img/aperitifs.jpg'),(15,'conserve',1,4,'img/category-img/conserve.jpg'),(16,'feculents',1,4,'img/category-img/feculents.jpg'),(17,'condiments',1,4,'img/category-img/condiments.jpg'),(18,'soupe et accompagnements',1,4,'img/category-img/soupe_et_accompagnements.jpg'),(19,'café et thé',1,5,'img/category-img/cafe_et_the.jpg'),(20,'confiserie',1,5,'img/category-img/confiserie.jpg'),(21,'petit dejeuner',1,5,'img/category-img/petit_dejeuner.jpg'),(22,'biscuits et gateaux',1,5,'img/category-img/biscuits_et_gateaux.jpg'),(23,'dessert et farine',1,5,'img/category-img/dessert_et_farine.jpg'),(24,'cremerie',1,6,'img/category-img/cremerie.jpg'),(25,'fromage et specialités',1,6,'img/category-img/fromage_et_specialites.jpg'),(26,'yaourt et dessert',1,6,'img/category-img/yaourt_et_dessert.jpg'),(27,'charcuterie',1,7,'img/category-img/charcuterie.jpg'),(28,'traiteur',1,7,'img/category-img/traiteur.jpg'),(29,'eaux et laits',1,8,'img/category-img/eaux_et_laits.jpg'),(30,'jus et soft drinks',1,8,'img/category-img/jus_et_soft_drinks.jpg'),(31,'bière et cidre',1,8,'img/category-img/biere_et_cidre.jpg'),(32,'apero et alcools',1,8,'img/category-img/apero_et_alcools.jpg'),(33,'la cave',1,8,'img/category-img/la_cave.jpg'),(34,'boulangerie',1,9,'img/category-img/boulangerie.jpg'),(35,'patisserie',1,9,'img/category-img/patisserie.jpg'),(36,'viennoiserie',1,9,'img/category-img/viennoiserie.jpg'),(37,'divers',1,10,'img/category-img/divers.jpg');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `list_product` (
   KEY `fk_list_has_product_list1_idx` (`list_id`),
   CONSTRAINT `fk_list_has_product_list1` FOREIGN KEY (`list_id`) REFERENCES `shopping_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_list_has_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `list_product` (
 
 LOCK TABLES `list_product` WRITE;
 /*!40000 ALTER TABLE `list_product` DISABLE KEYS */;
-INSERT INTO `list_product` VALUES (3,4,22,36117),(4,10,22,36369),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,140,22,20321),(11,10,22,11096),(12,10,22,11096),(13,10,22,11096),(14,10,22,11096),(15,10,22,11096);
+INSERT INTO `list_product` VALUES (3,4,22,36117),(4,10,22,36369),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,155,22,20321),(11,10,22,11096),(16,4,23,36117),(17,10,23,36369),(18,3,23,36336),(19,2,23,35565),(20,3,23,35852),(21,2,23,32491),(22,140,23,20321),(23,10,23,11096);
 /*!40000 ALTER TABLE `list_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `member` (
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint(4) DEFAULT '0',
+  `is_active` tinyint(1) DEFAULT '0',
   `email` varchar(45) NOT NULL,
   `token` varchar(45) DEFAULT 'token',
   `address_id` int(11) DEFAULT NULL,
@@ -284,7 +284,7 @@ CREATE TABLE `shop` (
   `name` varchar(45) NOT NULL,
   `emblem` varchar(45) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint(4) DEFAULT '1',
+  `is_active` tinyint(1) DEFAULT '1',
   `address_id` int(11) NOT NULL,
   `idgoogle` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
@@ -321,7 +321,7 @@ CREATE TABLE `shop_product` (
   KEY `fk_Produit_has_magasin_Produit1_idx` (`product_id`),
   CONSTRAINT `fk_Produit_has_magasin_Produit1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Produit_has_magasin_magasin1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +330,7 @@ CREATE TABLE `shop_product` (
 
 LOCK TABLES `shop_product` WRITE;
 /*!40000 ALTER TABLE `shop_product` DISABLE KEYS */;
-INSERT INTO `shop_product` VALUES (6,0,2.25,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116);
+INSERT INTO `shop_product` VALUES (6,0,2.25,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116),(17,0,2.89,36117,188),(18,0,4.11,36369,188),(19,0,2.9,36336,188),(20,0,14.1,35565,188),(21,0,1.5,35852,188),(22,0,0.99,32491,188),(23,0,1.5,20321,188),(24,0,3.45,11096,188),(25,0,1.89,36117,111),(26,0,3.11,36369,111),(27,0,1.9,36336,111),(28,0,13.1,35565,111),(29,0,0.5,35852,111),(30,0,0.49,32491,111),(31,0,0.5,20321,111),(32,0,2.45,11096,111),(33,0,1.89,36117,113),(34,0,3.11,36369,113),(35,0,13.1,35565,113),(36,0,0.5,35852,113),(37,0,0.5,20321,113),(38,0,2.45,11096,113);
 /*!40000 ALTER TABLE `shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,9 +344,10 @@ DROP TABLE IF EXISTS `shopping_list`;
 CREATE TABLE `shopping_list` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `is_actif` tinyint(4) NOT NULL DEFAULT '1',
-  `is_close` tinyint(4) NOT NULL,
-  `is_done` tinyint(4) NOT NULL,
+  `is_actif` tinyint(1) NOT NULL DEFAULT '1',
+  `is_close` tinyint(1) NOT NULL,
+  `is_done` tinyint(1) NOT NULL,
+  `is_favourite` tinyint(1) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -361,7 +362,7 @@ CREATE TABLE `shopping_list` (
 
 LOCK TABLES `shopping_list` WRITE;
 /*!40000 ALTER TABLE `shopping_list` DISABLE KEYS */;
-INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,'2016-12-29 00:00:00',69),(22,'FeteTimeSeb',0,0,0,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',1,0,0,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',1,0,0,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,'2016-12-29 00:00:00',69),(30,'LeGrandSeb10',1,0,0,'2016-12-29 00:00:00',69);
+INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,NULL,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,NULL,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,NULL,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,NULL,'2016-12-29 00:00:00',45),(16,'KamahoroList5',3,0,0,NULL,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,NULL,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,NULL,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,NULL,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,NULL,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,NULL,'2016-12-29 00:00:00',69),(22,'FeteTimeSeb',0,0,0,NULL,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,NULL,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',1,0,0,NULL,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',1,0,0,NULL,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,NULL,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,NULL,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,NULL,'2016-12-29 00:00:00',69),(30,'LeGrandSeb10',1,0,0,NULL,'2016-12-29 00:00:00',69);
 /*!40000 ALTER TABLE `shopping_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -374,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10 10:19:37
+-- Dump completed on 2017-01-12 17:01:11

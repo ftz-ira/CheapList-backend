@@ -107,7 +107,7 @@ public class ListProductServiceImpl implements ListProductService {
 		updatedListProduct.setProduct(listProduct.getProduct());	
 		}
 		
-		if (listProduct.getProductQuantity() > 0)
+		if (listProduct.getProductQuantity() != null)
 		{
 		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());	
 		}

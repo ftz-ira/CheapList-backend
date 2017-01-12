@@ -68,7 +68,15 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 		}
 		
 		
-		return oldshoppingList;
+		if (newshoppingList.getCreatedDate() != null)
+			oldshoppingList.setCreatedDate(newshoppingList.getCreatedDate());
+	/*	if (newshoppingList.getIsActif() != null) oldshoppingList.setIsActif(newshoppingList.getIsActif());
+		if (newshoppingList.getIsClose() != null) oldshoppingList.setIsClose(newshoppingList.getIsClose());
+		if (newshoppingList.getIsDone() != null) oldshoppingList.setIsDone(newshoppingList.getIsDone());
+	*/	if (newshoppingList.getName() != null) oldshoppingList.setName(newshoppingList.getName());
+					
+
+					return oldshoppingList;
 	}
 
 }

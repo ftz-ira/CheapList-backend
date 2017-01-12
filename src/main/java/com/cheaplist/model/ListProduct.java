@@ -23,7 +23,7 @@ public class ListProduct implements Serializable {
 
 	@JsonView(View.ListProduct.class)
 	@Column(name="product_quantity", nullable=false)
-	private int productQuantity;
+	private Integer productQuantity;
 	
 	//bi-directional many-to-one association to ShoppingList
 	//@JsonView(View.ListProduct.class)
@@ -48,11 +48,11 @@ public class ListProduct implements Serializable {
 		this.id = id;
 	}
 
-	public int getProductQuantity() {
+	public Integer getProductQuantity() {
 		return this.productQuantity;
 	}
 
-	public void setProductQuantity(int productQuantity) {
+	public void setProductQuantity(Integer productQuantity) {
 		this.productQuantity = productQuantity;
 	}
 

@@ -82,9 +82,13 @@ Avoir les ID des lists d'un membre
 HTTP GET  http://localhost:8080/cheaplist/members/69/lists
 
 
-Affiche les produits d'une ID List ********/
+--Affiche les produits d'une ID List ********/
 
 HTTP GET   http://localhost:8080/cheaplist/lists/22
+
+
+--> Modifie le nom d'une liste 
+
 
 
 Affiche un produit d'un ID List (attention c'est l'ID de l'element)

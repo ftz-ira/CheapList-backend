@@ -33,7 +33,7 @@ public class ShoppingList implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@JsonView({View.ListProduct.class,View.MemberList.class, View.List.class})
 	@OrderBy("id asc")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
@@ -44,6 +44,7 @@ public class ShoppingList implements Serializable {
 	@Column(name="created_date")
 	private Date createdDate;
 
+	@JsonView(View.List.class)
 	@Column(name="is_actif", nullable=false)
 	private byte isActif;
 
@@ -55,7 +56,7 @@ public class ShoppingList implements Serializable {
 	@Column(name="is_done", nullable=false)
 	private byte isDone;
 
-	@JsonView(View.MemberList.class)
+	@JsonView({View.MemberList.class,View.List.class})
 	@Column(nullable=false, length=45)
 	private String name;
 

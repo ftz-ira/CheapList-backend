@@ -10,6 +10,7 @@ public class View {
 	public interface PriceProduct{}
 	public interface GoogleShop{}	
 	public interface MemberIdentity {}
+	public interface List{}
 	
 	public interface MemberList {}
 	public interface ListProduct {}
