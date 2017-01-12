@@ -32,8 +32,8 @@ public class Shop implements Serializable {
 	@Column(length=45)
 	private String emblem;
 
-	@Column(name="is_active")
-	private byte isActive;
+	@Column(name="is_active", nullable = false, columnDefinition = "TINYINT(1)")
+	private Boolean isActive;
 
 //	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
 	@JsonView({View.PriceProduct.class,View.GoogleShop.class})
@@ -93,11 +93,11 @@ public class Shop implements Serializable {
 		this.idgoogle = idgoogle;
 	}
 
-	public byte getIsActive() {
+	public Boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 

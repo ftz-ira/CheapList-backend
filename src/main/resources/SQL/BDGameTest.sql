@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: cheaplist
+-- Host: 127.0.0.1    Database: cheaplist
 -- ------------------------------------------------------
--- Server version	5.7.15-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -115,7 +115,7 @@ CREATE TABLE `member` (
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint(1) DEFAULT '0',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
   `email` varchar(45) NOT NULL,
   `token` varchar(45) DEFAULT 'token',
   `address_id` int(11) DEFAULT NULL,
@@ -284,7 +284,7 @@ CREATE TABLE `shop` (
   `name` varchar(45) NOT NULL,
   `emblem` varchar(45) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `is_active` tinyint(1) DEFAULT '1',
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `address_id` int(11) NOT NULL,
   `idgoogle` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
@@ -347,7 +347,7 @@ CREATE TABLE `shopping_list` (
   `is_actif` tinyint(1) NOT NULL DEFAULT '1',
   `is_close` tinyint(1) NOT NULL,
   `is_done` tinyint(1) NOT NULL,
-  `is_favourite` tinyint(1) DEFAULT NULL,
+  `is_favor` tinyint(1) DEFAULT NULL,
   `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -375,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12 17:01:11
+-- Dump completed on 2017-01-12 21:38:40

@@ -26,7 +26,7 @@ public class CategoryController {
 
 	/*** READ ALL PRODUCT BY CATEGORY ****/
 	@JsonView(View.CategoryProduct.class)
-	@RequestMapping(value = "/{id}/products/", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
 	public Category categoryAllProduct(@PathVariable Integer id) {
 		return categoryService.findById(id.intValue());
 	}

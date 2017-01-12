@@ -34,27 +34,29 @@ public class ShoppingList implements Serializable {
 
 	@Id
 	@JsonView({View.ListProduct.class,View.MemberList.class, View.List.class})
-	@OrderBy("id asc")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
-
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date")
 	private Date createdDate;
 
-	@JsonView(View.List.class)
-	@Column(name="is_actif", nullable=false)
-	private byte isActif;
+	@JsonView({View.List.class,View.MemberList.class})
+	@Column(name="is_actif", nullable=false, columnDefinition = "TINYINT(1)")
+	private Boolean isActif;
 
-//	@JsonView(View.MemberList.class)
-	@Column(name="is_close", nullable=false)
-	private byte isClose;
+	@JsonView(View.MemberList.class)
+	@Column(name="is_close", nullable=false, columnDefinition = "TINYINT(1)")
+	private Boolean isClose;
 	
 	@JsonView(View.MemberList.class)
-	@Column(name="is_done", nullable=false)
-	private byte isDone;
+	@Column(name="is_done", nullable=false, columnDefinition = "TINYINT(1)")
+	private Boolean isDone;
+	
+	@JsonView(View.MemberList.class)
+	@Column(name="is_favor",columnDefinition = "TINYINT(1)")
+	private Boolean isFavor;
 
 	@JsonView({View.MemberList.class,View.List.class})
 	@Column(nullable=false, length=45)
@@ -90,28 +92,36 @@ public class ShoppingList implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public byte getIsActif() {
+	public Boolean getIsActif() {
 		return this.isActif;
 	}
 
-	public void setIsActif(byte isActif) {
+	public void setIsActif(Boolean isActif) {
 		this.isActif = isActif;
 	}
 
-	public byte getIsClose() {
+	public Boolean getIsClose() {
 		return this.isClose;
 	}
 
-	public void setIsClose(byte isClose) {
+	public void setIsClose(Boolean isClose) {
 		this.isClose = isClose;
 	}
 	
-	public byte getIsDone() {
+	public Boolean getIsDone() {
 		return this.isDone;
 	}
 
-	public void setIsDone(byte isDone) {
+	public void setIsDone(Boolean isDone) {
 		this.isDone = isDone;
+	}
+	
+	public Boolean getIsFavor() {
+		return this.isFavor;
+	}
+
+	public void setIsFavor(Boolean isFavor) {
+		this.isFavor = isFavor;
 	}
 
 	public String getName() {

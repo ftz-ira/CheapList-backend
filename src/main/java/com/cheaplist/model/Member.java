@@ -17,6 +17,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,9 +48,9 @@ public class Member implements Serializable {
 	@JsonView(View.MemberIdentity.class)
 	@Column(nullable=false, length=45)
 	private String email;
-
-	@Column(name="is_active")
-	private byte isActive;
+	
+	@Column(name="is_active", nullable = false, columnDefinition = "TINYINT(1)")
+	private Boolean isActive;
 
 	@JsonView(View.MemberIdentity.class)
 	@Column(nullable=false, length=45)
@@ -94,6 +95,7 @@ public class Member implements Serializable {
 
 	//bi-directional many-to-one association to ShoppingSet
 	@JsonView(View.MemberList.class)
+	@OrderBy("id asc")
 	@OneToMany(mappedBy="member",fetch=FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;
 
@@ -124,11 +126,11 @@ public class Member implements Serializable {
 		this.email = email;
 	}
 
-	public byte getIsActive() {
+	public Boolean getIsActive() {
 		return this.isActive;
 	}
 
-	public void setIsActive(byte isActive) {
+	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 

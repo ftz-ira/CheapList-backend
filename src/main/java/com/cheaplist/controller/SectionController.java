@@ -53,7 +53,7 @@ public class SectionController {
 	
 	/***  READ ALL CATEGORIES BY ID SECTION  ****/
 	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="/{id}/categories/",method=RequestMethod.GET)
+	@RequestMapping(value="/{id}/categories",method=RequestMethod.GET)
 	public Section sectionAllCategories(@PathVariable Integer id) {
 		Section section = sectionService.findById(id.intValue());
 		return section;				

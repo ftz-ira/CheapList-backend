@@ -18,16 +18,13 @@ public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.SectionCategory.class,View.ListProduct.class})
+	@JsonView({View.SectionCategory.class,View.ListProduct.class,View.Category.class})
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	
-	/*@Column(name = "is_active", nullable = false)
-	private byte isActive;*/
 	@JsonView(View.Category.class)
-	@Column(name="is_active", columnDefinition = "TINYINT(1)")
+	@Column(name="is_active", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean isActive;
 
 	@JsonView({ View.SectionCategory.class, View.Category.class,View.ListProduct.class})
@@ -40,7 +37,7 @@ public class Category implements Serializable {
 	@JoinColumn(name = "section_id", nullable = false)
 	private Section section;
 	
-	@JsonView(View.SectionCategory.class)
+	@JsonView({View.Category.class,View.SectionCategory.class})
 	@Column(name = "url_image")
 	private String urlImage;
 

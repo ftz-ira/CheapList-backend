@@ -1,3 +1,5 @@
+// Toutes les commandes ont vérifiés le 12 Janvier à 21h55
+
 Mise à jour des commandes autorisées en URL (HTTP Methode Filtrée):
 
 /***** SECTION (Rayons) ******/
@@ -20,7 +22,7 @@ Une categorie précise :
 HTTP GET : http://localhost:8080/cheaplist/categories/1
 
 Tous les produits d'une catégorie précise : 
-HTTP GET :  http://localhost:8080/cheaplist/categories/1/products/
+HTTP GET :  http://localhost:8080/cheaplist/categories/1/products
 
 
 /**** PRODUCT **********************/
@@ -48,21 +50,21 @@ Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km)
 HTTP POST : http://localhost:8080/cheaplist/shops/distances
 
 JSON Entrée Exemple : 
+
 {
 	"lat":50.6138111,
 	"lng":3.0423598999999997
-	
 }
 
 /***** MEMBER *************************/
 
 Lister tous les membres (avec leurs options choisis et les magasins favoris) :
 
-HTTP GET http://localhost:8080/cheaplist/members
+HTTP GET : http://localhost:8080/cheaplist/members
 
 Profil d'un membre : 
 
-HTTP GET http://localhost:8080/cheaplist/members/69
+HTTP GET : http://localhost:8080/cheaplist/members/69
 
 Création d'un membre (en cours : Mise en place des validators, prévu Dimanche) :
 
@@ -89,18 +91,31 @@ HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 --> Modifie le nom d'une liste 
 
+HTTP PAtch: *** En cours ce soir *****
 
 
-Affiche un produit d'un ID List (attention c'est l'ID de l'element)
 
-HHTP GET : http://localhost:8080/cheaplist/lists/22/element/36117
+Affiche un élement d'un ID List (attention c'est l'ID de l'element)
+
+HHTP GET : http://localhost:8080/cheaplist/lists/22/element/10
 
 PATCH d'un produit 
 
 HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
+Exemple JSON:
+
+{
+ 
+"id": 10,
+ 
+"productQuantity": 55
+
+}
+
+
 /**** Ajout un element dans une liste *****/
-Ici , on ajoute un element IDn° 11096, avec la quantité :
+Ici , on ajoute un element avec le produit ID n° 11096 et la quantité :
 
 HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/
 
