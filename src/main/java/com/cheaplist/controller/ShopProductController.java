@@ -4,6 +4,7 @@ package com.cheaplist.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.cheaplist.service.ShopProductService;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/prices")
 public class ShopProductController {

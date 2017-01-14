@@ -5,6 +5,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/shops/distances")
 
@@ -50,7 +52,7 @@ public class GoogleController {
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			String radius = "15000"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On récupère la liste des magasins à partir du GPS du client
@@ -70,7 +72,7 @@ public class GoogleController {
 			int i=0;
 			for (JsonNode node : googleNode.path("results")) {
 			
-				// Pour chaque magasin donné par GOOGLE, on v�rifie qu'il est bien dans notre BD
+				// Pour chaque magasin donné par GOOGLE, on v�rifie qu'il est bien dans notre BD
 				// Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
 				System.out.println("Seb: "+idgoogle);

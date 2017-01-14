@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import com.cheaplist.service.SectionService;
 import com.fasterxml.jackson.annotation.JsonView;
 
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/sections")
 public class SectionController {
@@ -26,7 +28,7 @@ public class SectionController {
 
 	/***  READ ALL SECTION  ****/
 	@JsonView(View.Section.class)
-	@RequestMapping(value="",method=RequestMethod.GET)
+	@RequestMapping(value="",method=RequestMethod.PUT)
 	public List<Section> sectionAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
 		for ( Section section : sectionList)

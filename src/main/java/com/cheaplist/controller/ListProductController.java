@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +27,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/lists")
 public class ListProductController {
 
 	/*
-	 * Attention BUG: Contrôler l'ajout d'un element (vérifier que le produit n'est pas dans la liste des élements au préable)
+	 * Attention BUG: Contrï¿½ler l'ajout d'un element (vï¿½rifier que le produit n'est pas dans la liste des ï¿½lements au prï¿½able)
 	 * 
 	 * 
 	 */
@@ -130,7 +132,7 @@ public class ListProductController {
 		String answer= null;
 	/***** C'est parti    *******/
 		
-	/**** On recupère la liste des magasins *****/
+	/**** On recupï¿½re la liste des magasins *****/
 		/*** Mettre un validator coordinate (plus tard) ****/
 
 		/** SI le flag error n'est pas leve **/
@@ -147,7 +149,7 @@ public class ListProductController {
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			String radius = "15000"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Gï¿½ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On rÃ©cupÃ¨re la liste des magasins Ã  partir du GPS du client
@@ -167,7 +169,7 @@ public class ListProductController {
 			int i=0;
 			for (JsonNode node : googleNode.path("results")) {
 			
-				// Pour chaque magasin donnÃ© par GOOGLE, on vérifie qu'il est bien dans notre BD
+				// Pour chaque magasin donnÃ© par GOOGLE, on vï¿½rifie qu'il est bien dans notre BD
 				// Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
 				System.out.println("Seb: "+idgoogle);

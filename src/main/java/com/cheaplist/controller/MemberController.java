@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.cheaplist.service.MemberService;
 import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/members")
 public class MemberController {

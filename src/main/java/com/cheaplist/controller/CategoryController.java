@@ -1,6 +1,7 @@
 package com.cheaplist.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +11,7 @@ import com.cheaplist.model.View;
 import com.cheaplist.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonView;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryController {
@@ -26,7 +28,7 @@ public class CategoryController {
 
 	/*** READ ALL PRODUCT BY CATEGORY ****/
 	@JsonView(View.CategoryProduct.class)
-	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/products", method = RequestMethod.PUT)
 	public Category categoryAllProduct(@PathVariable Integer id) {
 		return categoryService.findById(id.intValue());
 	}
