@@ -36,6 +36,7 @@ public class Section implements Serializable {
 	private String urlImage;
 
 	// bi-directional many-to-one association to Category
+	@OrderBy("id asc")
 	@JsonView(View.SectionCategory.class)
 	@OneToMany(mappedBy = "section", fetch = FetchType.EAGER)
 	private Set<Category> categories;
