@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Address;
 import com.cheaplist.service.AddressService;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/address")

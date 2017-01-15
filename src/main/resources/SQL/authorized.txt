@@ -1,6 +1,8 @@
-// Toutes les commandes ont vérifiés le 12 Janvier à 21h55
+// Fix d'urgence
 
-Mise à jour des commandes autorisées en URL (HTTP Methode Filtrée):
+// Toutes les commandes ont vï¿½rifiï¿½s le 12 Janvier ï¿½ 21h55
+
+Mise ï¿½ jour des commandes autorisï¿½es en URL (HTTP Methode Filtrï¿½e):
 
 /***** SECTION (Rayons) ******/
 
@@ -12,22 +14,22 @@ Une section :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1
 
-Les catégories d'une section précise :
+Les catï¿½gories d'une section prï¿½cise :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
 
 /***** CATEGORIES ***********/
 
-Une categorie précise : 
+Une categorie prï¿½cise : 
 HTTP GET : http://localhost:8080/cheaplist/categories/1
 
-Tous les produits d'une catégorie précise : 
+Tous les produits d'une catï¿½gorie prï¿½cise : 
 HTTP GET :  http://localhost:8080/cheaplist/categories/1/products
 
 
 /**** PRODUCT **********************/
 
-Fiche d'identité d'un produit :
+Fiche d'identitï¿½ d'un produit :
 
 HTTP GET : http://localhost:8080/cheaplist/products/8780
 
@@ -39,17 +41,17 @@ Donner tous les prix pour un produit (donc en fonction des magasins):
 HTTP GET : http://localhost:8080/cheaplist/prices/15320
 
 
-Donner le prix d'un produit par rapport à un magasin (ici ID Magasin 112):
+Donner le prix d'un produit par rapport ï¿½ un magasin (ici ID Magasin 112):
 
 HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
 
 /***** Google ***************************/
 
-Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
+Lister les magasins en fonction du GPS (RADIUS par dï¿½faut : 2.5Km) 
 HTTP POST : http://localhost:8080/cheaplist/shops/distances
 
-JSON Entrée Exemple : 
+JSON Entrï¿½e Exemple : 
 
 {
 	"lat":50.6138111,
@@ -66,11 +68,11 @@ Profil d'un membre :
 
 HTTP GET : http://localhost:8080/cheaplist/members/69
 
-Création d'un membre (en cours : Mise en place des validators, prévu Dimanche) :
+Crï¿½ation d'un membre (en cours : Mise en place des validators, prï¿½vu Dimanche) :
 
-Suppression d'un membre  (en cours, prévu Dimanche)
+Suppression d'un membre  (en cours, prï¿½vu Dimanche)
 
-Mise à jour d'un membre :  (en cours, prévu Dimanche)
+Mise ï¿½ jour d'un membre :  (en cours, prï¿½vu Dimanche)
 
 /******** Page d'accueil   ***********/
 Affiche les listes d'un membre :
@@ -89,7 +91,7 @@ HTTP GET  http://localhost:8080/cheaplist/members/69/lists
 HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 
---> Modifie les paramètres d'une liste
+--> Modifie les paramï¿½tres d'une liste
 
 HTTP PAtch: http://localhost:8080/cheaplist/lists/22
 
@@ -108,21 +110,21 @@ HTTP PAtch: http://localhost:8080/cheaplist/lists/22
 }
 
 
---> Mode DEBUG ONLY : voir les informations d'une liste (sans ses élements)
+--> Mode DEBUG ONLY : voir les informations d'une liste (sans ses ï¿½lements)
 
 HTTP PUT : http://localhost:8080/cheaplist/lists/22
 
---> Supprimer une liste (elle est enregisté et une nouvelle liste est remis en place)
+--> Supprimer une liste (elle est enregistï¿½ et une nouvelle liste est remis en place)
 
 HTTP DELETE : http://localhost:8080/cheaplist/lists/32
 
 
-Affiche un élement d'un ID List (attention c'est l'ID de l'element)
+Affiche un ï¿½lement d'un ID List (attention c'est l'ID de l'element)
 
 HHTP GET : http://localhost:8080/cheaplist/lists/22/element/10
 
 
-Modifie un element d'un ID List (comme la quantité )
+Modifie un element d'un ID List (comme la quantitï¿½ )
 
 HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
@@ -138,7 +140,7 @@ Exemple JSON:
 
 
 /**** Ajout un element dans une liste *****/
-Ici , on ajoute un element avec le produit ID n° 11096 et la quantité :
+Ici , on ajoute un element avec le produit ID nï¿½ 11096 et la quantitï¿½ :
 
 HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/
 
@@ -152,12 +154,12 @@ JSON FORMAT :
 
 /*** Suppression un element dans une liste *****/
 
-Ici, Liste ID n°22, Element ID n°5
+Ici, Liste ID nï¿½22, Element ID nï¿½5
 
 HTTP DELETE : http://localhost:8080/cheaplist/lists/22/element/5
 
 /***** DEVIS ***************/
 
-Calculer le prix d'une liste en fonction d'un magasin (prévu Samedi soir)
+Calculer le prix d'une liste en fonction d'un magasin (prï¿½vu Samedi soir)
 
 

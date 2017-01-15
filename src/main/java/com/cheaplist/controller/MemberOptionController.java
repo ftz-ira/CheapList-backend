@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.MemberOption;
 import com.cheaplist.service.MemberOptionService;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/memberOption")

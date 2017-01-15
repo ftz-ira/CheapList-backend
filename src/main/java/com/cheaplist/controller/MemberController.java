@@ -19,6 +19,8 @@ import com.cheaplist.service.MemberService;
 import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/members")

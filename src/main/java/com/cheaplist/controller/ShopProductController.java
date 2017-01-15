@@ -14,6 +14,8 @@ import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.cheaplist.service.ShopProductService;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/prices")

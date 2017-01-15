@@ -11,6 +11,8 @@ import com.cheaplist.model.View;
 import com.cheaplist.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonView;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/categories")

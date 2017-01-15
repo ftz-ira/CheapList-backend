@@ -17,7 +17,7 @@ import com.cheaplist.model.View;
 import com.cheaplist.service.SectionService;
 import com.fasterxml.jackson.annotation.JsonView;
 
-
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/sections")

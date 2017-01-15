@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Setting;
 import com.cheaplist.service.SettingService;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/setting")

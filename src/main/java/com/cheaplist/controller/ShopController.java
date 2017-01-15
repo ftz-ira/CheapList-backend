@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cheaplist.model.Shop;
 import com.cheaplist.service.ShopService;
 
+
+//Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/shop")
