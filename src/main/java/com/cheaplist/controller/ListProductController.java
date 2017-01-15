@@ -20,13 +20,13 @@ import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
+import com.cheaplist.service.ShopService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 
 //Fix d'urgence
 @CrossOrigin(origins = "*")
@@ -35,14 +35,17 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class ListProductController {
 
 	/*
-	 * Attention BUG: Contr�ler l'ajout d'un element (v�rifier que le produit n'est pas dans la liste des �lements au pr�able)
+	 * Attention BUG: Contr�ler l'ajout d'un element (v�rifier que le produit
+	 * n'est pas dans la liste des �lements au pr�able)
 	 * 
 	 * 
 	 */
-	
-	
+
 	@Autowired
 	private ListProductService listProductService;
+
+	@Autowired
+	private ShopService shopService;
 
 	/*
 	 * @Autowired private ListProductValidator listProductValidator;
@@ -96,7 +99,7 @@ public class ListProductController {
 				return null;
 			listProduct = listProductService.createOneElement(idList, idProduct, productQuantity);
 			System.out.println(listProduct.getId());
-		} catch (IOException | ListProductNotFound e) { 
+		} catch (IOException | ListProductNotFound e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -117,41 +120,32 @@ public class ListProductController {
 		listProductService.delete(listProduct.getId());
 		return new ResponseEntity<String>("ELEMENT DELETED", HttpStatus.OK);
 	}
-	
-	
+
 	/*
 	 * 
-	 * CALCULE LE DEVIS D'UNE LISTE 
+	 * CALCULE LE DEVIS D'UNE LISTE
 	 * 
 	 * 
-	 *  C'est Parti
+	 * C'est Parti
 	 */
 
 	@JsonView(View.ListProduct.class)
-	@RequestMapping(value = "/{id}/estimate", method = RequestMethod.GET)
-	public String ListAllPrices(@PathVariable Integer id, @RequestBody String coordinate) 
-	{
-		String answer= null;
-	/***** C'est parti    *******/
-		
-	/**** On recup�re la liste des magasins *****/
-		/*** Mettre un validator coordinate (plus tard) ****/
-
-		/** SI le flag error n'est pas leve **/
-/*
+	@RequestMapping(value = "/{idList}", method = RequestMethod.POST)
+	public String ListAllPrices(@PathVariable Integer idList, @RequestBody String coordinate) {
+		System.out.println(coordinate);
 		String answerGoogle = "";
 		ObjectMapper mapper;
 		ArrayNode arrayNode;
 		String answerJson = null;
-	
 
+		/*** On récupère les ID des magasins autour de l'utilisateur ****/
 		try {
 			mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
-			String radius = "15000"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
+			String radius = "3500"; // Par defaut
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On récupère la liste des magasins à partir du GPS du client
@@ -161,28 +155,23 @@ public class ListProductController {
 							+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key,
 					String.class);
 
-			System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
-					+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key);
+			System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + ","
+					+ lng + "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key);
 			// On trie le JSON donnée par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
 			arrayNode = mapper.createArrayNode();
-			
-			int i=0;
+			long numberElement = listProductService.countElement(idList);
 			for (JsonNode node : googleNode.path("results")) {
-			
-				// Pour chaque magasin donné par GOOGLE, on v�rifie qu'il est bien dans notre BD
-				// Ils ont un attribut commun : idGoogle
+
+				// Pour chaque magasin donné par GOOGLE, on verifie qu'il est
+				// bien dans notre BD // Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
-				System.out.println("Seb: "+idgoogle);
+				System.out.println("Seb: " + idgoogle);
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
-				if (shop != null) {
-					
-					i++;
-					System.out.println("Test i :"+i);
-					// ID Validé, on prend les coordonnées GPS du magasin et on calcule la distance entre l'user et les magasins. 
-
+				// Pour chaque magasin trouvé
+				if (shop != null) {		
 					double latShop = shop.getAddress().getLag();
 					double lntShop = shop.getAddress().getLng();
 
@@ -193,24 +182,24 @@ public class ListProductController {
 					objectNode1.put("name", shop.getName());
 					objectNode1.put("distance", resultat);
 					arrayNode.add(objectNode1);
+					
+					double devis = listProductService.findPrice(idList,shop.getId());
+					long missing = listProductService.findMissing(idList,shop.getId());
+					objectNode1.put("devis",String.valueOf(devis));
+					objectNode1.put("missing",String.valueOf(numberElement- missing));
+					System.out.println("Devis Test :"+devis+ "   Missing : "+missing);
+					
+							
 				}
 			}
+
 			answerJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
 
-		
-		
-		
-		
-		
-		
-		
-		*/
-		
-		return answer;	
-		
-		
+		} catch (IOException e) {
+
+		}
+
+		return answerJson;
+
 	}
-	
-	
-	
 }

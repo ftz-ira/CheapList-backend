@@ -123,4 +123,23 @@ public class ListProductServiceImpl implements ListProductService {
 		return listProductRepository.findProductsByList(idList);
 	}
 
+	@Override
+	@Transactional
+	public double findPrice(Integer idList, int idShop) {
+		return listProductRepository.findPrice(idList, idShop);
+	}
+
+	@Override
+	@Transactional
+	public long findMissing(Integer idList, int idShop) {
+		// TODO Auto-generated method stub
+		return listProductRepository.findMissing(idList, idShop);
+	}
+
+	@Override
+	@Transactional
+	public long countElement(Integer idList) {
+		return listProductRepository.countElement(idList);
+	}
+
 }
