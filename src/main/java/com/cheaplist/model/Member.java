@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 @Entity
 @Table(name="member")
+@Where(clause ="is_active = 1")
 @NamedQuery(name="Member.findAll", query="SELECT m FROM Member m")
 public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -51,6 +52,8 @@ public class Member implements Serializable {
 	@Column(nullable=false, length=45)
 	private String email;
 	
+	@JsonView(View.MemberIdentity.class)
+	
 	@Column(name="is_active", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean isActive;
 
@@ -66,13 +69,13 @@ public class Member implements Serializable {
 	@Column(nullable=false, length=45)
 	private String password;
 
-	@Column(nullable=false, length=45)
+	@Column(length=45)
 	private String token;
 
 	//bi-directional many-to-one association to Address
 	@JsonView(View.MemberIdentity.class)
 	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-	@JoinColumn(name="address_id", nullable=false)
+	@JoinColumn(name="address_id")
 	private Address address;
 
 	//bi-directional many-to-one association to MemberOption

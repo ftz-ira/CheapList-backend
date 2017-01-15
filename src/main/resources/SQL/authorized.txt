@@ -72,7 +72,18 @@ HTTP GET : http://localhost:8080/cheaplist/members/69
 
 Creation d'un membre (en cours : Mise en place des validators, pr�vu Dimanche) :
 
-Suppression d'un membre  (en cours, pr�vu Dimanche)
+HTTP PUT : http://localhost:8080/cheaplist/members/
+
+{
+  "email": "kywalky@gmail.com",
+  "login": "Sebastien",
+  "name": "LeGrandSeb",
+  "password": "jesuisquundieu"
+}
+
+
+
+Suppression d'un membre  (en cours, prevu Dimanche)
 
 Mise � jour d'un membre :  (en cours, pr�vu Dimanche)
 

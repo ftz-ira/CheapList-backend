@@ -12,5 +12,6 @@ public interface MemberService {
 	public List<Member> findAll();
 	public Member update(Member member) throws MemberNotFound;
 	public Member findById(int id);
+	public Member patch(Integer idMember, Member member) throws MemberNotFound;
 
 }

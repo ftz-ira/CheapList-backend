@@ -1,5 +1,6 @@
 package com.cheaplist.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,7 +14,7 @@ import com.cheaplist.repository.MemberRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	
+
 	@Resource
 	private MemberRepository memberRepository;
 
@@ -21,10 +22,11 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Member create(Member member) {
 		Member createdMember = member;
-		
+		createdMember.setIsActive(true);
+		createdMember.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		return memberRepository.save(createdMember);
 	}
-	
+
 	@Override
 	@Transactional
 	public Member findById(int id) {
@@ -32,13 +34,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=MemberNotFound.class)
+	@Transactional(rollbackFor = MemberNotFound.class)
 	public Member delete(int id) throws MemberNotFound {
 		Member deletedMember = memberRepository.findOne(id);
-		
+
 		if (deletedMember == null)
 			throw new MemberNotFound();
-		
+
 		memberRepository.delete(deletedMember);
 		return deletedMember;
 	}
@@ -50,10 +52,10 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=MemberNotFound.class)
+	@Transactional(rollbackFor = MemberNotFound.class)
 	public Member update(Member member) throws MemberNotFound {
 		Member updatedMember = memberRepository.findOne(member.getId());
-		
+
 		if (updatedMember == null)
 			throw new MemberNotFound();
 
@@ -64,10 +66,39 @@ public class MemberServiceImpl implements MemberService {
 		updatedMember.setIsActive(member.getIsActive());
 		updatedMember.setEmail(member.getEmail());
 		updatedMember.setToken(member.getToken());
-		
-		
-		
+
 		return updatedMember;
+	}
+
+	@Override
+	@Transactional(rollbackFor = MemberNotFound.class)
+	public Member patch(Integer idMember, Member member) throws MemberNotFound {
+		// TODO Auto-generated method stub
+		System.out.println("Test Cle :"+idMember);
+		Member updatedMember = memberRepository.findOne(idMember);
+		if (updatedMember == null)
+			throw new MemberNotFound();
+
+		if (member.getIsActive() != null)
+			updatedMember.setIsActive(member.getIsActive());
+		if (member.getAddress() != null)
+			updatedMember.setAddress(member.getAddress());
+		if (member.getEmail() != null)
+			updatedMember.setEmail(member.getEmail());
+		if (member.getLogin() != null)
+			updatedMember.setLogin(member.getLogin());
+		if (member.getMemberOptions() != null)
+			updatedMember.setMemberOptions(member.getMemberOptions());
+		if (member.getName() != null)
+			updatedMember.setName(member.getName());
+		if (member.getPassword() != null)
+			updatedMember.setPassword(member.getPassword());
+		if (member.getShops() != null)
+			updatedMember.setShops(member.getShops());
+		if (member.getToken() != null)
+			updatedMember.setToken(member.getToken());
+		return updatedMember;
+
 	}
 
 }
