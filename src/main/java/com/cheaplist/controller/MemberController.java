@@ -19,6 +19,14 @@ import com.cheaplist.service.MemberService;
 import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
 
+/**
+ * CREATE  --> AUTORISER
+ * READ    --> DONE
+ * PATCH   --> 
+ * DELETE  --> SAVE ET CREATE
+ * 
+ */	
+
 
 //Fix d'urgence
 @CrossOrigin(origins = "*")
@@ -39,9 +47,11 @@ public class MemberController {
 	 @RequestMapping(value="/",method=RequestMethod.PUT,consumes="application/json",produces="application/json")
 	 List<ObjectError> createNewShop(@RequestBody Member member,BindingResult result) 			
 	 { 
-		 	memberValidator.validate(member,result);		 	
+		 	memberValidator.validate(member,result);
+		 	
 		 	if (result.hasErrors()) return result.getAllErrors();	
-		 	member =memberService.create(member);	
+		 	System.out.println(member.toString());
+		 	// 	member =memberService.create(member);	
 		 	System.out.println(member.getId());
 		 	return null;
 	 }

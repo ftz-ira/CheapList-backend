@@ -1,4 +1,4 @@
-// Fix d'urgence
+﻿// Fix d'urgence
 
 // Toutes les commandes ont v�rifi�s le 12 Janvier � 21h55
 
@@ -17,6 +17,8 @@ HTTP GET : http://localhost:8080/cheaplist/sections/1
 Les cat�gories d'une section pr�cise :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
+
+@OrderBy("id asc")
 
 /***** CATEGORIES ***********/
 
@@ -68,7 +70,7 @@ Profil d'un membre :
 
 HTTP GET : http://localhost:8080/cheaplist/members/69
 
-Cr�ation d'un membre (en cours : Mise en place des validators, pr�vu Dimanche) :
+Creation d'un membre (en cours : Mise en place des validators, pr�vu Dimanche) :
 
 Suppression d'un membre  (en cours, pr�vu Dimanche)
 

@@ -63,6 +63,7 @@ public class ShoppingList implements Serializable {
 
 	//bi-directional many-to-one association to ListProduct
 //	@JsonView(View.ListProduct.class)
+	@JsonView(View.MemberList.class)
 	@OneToMany(mappedBy="shoppingList",fetch=FetchType.EAGER)
 	private Set<ListProduct> listProducts;
 
