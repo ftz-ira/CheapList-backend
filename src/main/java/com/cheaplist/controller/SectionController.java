@@ -28,7 +28,7 @@ public class SectionController {
 
 	/***  READ ALL SECTION  ****/
 	@JsonView(View.Section.class)
-	@RequestMapping(value="",method=RequestMethod.PUT)
+	@RequestMapping(value="",method=RequestMethod.GET)
 	public List<Section> sectionAll() {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
 		for ( Section section : sectionList)
