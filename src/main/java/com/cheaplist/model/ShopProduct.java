@@ -23,11 +23,12 @@ public class ShopProduct implements Serializable {
 	private int id;
 
 	@JsonView({View.ProductShop.class,View.PriceProduct.class})
-	private double price;
+	private Double price;
 
 	private float ratio;
 
 	//bi-directional many-to-one association to Product
+	@JsonView(View.PriceProduct.class)
 	@ManyToOne
 	@JoinColumn(name="product_id", nullable=false)
 	private Product product;
@@ -50,11 +51,11 @@ public class ShopProduct implements Serializable {
 		this.id = id;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

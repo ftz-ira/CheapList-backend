@@ -52,7 +52,7 @@ public class MemberController {
 	}
 
 	/***** CREATE A NEW MEMBER ******/
-	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
+	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	List<ObjectError> createNewShop(@RequestBody Member member, BindingResult result) {
 		memberValidator.validate(member, result);
 		if (result.hasErrors())

@@ -24,7 +24,7 @@ public class MemberValidator implements Validator {
 		ValidationUtils.rejectIfEmpty(errors,"name","name missing");
 		ValidationUtils.rejectIfEmpty(errors,"login","login missing");
 		ValidationUtils.rejectIfEmpty(errors,"password","password missing");
-		ValidationUtils.rejectIfEmpty(errors,"email","rmail missing");
+		ValidationUtils.rejectIfEmpty(errors,"email","email missing");
 			
 		/*Shop shop = (Shop) target;
 		

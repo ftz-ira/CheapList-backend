@@ -48,6 +48,22 @@ Donner le prix d'un produit par rapport � un magasin (ici ID Magasin 112):
 HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
 
+CRéer une référence d'un prix en fonction du magasin et du produit
+
+HTTP POST : http://localhost:8080/cheaplist/prices/
+
+ {
+    "price": 9.69,
+    "product": {
+      "id": 15320
+    },
+    "shop": {
+      "id": 69
+    }
+  }
+
+
+
 /***** Google ***************************/
 
 Lister les magasins en fonction du GPS (RADIUS par d�faut : 2.5Km) 
