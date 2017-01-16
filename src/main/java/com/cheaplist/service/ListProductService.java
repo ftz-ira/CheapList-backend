@@ -2,6 +2,8 @@ package com.cheaplist.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.cheaplist.exception.ListProductNotFound;
 import com.cheaplist.model.ListProduct;
 
@@ -15,10 +17,13 @@ public interface ListProductService {
 
 	/*** CUSTOM METHOD ***/
 	List<ListProduct> findProductsByList(int idList);
+	ListProduct findElementByListBtProduct(int idList,int idProduct);
 	ListProduct findProductByList(int idList, int idProduct);
 	ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ListProductNotFound;
 	ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ListProductNotFound;
+	
 	public double findPrice(Integer idList, int idShop);
 	public long findMissing(Integer idList, int idShop);
 	public long countElement(Integer idList);
+
 }

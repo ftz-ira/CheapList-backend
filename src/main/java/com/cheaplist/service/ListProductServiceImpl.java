@@ -142,4 +142,10 @@ public class ListProductServiceImpl implements ListProductService {
 		return listProductRepository.countElement(idList);
 	}
 
+	@Override
+	public ListProduct findElementByListBtProduct(int idList, int idProduct) {
+		return listProductRepository.findElementByListBtProduct(idList, idProduct);
+	}
+
+
 }

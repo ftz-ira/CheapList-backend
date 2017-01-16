@@ -185,6 +185,14 @@ HTTP POST : http://localhost:8080/cheaplist/lists/23/
 	"lng":3.0423598999999997
 }
 
+/**** PATCH FRANTZ********/
+
+HTTP PATCH : http://localhost:8080/cheaplist/lists/22
+
+{
+	"idProduct":8780,
+	"productQuantity":0
+}
 
 
 

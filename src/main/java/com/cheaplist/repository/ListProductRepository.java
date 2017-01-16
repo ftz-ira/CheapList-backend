@@ -16,6 +16,9 @@ public interface ListProductRepository extends JpaRepository<ListProduct, Intege
 	@Query("SELECT lp FROM ListProduct lp where lp.shoppingList.id = :idList and lp.id = :idElement")
 	ListProduct findProductByList(@Param("idList") int idList, @Param("idElement") int idElement);
 	
+	@Query("SELECT lp FROM ListProduct lp where lp.shoppingList.id = :idList and lp.product.id = :idProduct")
+	ListProduct findElementByListBtProduct(@Param("idList") int idList, @Param("idProduct") int idProduct);
+	
 	@Query("SELECT COALESCE(sum(lp.productQuantity*sp.price),0) FROM ListProduct lp "
 			+ "inner join lp.product "
 			+ "left join lp.product.shopProducts as sp "

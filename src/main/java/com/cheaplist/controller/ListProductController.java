@@ -20,9 +20,11 @@ import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
+import com.cheaplist.service.ProductService;
 import com.cheaplist.service.ShopService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -46,6 +48,9 @@ public class ListProductController {
 
 	@Autowired
 	private ShopService shopService;
+
+	@Autowired
+	private ProductService productService;
 
 	/*
 	 * @Autowired private ListProductValidator listProductValidator;
@@ -79,6 +84,48 @@ public class ListProductController {
 		listProduct = listProductService.patch(idList, idElement, listProduct);
 		return listProduct;
 
+	}
+
+	/**** PATCH FRANTZ : TRIPLE ACTIONS *****/
+	/** CREATE ELEMENT LIST IF ELEMENT NOT EXIST **/
+	/** UPDATE QUANTITY IF ELEMENT EXIST **/
+	/**
+	 * DELETE ELEMENT IF QUANTITY IS ZERO
+	 * 
+	 * @throws IOException
+	 * @throws JsonProcessingException
+	 **/
+	@JsonView(View.ListProduct.class)
+	@RequestMapping(value = "/{idList}", method = RequestMethod.PATCH, consumes = "application/json")
+	public List<ListProduct> PatchQuantity(@PathVariable Integer idList, @RequestBody String jsondata)
+			throws ListProductNotFound, JsonProcessingException, IOException {
+		/*** JSON DEMAPPING ***/
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode rootNode = mapper.readTree(new StringReader(jsondata));
+		int idProduct = rootNode.path("idProduct").asInt();
+		int productQuantity = rootNode.path("productQuantity").asInt();
+		
+		/****
+		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée un
+		 ***/
+		ListProduct listProduct = listProductService.findElementByListBtProduct(idList, idProduct);
+
+		// Introuvable donc on en crée un autre élement dans la liste
+		if (listProduct == null) {
+			if (productQuantity < 1) productQuantity =1;
+			listProductService.createOneElement(idList, idProduct, productQuantity);
+
+		} else {
+			// Si l'element est trouvé, on va l'update
+
+			if (productQuantity > 0) {
+				listProduct.setProductQuantity(productQuantity);
+				listProductService.patch(idList, listProduct.getId(), listProduct);
+			} else {
+				listProductService.delete(listProduct.getId());
+			}
+		}
+		return listProductService.findProductsByList(idList);
 	}
 
 	/*** ADD ONE ELEMENT FROM ONE LIST ***/
@@ -145,7 +192,7 @@ public class ListProductController {
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			String radius = "3500"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On récupère la liste des magasins à partir du GPS du client
@@ -171,7 +218,7 @@ public class ListProductController {
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
 				// Pour chaque magasin trouvé
-				if (shop != null) {		
+				if (shop != null) {
 					double latShop = shop.getAddress().getLag();
 					double lntShop = shop.getAddress().getLng();
 
@@ -182,14 +229,13 @@ public class ListProductController {
 					objectNode1.put("name", shop.getName());
 					objectNode1.put("distance", resultat);
 					arrayNode.add(objectNode1);
-					
-					double devis = listProductService.findPrice(idList,shop.getId());
-					long missing = listProductService.findMissing(idList,shop.getId());
-					objectNode1.put("devis",String.valueOf(devis));
-					objectNode1.put("missing",String.valueOf(numberElement- missing));
-					System.out.println("Devis Test :"+devis+ "   Missing : "+missing);
-					
-							
+
+					double devis = listProductService.findPrice(idList, shop.getId());
+					long missing = listProductService.findMissing(idList, shop.getId());
+					objectNode1.put("devis", String.valueOf(devis));
+					objectNode1.put("missing", String.valueOf(numberElement - missing));
+					System.out.println("Devis Test :" + devis + "   Missing : " + missing);
+
 				}
 			}
 
