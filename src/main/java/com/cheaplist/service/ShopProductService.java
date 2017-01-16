@@ -13,6 +13,7 @@ public interface ShopProductService {
 	public ShopProduct update(ShopProduct shopProduct) throws ShopProductNotFound;
 	public ShopProduct findById(int id);
 	List<ShopProduct> findPriceByProduct(int idProduct);
-	List<ShopProduct> findPriceByProductShop(int idProduct, int idShop);
+	ShopProduct findPriceByProductShop(int idProduct, int idShop);
+	ShopProduct patch(ShopProduct shopProduct) throws ShopProductNotFound;
 
 }

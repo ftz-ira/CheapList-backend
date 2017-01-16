@@ -61,6 +61,18 @@ public class ShopProductServiceImpl implements ShopProductService {
 		updatedShopProduct.setPrice(shopProduct.getPrice());
 		return updatedShopProduct;
 	}
+	
+	@Override
+	@Transactional(rollbackFor=ShopProductNotFound.class)
+	public ShopProduct patch(ShopProduct shopProduct) throws ShopProductNotFound {
+		ShopProduct updatedShopProduct = shopProductRepository.findPriceByProductShop(shopProduct.getProduct().getId(),shopProduct.getShop().getId());
+		
+		if (updatedShopProduct == null)
+			throw new ShopProductNotFound();
+		
+		updatedShopProduct.setPrice(shopProduct.getPrice());
+		return updatedShopProduct;
+	}
 
 	@Override
 	@Transactional
@@ -70,7 +82,7 @@ public class ShopProductServiceImpl implements ShopProductService {
 	
 	@Override
 	@Transactional
-	public List<ShopProduct> findPriceByProductShop(int idProduct, int idShop) {
+	public ShopProduct findPriceByProductShop(int idProduct, int idShop) {
 		return shopProductRepository.findPriceByProductShop(idProduct,idShop);
 	}
 

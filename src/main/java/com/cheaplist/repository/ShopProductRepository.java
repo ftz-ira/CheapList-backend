@@ -13,6 +13,6 @@ public interface ShopProductRepository extends JpaRepository<ShopProduct, Intege
 	List<ShopProduct> findPriceByProduct(@Param("idProduct") int idProduct);
 	
 	@Query("SELECT sp FROM ShopProduct sp where sp.product.id = :idProduct and sp.shop.id = :idShop")
-	List<ShopProduct> findPriceByProductShop(@Param("idProduct") int idProduct,@Param("idShop") int idShop);
+	ShopProduct findPriceByProductShop(@Param("idProduct") int idProduct,@Param("idShop") int idShop);
 
 }

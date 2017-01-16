@@ -1,8 +1,8 @@
 ﻿// Fix d'urgence
 
-// Toutes les commandes ont v�rifi�s le 12 Janvier � 21h55
+// Toutes les commandes ont vérifiées le 12 Janvier à 21h55
 
-Mise � jour des commandes autoris�es en URL (HTTP Methode Filtr�e):
+Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 /***** SECTION (Rayons) ******/
 
@@ -14,24 +14,22 @@ Une section :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1
 
-Les cat�gories d'une section pr�cise :
+Les catégories d'une section précise :
 
 HTTP GET : http://localhost:8080/cheaplist/sections/1/categories/
 
-@OrderBy("id asc")
-
 /***** CATEGORIES ***********/
 
-Une categorie pr�cise : 
+Une categorie précise : 
 HTTP GET : http://localhost:8080/cheaplist/categories/1
 
-Tous les produits d'une cat�gorie pr�cise : 
+Tous les produits d'une catégorie précise : 
 HTTP GET :  http://localhost:8080/cheaplist/categories/1/products
 
 
 /**** PRODUCT **********************/
 
-Fiche d'identit� d'un produit :
+Fiche d'identité d'un produit :
 
 HTTP GET : http://localhost:8080/cheaplist/products/8780
 
@@ -43,33 +41,31 @@ Donner tous les prix pour un produit (donc en fonction des magasins):
 HTTP GET : http://localhost:8080/cheaplist/prices/15320
 
 
-Donner le prix d'un produit par rapport � un magasin (ici ID Magasin 112):
+Donner le prix d'un produit par rapport à un magasin (ici ID Magasin 112):
 
 HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
 
-CRéer une référence d'un prix en fonction du magasin et du produit
+Modifie le prix d'un produit par rapport à un magasin (PATCH Powwa)
 
-HTTP POST : http://localhost:8080/cheaplist/prices/
+HTTP PATCH : http://localhost:8080/cheaplist/prices/
 
  {
-    "price": 9.69,
+    "price": 99.99,
     "product": {
       "id": 15320
     },
     "shop": {
-      "id": 69
+      "id": 157
     }
   }
 
-
-
 /***** Google ***************************/
 
-Lister les magasins en fonction du GPS (RADIUS par d�faut : 2.5Km) 
+Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
 HTTP POST : http://localhost:8080/cheaplist/shops/distances
 
-JSON Entr�e Exemple : 
+JSON Entrée Exemple : 
 
 {
 	"lat":50.6138111,
@@ -86,7 +82,7 @@ Profil d'un membre :
 
 HTTP GET : http://localhost:8080/cheaplist/members/69
 
-Creation d'un membre (en cours : Mise en place des validators, pr�vu Dimanche) :
+Creation d'un membre (en cours : Mise en place des validators, prévu Dimanche) :
 
 HTTP PUT : http://localhost:8080/cheaplist/members/
 
@@ -101,7 +97,7 @@ HTTP PUT : http://localhost:8080/cheaplist/members/
 
 Suppression d'un membre  (en cours, prevu Dimanche)
 
-Mise � jour d'un membre :  (en cours, pr�vu Dimanche)
+Mise à jour d'un membre :  (en cours, prévu Dimanche)
 
 /******** Page d'accueil   ***********/
 Affiche les listes d'un membre :
@@ -120,56 +116,47 @@ HTTP GET  http://localhost:8080/cheaplist/members/69/lists
 HTTP GET   http://localhost:8080/cheaplist/lists/22
 
 
---> Modifie les param�tres d'une liste
+--> Modifie les paramètres d'une liste
 
 HTTP PAtch: http://localhost:8080/cheaplist/lists/22
 
-{
-  
+{  
 "isActif": true,
-
   "isClose": false,
-
   "isDone": false,
-
-  "isFavor": true,
- 
+  "isFavor": true, 
  "name": "Seasb"
-
 }
 
 
---> Mode DEBUG ONLY : voir les informations d'une liste (sans ses �lements)
+--> Mode DEBUG ONLY : voir les informations d'une liste (sans ses élements)
 
 HTTP PUT : http://localhost:8080/cheaplist/lists/22
 
---> Supprimer une liste (elle est enregist� et une nouvelle liste est remis en place)
+--> Supprimer une liste (elle est enregisté et une nouvelle liste est remis en place)
 
 HTTP DELETE : http://localhost:8080/cheaplist/lists/32
 
 
-Affiche un �lement d'un ID List (attention c'est l'ID de l'element)
+Affiche un élement d'un ID List (attention c'est l'ID de l'element)
 
 HHTP GET : http://localhost:8080/cheaplist/lists/22/element/10
 
 
-Modifie un element d'un ID List (comme la quantit� )
+Modifie un element d'un ID List (comme la quantité )
 
 HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
 Exemple JSON:
 
-{
- 
-"id": 10,
- 
+{ 
+"id": 10, 
 "productQuantity": 55
-
 }
 
 
 /**** Ajout un element dans une liste *****/
-Ici , on ajoute un element avec le produit ID n� 11096 et la quantit� :
+Ici , on ajoute un element avec le produit ID n° 11096 et la quantité :
 
 HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/
 
@@ -183,12 +170,21 @@ JSON FORMAT :
 
 /*** Suppression un element dans une liste *****/
 
-Ici, Liste ID n�22, Element ID n�5
+Ici, Liste ID n°22, Element ID n°5
 
 HTTP DELETE : http://localhost:8080/cheaplist/lists/22/element/5
 
 /***** DEVIS ***************/
 
-Calculer le prix d'une liste en fonction d'un magasin (pr�vu Samedi soir)
+Calculer le prix d'une liste en fonction d'un magasin :
+
+HTTP POST : http://localhost:8080/cheaplist/lists/23/
+
+{
+	"lat":50.6138111,
+	"lng":3.0423598999999997
+}
+
+
 
 

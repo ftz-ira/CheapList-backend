@@ -5,7 +5,7 @@
 	<groupId>cheaplist</groupId>
 	<artifactId>cheaplist</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<name>spr-data</name>
 
 	<build>

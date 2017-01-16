@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cheaplist.exception.ShopProductNotFound;
 import com.cheaplist.model.Member;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
@@ -62,7 +63,7 @@ public class ShopProductController {
 	/**** PRICE BY PRODUCT BY SHOP *******/
 	@JsonView(View.PriceProduct.class)
 	@RequestMapping(value = "/{idProduct}/shop/{idShop}" ,method = RequestMethod.GET)
-	public List<ShopProduct> PriceProductShop(@PathVariable Integer idProduct,@PathVariable Integer idShop) {
+	public ShopProduct PriceProductShop(@PathVariable Integer idProduct,@PathVariable Integer idShop) {
 		return shopProductService.findPriceByProductShop(idProduct.intValue(), idShop.intValue());
 	}
 	
@@ -75,17 +76,21 @@ public class ShopProductController {
 			return result.getAllErrors();	
 		
 		/*** Si tout est okay *****/
-		shopProduct = shopProductService.create(shopProduct);
-		
-		
-	return result.getAllErrors();
+		shopProduct = shopProductService.create(shopProduct);		
+		return result.getAllErrors();
 	}
 	
-	/**** PATCH PRICE BY PROCUT AND BY SHOP *****/
+	/**** PATCH PRICE BY PRODUCT AND BY SHOP 
+	 ******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "/{idProduct}/shop/{idShop}" ,method = RequestMethod.PATCH)
-	public List<ShopProduct> UpdatePriceProductShop(@PathVariable Integer idProduct,@PathVariable Integer idShop) {
-		return shopProductService.findPriceByProductShop(idProduct.intValue(), idShop.intValue());
+	@RequestMapping(value = "/" ,method = RequestMethod.PATCH, consumes = "application/json")
+	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ShopProductNotFound {
+		shopProductValidator.validate(shopProduct, result);
+		if (result.hasErrors())
+			return result.getAllErrors();	
+		shopProduct = shopProductService.patch(shopProduct);
+		shopProductService.update(shopProduct);		
+		return result.getAllErrors();
 	}
 	
 
