@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cheaplist
+-- Host: localhost    Database: cheaplist
 -- ------------------------------------------------------
--- Server version	5.7.16-log
+-- Server version	5.7.15-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -68,7 +68,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'boucherie',1,1,'img/category-img/boucherie.jpg'),(2,'rotisserie',1,1,'img/category-img/rotisserie.jpg'),(3,'volaille',0,1,'img/category-img/volaille.jpg'),(4,'poissonnerie',1,1,'img/category-img/poissonnerie.jpg'),(5,'fruits frais',1,2,'img/category-img/fruits_frais.jpg'),(6,' legumes frais',1,2,'img/category-img/legumes_frais.jpg'),(7,'fruits secs',1,2,'img/category-img/fruits_secs.jpg'),(8,'legumes secs',1,2,'img/category-img/legumes_secs.jpg'),(9,'plats cuisines',1,3,'img/category-img/plats_cuisines.jpg'),(10,'pizza et tartes',1,3,'img/category-img/pizzas_et_tartes.jpg'),(11,'legumes et frites',1,3,'img/category-img/legumes_frites.jpg'),(12,'glaces',1,3,'img/category-img/glaces.jpg'),(13,'entrees et snacks',1,3,'img/category-img/entrees_snacks.jpg'),(14,'aperitifs',1,4,'img/category-img/aperitifs.jpg'),(15,'conserve',1,4,'img/category-img/conserve.jpg'),(16,'feculents',1,4,'img/category-img/feculents.jpg'),(17,'condiments',1,4,'img/category-img/condiments.jpg'),(18,'soupe et accompagnements',1,4,'img/category-img/soupe_et_accompagnements.jpg'),(19,'café et thé',1,5,'img/category-img/cafe_et_the.jpg'),(20,'confiserie',1,5,'img/category-img/confiserie.jpg'),(21,'petit dejeuner',1,5,'img/category-img/petit_dejeuner.jpg'),(22,'biscuits et gateaux',1,5,'img/category-img/biscuits_et_gateaux.jpg'),(23,'dessert et farine',1,5,'img/category-img/dessert_et_farine.jpg'),(24,'cremerie',1,6,'img/category-img/cremerie.jpg'),(25,'fromage et specialités',1,6,'img/category-img/fromage_et_specialites.jpg'),(26,'yaourt et dessert',1,6,'img/category-img/yaourt_et_dessert.jpg'),(27,'charcuterie',1,7,'img/category-img/charcuterie.jpg'),(28,'traiteur',1,7,'img/category-img/traiteur.jpg'),(29,'eaux et laits',1,8,'img/category-img/eaux_et_laits.jpg'),(30,'jus et soft drinks',1,8,'img/category-img/jus_et_soft_drinks.jpg'),(31,'bière et cidre',1,8,'img/category-img/biere_et_cidre.jpg'),(32,'apero et alcools',1,8,'img/category-img/apero_et_alcools.jpg'),(33,'la cave',1,8,'img/category-img/la_cave.jpg'),(34,'boulangerie',1,9,'img/category-img/boulangerie.jpg'),(35,'patisserie',1,9,'img/category-img/patisserie.jpg'),(36,'viennoiserie',1,9,'img/category-img/viennoiserie.jpg'),(37,'divers',1,10,'img/category-img/divers.jpg');
+INSERT INTO `category` VALUES (1,'boucherie',1,1,'img/category_img/boucherie.jpg'),(2,'rotisserie',1,1,'img/category_img/rotisserie.jpg'),(3,'volaille',0,1,'img/category_img/volaille.jpg'),(4,'poissonnerie',1,1,'img/category_img/poissonnerie.jpg'),(5,'fruits frais',1,2,'img/category_img/fruits_frais.jpg'),(6,' legumes frais',1,2,'img/category_img/legumes_frais.jpg'),(7,'fruits secs',1,2,'img/category_img/fruits_secs.jpg'),(8,'legumes secs',1,2,'img/category_img/legumes_secs.jpg'),(9,'plats cuisines',1,3,'img/category_img/plats_cuisines.jpg'),(10,'pizza et tartes',1,3,'img/category_img/pizzas_et_tartes.jpg'),(11,'legumes et frites',1,3,'img/category_img/legumes_frites.jpg'),(12,'glaces',1,3,'img/category_img/glaces.jpg'),(13,'entrees et snacks',1,3,'img/category_img/entrees_snacks.jpg'),(14,'aperitifs',1,4,'img/category_img/aperitifs.jpg'),(15,'conserve',1,4,'img/category_img/conserve.jpg'),(16,'feculents',1,4,'img/category_img/feculents.jpg'),(17,'condiments',1,4,'img/category_img/condiments.jpg'),(18,'soupe et accompagnements',1,4,'img/category_img/soupe_et_accompagnements.jpg'),(19,'café et thé',1,5,'img/category_img/cafe_et_the.jpg'),(20,'confiserie',1,5,'img/category_img/confiserie.jpg'),(21,'petit dejeuner',1,5,'img/category_img/petit_dejeuner.jpg'),(22,'biscuits et gateaux',1,5,'img/category_img/biscuits_et_gateaux.jpg'),(23,'dessert et farine',1,5,'img/category_img/dessert_et_farine.jpg'),(24,'cremerie',1,6,'img/category_img/cremerie.jpg'),(25,'fromage et specialités',1,6,'img/category_img/fromage_et_specialites.jpg'),(26,'yaourt et dessert',1,6,'img/category_img/yaourt_et_dessert.jpg'),(27,'charcuterie',1,7,'img/category_img/charcuterie.jpg'),(28,'traiteur',1,7,'img/category_img/traiteur.jpg'),(29,'eaux et laits',1,8,'img/category_img/eaux_et_laits.jpg'),(30,'jus et soft drinks',1,8,'img/category_img/jus_et_soft_drinks.jpg'),(31,'bière et cidre',1,8,'img/category_img/biere_et_cidre.jpg'),(32,'apero et alcools',1,8,'img/category_img/apero_et_alcools.jpg'),(33,'la cave',1,8,'img/category_img/la_cave.jpg'),(34,'boulangerie',1,9,'img/category_img/boulangerie.jpg'),(35,'patisserie',1,9,'img/category_img/patisserie.jpg'),(36,'viennoiserie',1,9,'img/category_img/viennoiserie.jpg'),(37,'divers',1,10,'img/category_img/divers.jpg');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +244,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores','img/section-img/viandes_poissons.jpeg'),(2,'fruits et legumes','pour les vegetariens','img/section-img/fruits_et_legumes.jpeg'),(3,'surgeles','pour les faineants','img/section-img/surgeles.jpeg'),(4,'epicerie salee','on prépare l apero','img/section-img/epicerie_salee.jpeg'),(5,'epicerie sucree','pour les depressifs','img/section-img/epicerie_sucree.jpeg'),(6,'produits frais','pour les esquimau','img/section-img/produits_frais.jpeg'),(7,'charcuterie traiteur','pour les bon vivants','img/section-img/charcuterie_traiteur.jpeg'),(8,'boissons et cave','pour sa soif','img/section-img/boissons.jpeg'),(9,'pains et patisserie','la france a un icroyable talent','img/section-img/pains_et_patisserie.jpeg'),(10,'divers','poubelle seb','img/section-img/bio_et_ecologie.jpeg');
+INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores','img/section_img/viandes_poissons.jpeg'),(2,'fruits et legumes','pour les vegetariens','img/section_img/fruits_et_legumes.jpeg'),(3,'surgeles','pour les faineants','img/section_img/surgeles.jpeg'),(4,'epicerie salee','on prépare l apero','img/section_img/epicerie_salee.jpeg'),(5,'epicerie sucree','pour les depressifs','img/section_img/epicerie_sucree.jpeg'),(6,'produits frais','pour les esquimau','img/section_img/produits_frais.jpeg'),(7,'charcuterie traiteur','pour les bon vivants','img/section_img/charcuterie_traiteur.jpeg'),(8,'boissons et cave','pour sa soif','img/section_img/boissons.jpeg'),(9,'pains et patisserie','la france a un icroyable talent','img/section_img/pains_et_patisserie.jpeg'),(10,'divers','poubelle seb','img/section_img/bio_et_ecologie.jpeg');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +321,7 @@ CREATE TABLE `shop_product` (
   KEY `fk_Produit_has_magasin_Produit1_idx` (`product_id`),
   CONSTRAINT `fk_Produit_has_magasin_Produit1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Produit_has_magasin_magasin1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +330,7 @@ CREATE TABLE `shop_product` (
 
 LOCK TABLES `shop_product` WRITE;
 /*!40000 ALTER TABLE `shop_product` DISABLE KEYS */;
-INSERT INTO `shop_product` VALUES (6,0,2.25,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116),(17,0,2.89,36117,188),(18,0,4.11,36369,188),(19,0,2.9,36336,188),(20,0,14.1,35565,188),(21,0,1.5,35852,188),(22,0,0.99,32491,188),(23,0,1.5,20321,188),(24,0,3.45,11096,188),(25,0,1.89,36117,111),(26,0,3.11,36369,111),(27,0,1.9,36336,111),(28,0,13.1,35565,111),(29,0,0.5,35852,111),(30,0,0.49,32491,111),(31,0,0.5,20321,111),(32,0,2.45,11096,111),(33,0,1.89,36117,113),(34,0,3.11,36369,113),(35,0,13.1,35565,113),(36,0,0.5,35852,113),(37,0,0.5,20321,113),(38,0,2.45,11096,113);
+INSERT INTO `shop_product` VALUES (6,0,2.25,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116),(17,0,2.89,36117,188),(18,0,4.11,36369,188),(19,0,2.9,36336,188),(20,0,14.1,35565,188),(21,0,1.5,35852,188),(22,0,0.99,32491,188),(23,0,1.5,20321,188),(24,0,3.45,11096,188),(25,0,1.89,36117,111),(26,0,3.11,36369,111),(27,0,1.9,36336,111),(28,0,13.1,35565,111),(29,0,0.5,35852,111),(30,0,0.49,32491,111),(31,0,0.5,20321,111),(32,0,2.45,11096,111),(33,0,1.89,36117,113),(34,0,3.11,36369,113),(35,0,13.1,35565,113),(36,0,0.5,35852,113),(37,0,0.5,20321,113),(38,0,2.45,11096,113),(39,0,9.69,15320,112),(40,0,99.99,15320,157);
 /*!40000 ALTER TABLE `shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12 23:38:27
+-- Dump completed on 2017-01-17 10:33:58
