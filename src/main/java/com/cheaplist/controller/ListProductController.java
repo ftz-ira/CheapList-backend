@@ -96,7 +96,7 @@ public class ListProductController {
 	 * @throws JsonProcessingException
 	 **/
 	@JsonView(View.ListProduct.class)
-	@RequestMapping(value = "/{idList}", method = RequestMethod.PATCH, consumes = "application/json")
+	@RequestMapping(value = "/{idList}/frantz", method = RequestMethod.PATCH, consumes = "application/json")
 	public List<ListProduct> PatchQuantity(@PathVariable Integer idList, @RequestBody String jsondata)
 			throws ListProductNotFound, JsonProcessingException, IOException {
 		/*** JSON DEMAPPING ***/
