@@ -192,7 +192,7 @@ public class ListProductController {
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			String radius = "3500"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
 			// On récupère la liste des magasins à partir du GPS du client

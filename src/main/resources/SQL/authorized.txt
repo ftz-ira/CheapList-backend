@@ -48,6 +48,7 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 
 /****** DONNER LE PRIX D'UN PRODUIT POUR UN MAGAIN (ici ID Magasin 112) ******/
+(break)
 
 	HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
@@ -66,18 +67,6 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 	    }
 	  }
 
-/***** Google ***************************/
-
-	Lister les magasins en fonction du GPS (RADIUS par défaut : 2.5Km) 
-	HTTP POST : http://localhost:8080/cheaplist/shops/distances
-
-	JSON Entrée Exemple : 
-
-	{
-		"lat":50.6138111,
-		"lng":3.0423598999999997
-	}
-
 /***** MEMBER *************************/
 /**************************************/
 
@@ -92,7 +81,7 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 /***** CREATON D'UN MEMEBRE *****/
 
-	HTTP PUT : http://localhost:8080/cheaplist/members/
+	HTTP POST : http://localhost:8080/cheaplist/members/
 
 	{
 	  "email": "kywalky@gmail.com",
@@ -101,9 +90,20 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 	  "password": "jesuisquundieu"
 	}
 
-	Suppression d'un membre  (en cours, prevu Dimanche)
+	Suppression d'un membre
 
-	Mise à jour d'un membre :  (en cours, prévu Dimanche)
+	HTTP DELETE http://localhost:8080/cheaplist/members/70
+
+	Mise à jour d'un membre : 
+
+	HTTP PATCH http://localhost:8080/cheaplist/members/69
+
+	{
+	  "email": "kywalky@gmail.com",
+	  "login": "Sebastien",
+	  "name": "LeGrandSeb",
+	  "password": "jesuisquundieu"
+	}
 
 /******** Page d'accueil   ***********/
 	
@@ -195,7 +195,7 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 /**** PATCH FRANTZ********/
 
-	HTTP PATCH : http://localhost:8080/cheaplist/lists/22
+	HTTP PATCH : http://localhost:8080/cheaplist/lists/22/frantz
 
 	{
 		"idProduct":8780,
