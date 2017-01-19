@@ -201,10 +201,10 @@ public class ListProductController {
 			if (lat.isEmpty() || lng.isEmpty()) throw new ExceptionMessage("ERROR JSON PACKAGE, MISSING LAT OR LNG DATA");
 
 			String radius = "3500"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|GÃ©ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
-			// On récupére la liste des magasins Ã  partir du GPS du client
+			// On rï¿½cupï¿½re la liste des magasins Ã  partir du GPS du client
 			RestTemplate restTemplate = new RestTemplate();
 			answerGoogle = restTemplate.getForObject(
 					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
