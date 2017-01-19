@@ -40,20 +40,20 @@ public class CategoryController {
 	/*** READ ALL PRODUCT BY CATEGORY ****/
 	@JsonView(View.CategoryProduct.class)
 	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
-	public ResponseEntity<Category> categoryAllProduct(@PathVariable Integer id)  throws ExceptionMessage {
+	public ResponseEntity<Category> categoryAllProduct(@PathVariable Integer id) throws ExceptionMessage {
 		Category category = categoryService.findById(id.intValue());
 		if (category == null) {
 			throw new ExceptionMessage("CATEGORY ALL PRODUCT ID  NOT FOUND");
 		}
 		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
+
 	@ExceptionHandler(ExceptionMessage.class)
 	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
 		ErrorResponse error = new ErrorResponse();
 		error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
 		error.setMessage(ex.getMessage());
 		return new ResponseEntity<ErrorResponse>(error, HttpStatus.OK);
-
 	}
 
 }

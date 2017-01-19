@@ -1,9 +1,5 @@
 package com.cheaplist.utility;
 
-import java.util.*;
-import java.lang.*;
-import java.io.*;
-
 public final class MathGPS {
 	
 	   private MathGPS () { }

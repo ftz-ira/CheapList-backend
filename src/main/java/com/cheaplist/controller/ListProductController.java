@@ -179,7 +179,7 @@ public class ListProductController {
 	 * CALCULE LE DEVIS D'UNE LISTE
 	 * 
 	 * 
-	 * C'est Parti
+	 * C'est Part
 	 */
 
 	@JsonView(View.ListProduct.class)
@@ -201,10 +201,10 @@ public class ListProductController {
 			if (lat.isEmpty() || lng.isEmpty()) throw new ExceptionMessage("ERROR JSON PACKAGE, MISSING LAT OR LNG DATA");
 
 			String radius = "3500"; // Par defaut
-			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Géant Casino";
+			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
-			// On r�cup�re la liste des magasins à partir du GPS du client
+			// On recupere la liste des magasins à partir du GPS du client
 			RestTemplate restTemplate = new RestTemplate();
 			answerGoogle = restTemplate.getForObject(
 					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng

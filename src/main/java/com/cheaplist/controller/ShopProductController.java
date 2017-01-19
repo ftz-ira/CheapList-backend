@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
-import com.cheaplist.model.ListProduct;
-import com.cheaplist.model.Member;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -88,6 +87,14 @@ public class ShopProductController {
 		shopProduct = shopProductService.patch(shopProduct);
 		shopProductService.update(shopProduct);
 		return new ResponseEntity<ShopProduct>(shopProduct, HttpStatus.OK);
+	}
+	
+	@ExceptionHandler(ExceptionMessage.class)
+	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+		ErrorResponse error = new ErrorResponse();
+		error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
+		error.setMessage(ex.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.OK);
 	}
 
 }

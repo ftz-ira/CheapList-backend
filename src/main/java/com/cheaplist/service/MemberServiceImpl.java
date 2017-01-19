@@ -73,7 +73,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional(rollbackFor = ExceptionMessage.class)
 	public Member patch(Integer idMember, Member member) throws ExceptionMessage {
-		// TODO Auto-generated method stub
 
 		Member updatedMember = memberRepository.findOne(idMember);
 		if (updatedMember == null)

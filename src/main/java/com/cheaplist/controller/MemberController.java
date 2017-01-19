@@ -145,8 +145,6 @@ public class MemberController {
 			throw new ExceptionMessage(e.getMessage());
 		}
 
-		// TODO Auto-generated catch block
-
 		return new ResponseEntity<Member>(member, HttpStatus.OK);
 
 	}

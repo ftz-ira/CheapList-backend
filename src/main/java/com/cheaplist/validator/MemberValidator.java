@@ -19,7 +19,7 @@ public class MemberValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		
-		Member member = (Member) target;
+		//Member member = (Member) target;
 		
 		ValidationUtils.rejectIfEmpty(errors,"name","name missing");
 		ValidationUtils.rejectIfEmpty(errors,"login","login missing");

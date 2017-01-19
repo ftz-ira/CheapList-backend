@@ -6,6 +6,9 @@ public class ErrorResponse {
 
 	private String message;
 
+	public ErrorResponse() {
+	}
+
 	public int getErrorCode() {
 		return errorCode;
 	}

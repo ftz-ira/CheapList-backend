@@ -132,7 +132,6 @@ public class ListProductServiceImpl implements ListProductService {
 	@Override
 	@Transactional
 	public long findMissing(Integer idList, int idShop) {
-		// TODO Auto-generated method stub
 		return listProductRepository.findMissing(idList, idShop);
 	}
 
