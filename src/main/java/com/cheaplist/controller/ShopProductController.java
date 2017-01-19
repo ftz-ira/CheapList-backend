@@ -1,9 +1,10 @@
 package com.cheaplist.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cheaplist.exception.ExceptionMessage;
+import com.cheaplist.model.ListProduct;
+import com.cheaplist.model.Member;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -23,15 +26,11 @@ import com.cheaplist.service.ShopProductService;
 import com.cheaplist.validator.ShopProductValidator;
 
 /**
- * CREATE  --> POST  /prices
- * READ    --> DONE
- * PATCH   --> 
- * DELETE  --> DENY
+ * CREATE --> POST /prices READ --> DONE PATCH --> DELETE --> DENY
  * 
- */	
+ */
 
-
-//Fix d'urgence
+// Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/prices")
@@ -39,7 +38,7 @@ public class ShopProductController {
 
 	@Autowired
 	private ShopProductService shopProductService;
-	
+
 	@Autowired
 	private ShopProductValidator shopProductValidator;
 
@@ -47,47 +46,48 @@ public class ShopProductController {
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(shopProductValidator);
 	}
-	
 
-	/*****  PRICE BY PRODUCT ALL SHOP ******/
+	/***** PRICE BY PRODUCT ALL SHOP ******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "/{idProduct}",method = RequestMethod.GET)
-	public List<ShopProduct> PriceProduct(@PathVariable Integer idProduct) {
-		return shopProductService.findPriceByProduct(idProduct.intValue());
+	@RequestMapping(value = "/{idProduct}", method = RequestMethod.GET)
+	public ResponseEntity<List<ShopProduct>> PriceProduct(@PathVariable Integer idProduct) {
+		return new ResponseEntity<List<ShopProduct>>(shopProductService.findPriceByProduct(idProduct.intValue()),
+				HttpStatus.OK);
 	}
-	
+
 	/**** PRICE BY PRODUCT BY SHOP *******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "/{idProduct}/shop/{idShop}" ,method = RequestMethod.GET)
-	public ShopProduct PriceProductShop(@PathVariable Integer idProduct,@PathVariable Integer idShop) {
-		return shopProductService.findPriceByProductShop(idProduct.intValue(), idShop.intValue());
+	@RequestMapping(value = "/{idProduct}/shop/{idShop}", method = RequestMethod.GET)
+	public ResponseEntity<ShopProduct> PriceProductShop(@PathVariable Integer idProduct, @PathVariable Integer idShop) {
+		return new ResponseEntity<ShopProduct>(
+				shopProductService.findPriceByProductShop(idProduct.intValue(), idShop.intValue()), HttpStatus.OK);
 	}
-	
-	/**** CREATE PRICE BY PRODUCT AND BY SHOP *****/
+
+	/**** CREATE PRICE BY PRODUCT AND BY SHOP 
+	 * @throws ExceptionMessage *****/
 	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public List<ObjectError> createNewPrice(@RequestBody ShopProduct shopProduct, BindingResult result) {
+	public ResponseEntity<ShopProduct> createNewPrice(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage {
 		shopProductValidator.validate(shopProduct, result);
-		System.out.println(result.getAllErrors());
+	//	System.out.println(result.getAllErrors());
 		if (result.hasErrors())
-			return result.getAllErrors();	
-		
-		/*** Si tout est okay *****/
-		shopProduct = shopProductService.create(shopProduct);		
-		return result.getAllErrors();
+			throw new ExceptionMessage("ERROR CREATE PRICE");
+		shopProduct = shopProductService.create(shopProduct);
+		return new ResponseEntity<ShopProduct>(shopProduct, HttpStatus.OK);
 	}
-	
-	/**** PATCH PRICE BY PRODUCT AND BY SHOP 
+
+	/****
+	 * PATCH PRICE BY PRODUCT AND BY SHOP
 	 ******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "" ,method = RequestMethod.PATCH, consumes = "application/json")
-	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage {
+	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = "application/json")
+	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result)
+			throws ExceptionMessage {
 		shopProductValidator.validate(shopProduct, result);
 		if (result.hasErrors())
-			return result.getAllErrors();	
+			return result.getAllErrors();
 		shopProduct = shopProductService.patch(shopProduct);
-		shopProductService.update(shopProduct);		
+		shopProductService.update(shopProduct);
 		return result.getAllErrors();
 	}
-	
 
 }

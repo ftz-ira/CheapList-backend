@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Category;
 import com.cheaplist.model.Section;
 import com.cheaplist.model.View;
@@ -20,46 +21,49 @@ import com.fasterxml.jackson.annotation.JsonView;
 //Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value="/sections")
+@RequestMapping(value = "/sections")
 public class SectionController {
-	
+
 	@Autowired
 	private SectionService sectionService;
 
-	/***  READ ALL SECTION  ****/
+	/*** READ ALL SECTION ****/
 	@JsonView(View.Section.class)
-	@RequestMapping(value="",method=RequestMethod.GET)
-	public List<Section> sectionAll() {
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public List<Section> sectionAll() throws ExceptionMessage {
 		ArrayList<Section> sectionList = (ArrayList<Section>) sectionService.findAll();
-		for ( Section section : sectionList)
-		{
+		if (sectionList.isEmpty())
+			throw new ExceptionMessage("ERROR ID SECTION NON FOUND");
+		for (Section section : sectionList) {
 			Set<Category> categories = section.getCategories();
-			for (Category category : categories)
-			{
+			for (Category category : categories) {
 				category.setProducts(null);
 			}
 		}
 		return sectionList;
-	
+
 	}
-	
-	/***  READ ONE SECTION BY ID  ****/
+
+	/*** READ ONE SECTION BY ID ****/
 	@JsonView(View.Section.class)
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public Section sectionOne(@PathVariable Integer id) {
-		Section section = sectionService.findById(id.intValue());		
-		return section;
-				
-	}
-	
-	
-	/***  READ ALL CATEGORIES BY ID SECTION  ****/
-	@JsonView(View.SectionCategory.class)
-	@RequestMapping(value="/{id}/categories",method=RequestMethod.GET)
-	public Section sectionAllCategories(@PathVariable Integer id) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Section sectionOne(@PathVariable Integer id) throws ExceptionMessage {
 		Section section = sectionService.findById(id.intValue());
-		return section;				
+		if (section == null)
+			throw new ExceptionMessage("ERROR ID SECTION NON FOUND");
+		return section;
+
 	}
-	
-	
+
+	/*** READ ALL CATEGORIES BY ID SECTION 
+	 * @throws ExceptionMessage ****/
+	@JsonView(View.SectionCategory.class)
+	@RequestMapping(value = "/{id}/categories", method = RequestMethod.GET)
+	public Section sectionAllCategories(@PathVariable Integer id) throws ExceptionMessage {
+		Section section = sectionService.findById(id.intValue());
+		if (section == null)
+			throw new ExceptionMessage("ERROR ID SECTION NON FOUND");
+		return section;
+	}
+
 }

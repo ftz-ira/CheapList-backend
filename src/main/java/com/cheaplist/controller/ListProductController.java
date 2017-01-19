@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Shop;
@@ -51,6 +53,9 @@ public class ListProductController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<List<ListProduct>> ListProductAll(@PathVariable Integer id) throws ExceptionMessage {
 		List<ListProduct> listProductList = listProductService.findProductsByList(id.intValue());
+		if (listProductList.isEmpty()) {
+			throw new ExceptionMessage("ERROR ID LIST NOT FOUND 001");
+		}
 		return new ResponseEntity<List<ListProduct>>(listProductList, HttpStatus.OK);
 
 	}
@@ -61,6 +66,10 @@ public class ListProductController {
 	public ResponseEntity<ListProduct> ListProduct(@PathVariable Integer idList, @PathVariable Integer idElement)
 			throws ExceptionMessage {
 		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
+		if (listProduct == null)
+		{
+			throw new ExceptionMessage("ERROR ID LIST OR ID PRODUCT NOT FOUND (code 002)");
+		}
 		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 	}
 
@@ -69,8 +78,15 @@ public class ListProductController {
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ListProduct> PatchListProductAll(@PathVariable Integer idList,
 			@PathVariable Integer idElement, @RequestBody ListProduct listProduct) throws ExceptionMessage {
-		listProduct = listProductService.patch(idList, idElement, listProduct);
-		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
+		try
+		{
+			listProduct = listProductService.patch(idList, idElement, listProduct);			
+		}
+		catch (ExceptionMessage e)
+		{
+			throw new ExceptionMessage("ERROR ListProduct Patch "+e.getErrorMessage());	
+		}
+	return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 
 	}
 
@@ -168,20 +184,21 @@ public class ListProductController {
 
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}", method = RequestMethod.POST)
-	public String ListAllPrices(@PathVariable Integer idList, @RequestBody String coordinate) {
+	public ResponseEntity<String> ListAllPrices(@PathVariable Integer idList, @RequestBody String coordinate) throws ExceptionMessage {
 		System.out.println(coordinate);
 		String answerGoogle = "";
 		ObjectMapper mapper;
 		ArrayNode arrayNode;
 		String answerJson = null;
 
-		/*** On récupère les ID des magasins autour de l'utilisateur ****/
+		/*** On récupere les ID des magasins autour de l'utilisateur ****/
 		try {
 			mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			/** Mettre EXCEPTION ****/
+			if (lat.isEmpty() || lng.isEmpty()) throw new ExceptionMessage("ERROR JSON PACKAGE, MISSING LAT OR LNG DATA");
 
 			String radius = "3500"; // Par defaut
 			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
@@ -193,7 +210,6 @@ public class ListProductController {
 					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
 							+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key,
 					String.class);
-
 			// System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
 			// + lat + ","
 			// + lng + "&radius=" + radius +
@@ -202,7 +218,13 @@ public class ListProductController {
 			// On trie le JSON donnée par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
-			arrayNode = mapper.createArrayNode();
+			arrayNode = mapper.createArrayNode();	
+			
+			if (googleNode.path("status").asText().compareTo("ZERO_RESULTS")== 0)
+			{
+				throw new ExceptionMessage("ERROR GOOGLEMAP REQUEST : ZERO RESULTS");
+			}
+			
 			long numberElement = listProductService.countElement(idList);
 			for (JsonNode node : googleNode.path("results")) {
 
@@ -237,7 +259,16 @@ public class ListProductController {
 
 		}
 
-		return answerJson;
+		return new ResponseEntity<String>(answerJson, HttpStatus.OK);
+
+	}
+
+	@ExceptionHandler(ExceptionMessage.class)
+	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+		ErrorResponse error = new ErrorResponse();
+		error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
+		error.setMessage(ex.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.OK);
 
 	}
 }
