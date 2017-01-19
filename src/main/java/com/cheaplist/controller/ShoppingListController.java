@@ -84,9 +84,5 @@ public class ShoppingListController {
 	 return new ResponseEntity<String>("ELEMENT DELETED", HttpStatus.OK);
 	}
 	
-
-
-	
-	
 	
 }

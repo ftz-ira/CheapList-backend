@@ -4,8 +4,6 @@ package com.cheaplist.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cheaplist.exception.ExceptionMessage;
-import com.cheaplist.model.Member;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.cheaplist.service.ShopProductService;
-import com.cheaplist.validator.MemberValidator;
 import com.cheaplist.validator.ShopProductValidator;
 
 /**

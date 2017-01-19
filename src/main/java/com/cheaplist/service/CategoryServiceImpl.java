@@ -20,7 +20,8 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public Category create(Category category) {
-		Category createdCategory = category;		return categoryRepository.save(createdCategory);
+		Category createdCategory = category;	
+		return categoryRepository.save(createdCategory);
 	}
 	
 	@Override
@@ -57,8 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		updatedCategory.setId(category.getId());
 		updatedCategory.setName(category.getName());
-		updatedCategory.setIsActive(category.getIsActive());
-		
+		updatedCategory.setIsActive(category.getIsActive());		
 		return updatedCategory;
 	}
 

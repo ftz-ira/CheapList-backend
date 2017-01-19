@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		Member deletedMember = memberRepository.findOne(id);
 
 		if (deletedMember == null)
-			throw new ExceptionMessage();
+			throw new ExceptionMessage("MEMBER DELETE... MEMBER ID NOT FOUND");
 
 		memberRepository.delete(deletedMember);
 		return deletedMember;
@@ -57,7 +57,7 @@ public class MemberServiceImpl implements MemberService {
 		Member updatedMember = memberRepository.findOne(member.getId());
 
 		if (updatedMember == null)
-			throw new ExceptionMessage();
+			throw new ExceptionMessage("MEMBER UPDATE.. MEMBER NOT FOUND");
 
 		updatedMember.setName(member.getName());
 		updatedMember.setLogin(member.getLogin());
@@ -74,10 +74,10 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional(rollbackFor = ExceptionMessage.class)
 	public Member patch(Integer idMember, Member member) throws ExceptionMessage {
 		// TODO Auto-generated method stub
-		System.out.println("Test Cle :"+idMember);
+
 		Member updatedMember = memberRepository.findOne(idMember);
 		if (updatedMember == null)
-			throw new ExceptionMessage();
+			throw new ExceptionMessage("MEMBER PATCH.. MEMBER NOT FOUND");
 
 		if (member.getIsActive() != null)
 			updatedMember.setIsActive(member.getIsActive());

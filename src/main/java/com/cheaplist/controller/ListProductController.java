@@ -20,7 +20,6 @@ import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
-import com.cheaplist.service.ProductService;
 import com.cheaplist.service.ShopService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -36,21 +35,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @RequestMapping(value = "/lists")
 public class ListProductController {
 
-	/*
-	 * Attention BUG: Contr�ler l'ajout d'un element (v�rifier que le produit
-	 * n'est pas dans la liste des �lements au pr�able)
-	 * 
-	 * 
-	 */
-
 	@Autowired
 	private ListProductService listProductService;
 
 	@Autowired
 	private ShopService shopService;
-
-	@Autowired
-	private ProductService productService;
 
 	/*
 	 * @Autowired private ListProductValidator listProductValidator;
@@ -60,29 +49,28 @@ public class ListProductController {
 
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public List<ListProduct> ListProductAll(@PathVariable Integer id) {
+	public ResponseEntity<List<ListProduct>> ListProductAll(@PathVariable Integer id) throws ExceptionMessage {
 		List<ListProduct> listProductList = listProductService.findProductsByList(id.intValue());
-		return listProductList;
+		return new ResponseEntity<List<ListProduct>>(listProductList, HttpStatus.OK);
 
 	}
 
 	/**** GET ONE PRODUCT BY LIST ID (ONE ELEMENT) *****/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.GET)
-	public ListProduct ListProduct(@PathVariable Integer idList, @PathVariable Integer idElement) {
+	public ResponseEntity<ListProduct> ListProduct(@PathVariable Integer idList, @PathVariable Integer idElement)
+			throws ExceptionMessage {
 		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
-		return listProduct;
-
+		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 	}
 
 	/*** PATCH ONE ELEMENT FROM ONE LIST ***/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
-	public ListProduct PatchListProductAll(@PathVariable Integer idList, @PathVariable Integer idElement,
-			@RequestBody ListProduct listProduct) throws ExceptionMessage {
-		System.out.println("Test Sebs");
+	public ResponseEntity<ListProduct> PatchListProductAll(@PathVariable Integer idList,
+			@PathVariable Integer idElement, @RequestBody ListProduct listProduct) throws ExceptionMessage {
 		listProduct = listProductService.patch(idList, idElement, listProduct);
-		return listProduct;
+		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 
 	}
 
@@ -97,22 +85,24 @@ public class ListProductController {
 	 **/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/frantz", method = RequestMethod.PATCH, consumes = "application/json")
-	public List<ListProduct> PatchQuantity(@PathVariable Integer idList, @RequestBody String jsondata)
+	public ResponseEntity<List<ListProduct>> PatchQuantity(@PathVariable Integer idList, @RequestBody String jsondata)
 			throws ExceptionMessage, JsonProcessingException, IOException {
 		/*** JSON DEMAPPING ***/
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(new StringReader(jsondata));
 		int idProduct = rootNode.path("idProduct").asInt();
 		int productQuantity = rootNode.path("productQuantity").asInt();
-		
+
 		/****
-		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée un
+		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée
+		 * un
 		 ***/
 		ListProduct listProduct = listProductService.findElementByListBtProduct(idList, idProduct);
 
 		// Introuvable donc on en crée un autre élement dans la liste
 		if (listProduct == null) {
-			if (productQuantity < 1) productQuantity =1;
+			if (productQuantity < 1)
+				productQuantity = 1;
 			listProductService.createOneElement(idList, idProduct, productQuantity);
 
 		} else {
@@ -125,13 +115,13 @@ public class ListProductController {
 				listProductService.delete(listProduct.getId());
 			}
 		}
-		return listProductService.findProductsByList(idList);
+		return new ResponseEntity<List<ListProduct>>(listProductService.findProductsByList(idList), HttpStatus.OK);
 	}
 
 	/*** ADD ONE ELEMENT FROM ONE LIST ***/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public ListProduct AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) {
+	public ResponseEntity<ListProduct> AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ListProduct listProduct = null;
@@ -151,7 +141,7 @@ public class ListProductController {
 			return null;
 		}
 
-		return listProduct;
+		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 	}
 
 	/***
@@ -191,19 +181,24 @@ public class ListProductController {
 			JsonNode rootNode = mapper.readTree(new StringReader(coordinate));
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
+			/** Mettre EXCEPTION ****/
+
 			String radius = "3500"; // Par defaut
 			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|G�ant Casino";
 			String key = "AIzaSyDizEEeL61KclC1OA9foAkA7SuNBxtFxsA";
 
-			// On récupère la liste des magasins à partir du GPS du client
+			// On r�cup�re la liste des magasins à partir du GPS du client
 			RestTemplate restTemplate = new RestTemplate();
 			answerGoogle = restTemplate.getForObject(
 					"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng
 							+ "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key,
 					String.class);
 
-			System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + ","
-					+ lng + "&radius=" + radius + "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key);
+			// System.out.println("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+			// + lat + ","
+			// + lng + "&radius=" + radius +
+			// "&types=grocery_or_supermarket&name=" + emblem + "&key=" + key);
+
 			// On trie le JSON donnée par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
@@ -214,7 +209,6 @@ public class ListProductController {
 				// Pour chaque magasin donné par GOOGLE, on verifie qu'il est
 				// bien dans notre BD // Ils ont un attribut commun : idGoogle
 				String idgoogle = node.path("id").asText();
-				System.out.println("Seb: " + idgoogle);
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
 				// Pour chaque magasin trouvé
@@ -232,10 +226,8 @@ public class ListProductController {
 
 					double devis = listProductService.findPrice(idList, shop.getId());
 					long missing = listProductService.findMissing(idList, shop.getId());
-					objectNode1.put("devis", String.valueOf(devis));
-					objectNode1.put("missing", String.valueOf(numberElement - missing));
-					System.out.println("Devis Test :" + devis + "   Missing : " + missing);
-
+					objectNode1.put("prix total", String.valueOf(devis));
+					objectNode1.put("element manquant", String.valueOf(numberElement - missing));
 				}
 			}
 

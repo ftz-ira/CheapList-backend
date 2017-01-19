@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,11 +26,6 @@ import com.cheaplist.service.MemberService;
 import com.cheaplist.service.ShoppingListService;
 import com.cheaplist.validator.MemberValidator;
 import com.fasterxml.jackson.annotation.JsonView;
-
-/**
- * CREATE --> AUTORISER READ --> DONE PATCH --> DELETE --> SAVE ET CREATE
- * 
- */
 
 // Fix d'urgence
 @CrossOrigin(origins = "*")
@@ -55,10 +49,10 @@ public class MemberController {
 
 	/***** CREATE A NEW MEMBER ******/
 	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	List<ObjectError> createNewShop(@RequestBody Member member, BindingResult result) {
+	ResponseEntity<Member> createNewShop(@RequestBody Member member, BindingResult result) throws ExceptionMessage {
 		memberValidator.validate(member, result);
 		if (result.hasErrors())
-			return result.getAllErrors();
+			throw new ExceptionMessage("ERROR CREATE MEMBER : " + result.getAllErrors().get(0).getCode());
 		System.out.println(member.toString());
 		member = memberService.create(member);
 
@@ -77,41 +71,45 @@ public class MemberController {
 			shoppingList.setIsDone(false);
 			shoppingListService.create(shoppingList);
 		}
-		return null;
+		return new ResponseEntity<Member>(member, HttpStatus.OK);
 	}
 
 	/***** READ ALL METHODE : ALL MEMBER ******/
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Member> identityFindAll() {
+	public ResponseEntity<List<Member>> identityFindAll() throws ExceptionMessage {
 		ArrayList<Member> memberList = (ArrayList<Member>) memberService.findAll();
-		return memberList;
+		return new ResponseEntity<List<Member>>(memberList, HttpStatus.OK);
 
 	}
 
-	/***** READ ONE METHODE : ONE MEMBER 
-	 * @throws ExceptionMessage ******/
+	/*****
+	 * READ ONE METHODE : ONE MEMBER
+	 * 
+	 * @throws ExceptionMessage
+	 ******/
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Member identityFindId(@PathVariable Integer id) throws ExceptionMessage {
+	public ResponseEntity<Member> identityFindId(@PathVariable Integer id) throws ExceptionMessage {
 
 		Member member;
 		member = memberService.findById(id.intValue());
-		if (member == null) 
-			{
+		if (member == null) {
 			throw new ExceptionMessage("MEMBER NOT FOUND");
-			}
-		return member;
+		}
+		return new ResponseEntity<Member>(member, HttpStatus.OK);
 
 	}
 
 	/***** READ ONE MEMBER : ALL LIST BY MEMBER ******/
 	@JsonView(View.MemberList.class)
 	@RequestMapping(value = "/{id}/lists")
-	public Member listFindid(@PathVariable Integer id) {
-		Member member;
-		member = memberService.findById(id.intValue());
-		return member;
+	public ResponseEntity<Member> listFindid(@PathVariable Integer id) throws ExceptionMessage {
+		Member member = memberService.findById(id.intValue());
+		if (member == null) {
+			throw new ExceptionMessage("MEMBER NOT FOUND");
+		}
+		return new ResponseEntity<Member>(member, HttpStatus.OK);
 	}
 
 	/*****
@@ -124,19 +122,32 @@ public class MemberController {
 	public ResponseEntity<String> RemoveOneMember(@PathVariable Integer idMember) throws ExceptionMessage {
 		Member member = memberService.findById(idMember);
 		if (member == null) {
-			throw new ExceptionMessage("MEMBER NOT FOUND");
+			throw new ExceptionMessage("MEMBER NOT DELETE, MEMBER ID NOT FOUND");
 		}
 		member.setIsActive(false);
 		memberService.update(member);
 		return new ResponseEntity<String>("ELEMENT DELETED", HttpStatus.OK);
 	}
 
-	/**** PATCH A MEMBER **********/
+	/****
+	 * PATCH A MEMBER
+	 * 
+	 * @throws ExceptionMessage
+	 **********/
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(value = "/{idMember}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
-	public Member PatchMember(@PathVariable Integer idMember, @RequestBody Member member) throws ExceptionMessage {
-		member = memberService.patch(idMember, member);
-		return member;
+	public ResponseEntity<Member> PatchMember(@PathVariable Integer idMember, @RequestBody Member member)
+			throws ExceptionMessage {
+
+		try {
+			member = memberService.patch(idMember, member);
+		} catch (ExceptionMessage e) {
+			throw new ExceptionMessage(e.getMessage());
+		}
+
+		// TODO Auto-generated catch block
+
+		return new ResponseEntity<Member>(member, HttpStatus.OK);
 
 	}
 

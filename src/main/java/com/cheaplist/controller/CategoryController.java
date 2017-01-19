@@ -17,7 +17,6 @@ import com.cheaplist.model.View;
 import com.cheaplist.service.CategoryService;
 import com.fasterxml.jackson.annotation.JsonView;
 
-
 //Fix d'urgence
 @CrossOrigin(origins = "*")
 @RestController
@@ -33,18 +32,21 @@ public class CategoryController {
 	public ResponseEntity<Category> categoryOne(@PathVariable Integer id) throws ExceptionMessage {
 		Category category = categoryService.findById(id.intValue());
 		if (category == null) {
-			throw new ExceptionMessage("CATEGORY NOT FOUND");
+			throw new ExceptionMessage("CATEGORY ID NOT FOUND");
 		}
-		return new ResponseEntity<Category> (category,HttpStatus.OK);
+		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
 
 	/*** READ ALL PRODUCT BY CATEGORY ****/
 	@JsonView(View.CategoryProduct.class)
 	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
-	public Category categoryAllProduct(@PathVariable Integer id) {
-		return categoryService.findById(id.intValue());
+	public ResponseEntity<Category> categoryAllProduct(@PathVariable Integer id)  throws ExceptionMessage {
+		Category category = categoryService.findById(id.intValue());
+		if (category == null) {
+			throw new ExceptionMessage("CATEGORY ALL PRODUCT ID  NOT FOUND");
+		}
+		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
-	
 	@ExceptionHandler(ExceptionMessage.class)
 	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
 		ErrorResponse error = new ErrorResponse();
