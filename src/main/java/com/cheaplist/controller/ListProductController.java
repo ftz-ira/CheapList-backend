@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.cheaplist.exception.ListProductNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
@@ -79,7 +79,7 @@ public class ListProductController {
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
 	public ListProduct PatchListProductAll(@PathVariable Integer idList, @PathVariable Integer idElement,
-			@RequestBody ListProduct listProduct) throws ListProductNotFound {
+			@RequestBody ListProduct listProduct) throws ExceptionMessage {
 		System.out.println("Test Sebs");
 		listProduct = listProductService.patch(idList, idElement, listProduct);
 		return listProduct;
@@ -98,7 +98,7 @@ public class ListProductController {
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/frantz", method = RequestMethod.PATCH, consumes = "application/json")
 	public List<ListProduct> PatchQuantity(@PathVariable Integer idList, @RequestBody String jsondata)
-			throws ListProductNotFound, JsonProcessingException, IOException {
+			throws ExceptionMessage, JsonProcessingException, IOException {
 		/*** JSON DEMAPPING ***/
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readTree(new StringReader(jsondata));
@@ -146,7 +146,7 @@ public class ListProductController {
 				return null;
 			listProduct = listProductService.createOneElement(idList, idProduct, productQuantity);
 			System.out.println(listProduct.getId());
-		} catch (IOException | ListProductNotFound e) {
+		} catch (IOException | ExceptionMessage e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -161,7 +161,7 @@ public class ListProductController {
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> RemoveOneElement(@PathVariable Integer idList, @PathVariable Integer idElement)
-			throws ListProductNotFound {
+			throws ExceptionMessage {
 
 		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
 		listProductService.delete(listProduct.getId());

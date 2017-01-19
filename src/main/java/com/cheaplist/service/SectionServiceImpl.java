@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.SectionNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Section;
 import com.cheaplist.repository.SectionRepository;
 
@@ -31,12 +31,12 @@ public class SectionServiceImpl implements SectionService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=SectionNotFound.class)
-	public Section delete(int id) throws SectionNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Section delete(int id) throws ExceptionMessage {
 		Section deletedSection = sectionRepository.findOne(id);
 		
 		if (deletedSection == null)
-			throw new SectionNotFound();
+			throw new ExceptionMessage();
 		
 		sectionRepository.delete(deletedSection);
 		return deletedSection;
@@ -49,12 +49,12 @@ public class SectionServiceImpl implements SectionService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=SectionNotFound.class)
-	public Section update(Section section) throws SectionNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Section update(Section section) throws ExceptionMessage {
 		Section updatedSection = sectionRepository.findOne(section.getId());
 		
 		if (updatedSection == null)
-			throw new SectionNotFound();
+			throw new ExceptionMessage();
 
 		updatedSection.setId(section.getId());
 		updatedSection.setName(section.getName());

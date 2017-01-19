@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.ShopProductNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.repository.ShopProductRepository;
 
@@ -31,12 +31,12 @@ public class ShopProductServiceImpl implements ShopProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShopProductNotFound.class)
-	public ShopProduct delete(int id) throws ShopProductNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public ShopProduct delete(int id) throws ExceptionMessage {
 		ShopProduct deletedShopProduct = shopProductRepository.findOne(id);
 		
 		if (deletedShopProduct == null)
-			throw new ShopProductNotFound();
+			throw new ExceptionMessage();
 		
 		shopProductRepository.delete(deletedShopProduct);
 		return deletedShopProduct;
@@ -49,12 +49,12 @@ public class ShopProductServiceImpl implements ShopProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShopProductNotFound.class)
-	public ShopProduct update(ShopProduct shopProduct) throws ShopProductNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public ShopProduct update(ShopProduct shopProduct) throws ExceptionMessage {
 		ShopProduct updatedShopProduct = shopProductRepository.findOne(shopProduct.getId());
 		
 		if (updatedShopProduct == null)
-			throw new ShopProductNotFound();
+			throw new ExceptionMessage();
 
 		updatedShopProduct.setId(shopProduct.getId());
 		updatedShopProduct.setRatio(shopProduct.getRatio());
@@ -63,12 +63,12 @@ public class ShopProductServiceImpl implements ShopProductService {
 	}
 	
 	@Override
-	@Transactional(rollbackFor=ShopProductNotFound.class)
-	public ShopProduct patch(ShopProduct shopProduct) throws ShopProductNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public ShopProduct patch(ShopProduct shopProduct) throws ExceptionMessage {
 		ShopProduct updatedShopProduct = shopProductRepository.findPriceByProductShop(shopProduct.getProduct().getId(),shopProduct.getShop().getId());
 		
 		if (updatedShopProduct == null)
-			throw new ShopProductNotFound();
+			throw new ExceptionMessage();
 		
 		updatedShopProduct.setPrice(shopProduct.getPrice());
 		return updatedShopProduct;

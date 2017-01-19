@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.ShopNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Shop;
 import com.cheaplist.repository.ShopRepository;
 
@@ -31,12 +31,12 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShopNotFound.class)
-	public Shop delete(int id) throws ShopNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Shop delete(int id) throws ExceptionMessage {
 		Shop deletedShop = shopRepository.findOne(id);
 		
 		if (deletedShop == null)
-			throw new ShopNotFound();
+			throw new ExceptionMessage();
 		
 		shopRepository.delete(deletedShop);
 		return deletedShop;
@@ -49,12 +49,12 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ShopNotFound.class)
-	public Shop update(Shop shop) throws ShopNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Shop update(Shop shop) throws ExceptionMessage {
 		Shop updatedShop = shopRepository.findOne(shop.getId());
 		
 		if (updatedShop == null)
-			throw new ShopNotFound();
+			throw new ExceptionMessage();
 
 		updatedShop.setId(shop.getId());
 		updatedShop.setName(shop.getName());

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.MemberOptionNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.MemberOption;
 import com.cheaplist.repository.MemberOptionRepository;
 
@@ -31,12 +31,12 @@ public class MemberOptionServiceImpl implements MemberOptionService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=MemberOptionNotFound.class)
-	public MemberOption delete(int id) throws MemberOptionNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public MemberOption delete(int id) throws ExceptionMessage {
 		MemberOption deletedMemberOption = memberOptionRepository.findOne(id);
 		
 		if (deletedMemberOption == null)
-			throw new MemberOptionNotFound();
+			throw new ExceptionMessage();
 		
 		memberOptionRepository.delete(deletedMemberOption);
 		return deletedMemberOption;
@@ -49,12 +49,12 @@ public class MemberOptionServiceImpl implements MemberOptionService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=MemberOptionNotFound.class)
-	public MemberOption update(MemberOption memberOption) throws MemberOptionNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public MemberOption update(MemberOption memberOption) throws ExceptionMessage {
 		MemberOption updatedMemberOption = memberOptionRepository.findOne(memberOption.getId());
 		
 		if (updatedMemberOption == null)
-			throw new MemberOptionNotFound();
+			throw new ExceptionMessage();
 
 		updatedMemberOption.setId(memberOption.getId());
 		updatedMemberOption.setName(memberOption.getName());

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.ListProductNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Product;
 import com.cheaplist.model.ShoppingList;
@@ -37,13 +37,13 @@ public class ListProductServiceImpl implements ListProductService {
 	/******* INSERT ONE ELEMENT INTO ONE LIST *********/
 
 	@Override
-	@Transactional(rollbackFor = ListProductNotFound.class)
-	public ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ListProductNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ExceptionMessage {
 		ShoppingList shoppingList = shoppingListService.findById(idShoppingList);
 		Product product = productService.findById(idproduct);
 
 		if (shoppingList == null || product == null)
-			throw new ListProductNotFound();
+			throw new ExceptionMessage();
 
 		ListProduct createdListProduct = new ListProduct();
 		createdListProduct.setProduct(product);
@@ -59,12 +59,12 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = ListProductNotFound.class)
-	public ListProduct delete(int id) throws ListProductNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public ListProduct delete(int id) throws ExceptionMessage {
 		ListProduct deletedListProduct = listProductRepository.findOne(id);
 
 		if (deletedListProduct == null)
-			throw new ListProductNotFound();
+			throw new ExceptionMessage();
 
 		listProductRepository.delete(deletedListProduct);
 		return deletedListProduct;
@@ -77,12 +77,12 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = ListProductNotFound.class)
-	public ListProduct update(ListProduct listProduct) throws ListProductNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public ListProduct update(ListProduct listProduct) throws ExceptionMessage {
 		ListProduct updatedListProduct = listProductRepository.findOne(listProduct.getId());
 
 		if (updatedListProduct == null)
-			throw new ListProductNotFound();
+			throw new ExceptionMessage();
 
 		updatedListProduct.setId(listProduct.getId());
 		updatedListProduct.setProductQuantity(listProduct.getProductQuantity());
@@ -90,12 +90,12 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = ListProductNotFound.class)
-	public ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ListProductNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ExceptionMessage {
 		System.out.println("Test ID:" + idList);
 		ListProduct updatedListProduct = listProductRepository.findProductByList(idList, idElement);
 		if (updatedListProduct == null)
-			throw new ListProductNotFound();
+			throw new ExceptionMessage();
 
 		if (listProduct.getProduct() != null) 
 			updatedListProduct.setProduct(listProduct.getProduct());

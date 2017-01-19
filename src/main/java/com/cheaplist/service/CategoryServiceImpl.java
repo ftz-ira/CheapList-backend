@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.CategoryNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Category;
 import com.cheaplist.repository.CategoryRepository;
 
@@ -20,8 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public Category create(Category category) {
-		Category createdCategory = category;
-		return categoryRepository.save(createdCategory);
+		Category createdCategory = category;		return categoryRepository.save(createdCategory);
 	}
 	
 	@Override
@@ -31,12 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=CategoryNotFound.class)
-	public Category delete(int id) throws CategoryNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Category delete(int id) throws ExceptionMessage {
 		Category deletedCategory = categoryRepository.findOne(id);
 		
 		if (deletedCategory == null)
-			throw new CategoryNotFound();
+			throw new ExceptionMessage();
 		
 		categoryRepository.delete(deletedCategory);
 		return deletedCategory;
@@ -49,12 +48,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=CategoryNotFound.class)
-	public Category update(Category category) throws CategoryNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Category update(Category category) throws ExceptionMessage {
 		Category updatedCategory = categoryRepository.findOne(category.getId());
 		
 		if (updatedCategory == null)
-			throw new CategoryNotFound();
+			throw new ExceptionMessage();
 
 		updatedCategory.setId(category.getId());
 		updatedCategory.setName(category.getName());

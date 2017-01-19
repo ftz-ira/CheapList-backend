@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cheaplist.exception.MemberNotFound;
+import com.cheaplist.exception.ErrorResponse;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Member;
 import com.cheaplist.model.ShoppingList;
 import com.cheaplist.model.View;
@@ -87,13 +89,18 @@ public class MemberController {
 
 	}
 
-	/***** READ ONE METHODE : ONE MEMBER ******/
+	/***** READ ONE METHODE : ONE MEMBER 
+	 * @throws ExceptionMessage ******/
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Member identityFindId(@PathVariable Integer id) {
+	public Member identityFindId(@PathVariable Integer id) throws ExceptionMessage {
 
 		Member member;
 		member = memberService.findById(id.intValue());
+		if (member == null) 
+			{
+			throw new ExceptionMessage("MEMBER NOT FOUND");
+			}
 		return member;
 
 	}
@@ -114,8 +121,11 @@ public class MemberController {
 	 *******/
 
 	@RequestMapping(value = "/{idMember}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> RemoveOneMember(@PathVariable Integer idMember) throws MemberNotFound {
+	public ResponseEntity<String> RemoveOneMember(@PathVariable Integer idMember) throws ExceptionMessage {
 		Member member = memberService.findById(idMember);
+		if (member == null) {
+			throw new ExceptionMessage("MEMBER NOT FOUND");
+		}
 		member.setIsActive(false);
 		memberService.update(member);
 		return new ResponseEntity<String>("ELEMENT DELETED", HttpStatus.OK);
@@ -124,9 +134,18 @@ public class MemberController {
 	/**** PATCH A MEMBER **********/
 	@JsonView(View.MemberIdentity.class)
 	@RequestMapping(value = "/{idMember}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
-	public Member PatchMember(@PathVariable Integer idMember, @RequestBody Member member) throws MemberNotFound {
+	public Member PatchMember(@PathVariable Integer idMember, @RequestBody Member member) throws ExceptionMessage {
 		member = memberService.patch(idMember, member);
 		return member;
+
+	}
+
+	@ExceptionHandler(ExceptionMessage.class)
+	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+		ErrorResponse error = new ErrorResponse();
+		error.setErrorCode(HttpStatus.PRECONDITION_FAILED.value());
+		error.setMessage(ex.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.OK);
 
 	}
 

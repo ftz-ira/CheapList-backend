@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.MemberNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Member;
 import com.cheaplist.repository.MemberRepository;
 
@@ -34,12 +34,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = MemberNotFound.class)
-	public Member delete(int id) throws MemberNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public Member delete(int id) throws ExceptionMessage {
 		Member deletedMember = memberRepository.findOne(id);
 
 		if (deletedMember == null)
-			throw new MemberNotFound();
+			throw new ExceptionMessage();
 
 		memberRepository.delete(deletedMember);
 		return deletedMember;
@@ -52,12 +52,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = MemberNotFound.class)
-	public Member update(Member member) throws MemberNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public Member update(Member member) throws ExceptionMessage {
 		Member updatedMember = memberRepository.findOne(member.getId());
 
 		if (updatedMember == null)
-			throw new MemberNotFound();
+			throw new ExceptionMessage();
 
 		updatedMember.setName(member.getName());
 		updatedMember.setLogin(member.getLogin());
@@ -71,13 +71,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	@Transactional(rollbackFor = MemberNotFound.class)
-	public Member patch(Integer idMember, Member member) throws MemberNotFound {
+	@Transactional(rollbackFor = ExceptionMessage.class)
+	public Member patch(Integer idMember, Member member) throws ExceptionMessage {
 		// TODO Auto-generated method stub
 		System.out.println("Test Cle :"+idMember);
 		Member updatedMember = memberRepository.findOne(idMember);
 		if (updatedMember == null)
-			throw new MemberNotFound();
+			throw new ExceptionMessage();
 
 		if (member.getIsActive() != null)
 			updatedMember.setIsActive(member.getIsActive());

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.SettingNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Setting;
 import com.cheaplist.repository.SettingRepository;
 
@@ -31,12 +31,12 @@ public class SettingServiceImpl implements SettingService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=SettingNotFound.class)
-	public Setting delete(int id) throws SettingNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Setting delete(int id) throws ExceptionMessage {
 		Setting deletedSetting = settingRepository.findOne(id);
 		
 		if (deletedSetting == null)
-			throw new SettingNotFound();
+			throw new ExceptionMessage();
 		
 		settingRepository.delete(deletedSetting);
 		return deletedSetting;
@@ -49,12 +49,12 @@ public class SettingServiceImpl implements SettingService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=SettingNotFound.class)
-	public Setting update(Setting setting) throws SettingNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Setting update(Setting setting) throws ExceptionMessage {
 		Setting updatedSetting = settingRepository.findOne(setting.getId());
 		
 		if (updatedSetting == null)
-			throw new SettingNotFound();
+			throw new ExceptionMessage();
 
 		updatedSetting.setId(setting.getId());
 		updatedSetting.setName(setting.getName());

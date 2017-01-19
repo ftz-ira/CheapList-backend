@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cheaplist.exception.ShopProductNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Member;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
@@ -84,7 +84,7 @@ public class ShopProductController {
 	 ******/
 	@JsonView(View.PriceProduct.class)
 	@RequestMapping(value = "" ,method = RequestMethod.PATCH, consumes = "application/json")
-	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ShopProductNotFound {
+	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage {
 		shopProductValidator.validate(shopProduct, result);
 		if (result.hasErrors())
 			return result.getAllErrors();	

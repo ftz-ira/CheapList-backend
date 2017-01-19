@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.ProductNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Product;
 import com.cheaplist.repository.ProductRepository;
 
@@ -31,12 +31,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ProductNotFound.class)
-	public Product delete(int id) throws ProductNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Product delete(int id) throws ExceptionMessage {
 		Product deletedProduct = productRepository.findOne(id);
 		
 		if (deletedProduct == null)
-			throw new ProductNotFound();
+			throw new ExceptionMessage();
 		
 		productRepository.delete(deletedProduct);
 		return deletedProduct;
@@ -49,12 +49,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=ProductNotFound.class)
-	public Product update(Product product) throws ProductNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Product update(Product product) throws ExceptionMessage {
 		Product updatedProduct = productRepository.findOne(product.getId());
 		
 		if (updatedProduct == null)
-			throw new ProductNotFound();
+			throw new ExceptionMessage();
 
 		updatedProduct.setId(product.getId());
 		updatedProduct.setName(product.getName());

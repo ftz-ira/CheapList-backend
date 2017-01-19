@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cheaplist.exception.AddressNotFound;
+import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.Address;
 import com.cheaplist.repository.AddressRepository;
 
@@ -31,12 +31,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=AddressNotFound.class)
-	public Address delete(int id) throws AddressNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Address delete(int id) throws ExceptionMessage {
 		Address deletedAddress = addressRepository.findOne(id);
 		
 		if (deletedAddress == null)
-			throw new AddressNotFound();
+			throw new ExceptionMessage();
 		
 		addressRepository.delete(deletedAddress);
 		return deletedAddress;
@@ -49,12 +49,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	@Transactional(rollbackFor=AddressNotFound.class)
-	public Address update(Address address) throws AddressNotFound {
+	@Transactional(rollbackFor=ExceptionMessage.class)
+	public Address update(Address address) throws ExceptionMessage {
 		Address updatedAddress = addressRepository.findOne(address.getId());
 		
 		if (updatedAddress == null)
-			throw new AddressNotFound();
+			throw new ExceptionMessage();
 
 		updatedAddress.setCity(address.getCity());
 		updatedAddress.setStreetName(address.getStreetName());
