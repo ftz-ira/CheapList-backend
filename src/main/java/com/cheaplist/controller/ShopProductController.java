@@ -83,7 +83,7 @@ public class ShopProductController {
 	/**** PATCH PRICE BY PRODUCT AND BY SHOP 
 	 ******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "/" ,method = RequestMethod.PATCH, consumes = "application/json")
+	@RequestMapping(value = "" ,method = RequestMethod.PATCH, consumes = "application/json")
 	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ShopProductNotFound {
 		shopProductValidator.validate(shopProduct, result);
 		if (result.hasErrors())
