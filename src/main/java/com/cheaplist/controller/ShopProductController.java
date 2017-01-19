@@ -80,14 +80,14 @@ public class ShopProductController {
 	 ******/
 	@JsonView(View.PriceProduct.class)
 	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = "application/json")
-	public List<ObjectError> UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result)
-			throws ExceptionMessage {
+	public ResponseEntity<ShopProduct>  UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage
+	{
 		shopProductValidator.validate(shopProduct, result);
 		if (result.hasErrors())
-			return result.getAllErrors();
+			throw new ExceptionMessage("ERROR PATCH PRICE");
 		shopProduct = shopProductService.patch(shopProduct);
 		shopProductService.update(shopProduct);
-		return result.getAllErrors();
+		return new ResponseEntity<ShopProduct>(shopProduct, HttpStatus.OK);
 	}
 
 }
