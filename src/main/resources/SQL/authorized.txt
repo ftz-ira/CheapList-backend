@@ -48,10 +48,8 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 
 /****** DONNER LE PRIX D'UN PRODUIT POUR UN MAGAIN (ici ID Magasin 112) ******/
-(break)
 
 	HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
-
 
 /****** MODIFIER LE PRIX D'UN PRODUIT D'UN MAGASIN magasin (PATCH Powwa)********/
 
