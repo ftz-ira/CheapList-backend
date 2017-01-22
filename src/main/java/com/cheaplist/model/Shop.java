@@ -20,7 +20,7 @@ public class Shop implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView(View.PriceProduct.class)
+	@JsonView({View.PriceProduct.class,View.MemberList.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -35,7 +35,7 @@ public class Shop implements Serializable {
 	private Boolean isActive;
 
 //	@JsonView({View.ProductShop.class,View.ShopAddress.class,View.MemberIdentity.class})
-	@JsonView({View.PriceProduct.class,View.GoogleShop.class})
+	@JsonView({View.PriceProduct.class,View.GoogleShop.class,View.MemberList.class})
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -48,6 +48,10 @@ public class Shop implements Serializable {
 	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
+	
+	//bi-directional many-to-one association to ShoppingList
+	@OneToMany(mappedBy="shop")
+	private Set<ShoppingList> shoppingLists;
 
 	//bi-directional many-to-one association to ShopProduct
 	/*@OneToMany(mappedBy="shop")
@@ -124,26 +128,12 @@ public class Shop implements Serializable {
 		this.address = address;
 	}
 
-/*	public Set<ShopProduct> getShopProducts() {
-		return this.shopProducts;
+	public Set<ShoppingList> getShoppingLists() {
+		return shoppingLists;
 	}
 
-	public void setShopProducts(Set<ShopProduct> shopProducts) {
-		this.shopProducts = shopProducts;
+	public void setShoppingLists(Set<ShoppingList> shoppingLists) {
+		this.shoppingLists = shoppingLists;
 	}
 
-	public ShopProduct addShopProduct(ShopProduct shopProduct) {
-		getShopProducts().add(shopProduct);
-		shopProduct.setShop(this);
-
-		return shopProduct;
-	}
-
-	public ShopProduct removeShopProduct(ShopProduct shopProduct) {
-		getShopProducts().remove(shopProduct);
-		shopProduct.setShop(null);
-
-		return shopProduct;
-	}
-*/
 }

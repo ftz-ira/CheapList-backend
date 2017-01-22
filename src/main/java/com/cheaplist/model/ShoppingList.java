@@ -15,8 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -71,6 +70,11 @@ public class ShoppingList implements Serializable {
 	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name="member_id", nullable=false)
 	private Member member;
+	
+	@JsonView(View.MemberList.class)
+	@ManyToOne (fetch=FetchType.EAGER)
+	@JoinColumn(name="shop_id")
+	private Shop shop;
 
 	public ShoppingList() {
 	}
@@ -159,6 +163,14 @@ public class ShoppingList implements Serializable {
 
 	public void setMember(Member member) {
 		this.member = member;
+	}
+	
+	public Shop getShop() {
+		return this.shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 }

@@ -1,4 +1,4 @@
-﻿
+﻿Vérification avec le serveur, le 23/01 à 0h10
 
 Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
@@ -51,19 +51,16 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 	HTTP GET : http://localhost:8080/cheaplist/prices/15320/shop/112
 
-/****** MODIFIER LE PRIX D'UN PRODUIT D'UN MAGASIN magasin (PATCH Powwa)********/
+/****** AJOUTER / MODIFIER LE PRIX D'UN PRODUIT D'UN MAGASIN magasin (PATCH Powwa)********/
 
 	HTTP PATCH : http://localhost:8080/cheaplist/prices/
 
 	 {
-	    "price": 99.99,
-	    "product": {
-	      "id": 15320
-	    },
-	    "shop": {
-	      "id": 157
-	    }
-	  }
+	    "price": 99.99
+	 }
+
+Si il n'y a pas de prix pour un produit avec un magasin précis, le serveur crée le tuple.
+Si il existe, il modifie le tuple sans crée un autre.
 
 /***** MEMBER *************************/
 /**************************************/

@@ -323,7 +323,7 @@ CREATE TABLE `shop_product` (
   KEY `fk_Produit_has_magasin_Produit1_idx` (`product_id`),
   CONSTRAINT `fk_Produit_has_magasin_Produit1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Produit_has_magasin_magasin1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,7 +332,7 @@ CREATE TABLE `shop_product` (
 
 LOCK TABLES `shop_product` WRITE;
 /*!40000 ALTER TABLE `shop_product` DISABLE KEYS */;
-INSERT INTO `shop_product` VALUES (6,0,2.25,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116),(17,0,2.89,36117,188),(18,0,4.11,36369,188),(19,0,2.9,36336,188),(20,0,14.1,35565,188),(21,0,1.5,35852,188),(22,0,0.99,32491,188),(23,0,1.5,20321,188),(24,0,3.45,11096,188),(25,0,1.89,36117,111),(26,0,3.11,36369,111),(27,0,1.9,36336,111),(28,0,13.1,35565,111),(29,0,0.5,35852,111),(30,0,0.49,32491,111),(31,0,0.5,20321,111),(32,0,2.45,11096,111),(33,0,1.89,36117,113),(34,0,3.11,36369,113),(35,0,13.1,35565,113),(36,0,0.5,35852,113),(37,0,0.5,20321,113),(38,0,2.45,11096,113),(39,0,9.69,15320,112),(40,0,99.99,15320,157);
+INSERT INTO `shop_product` VALUES (6,0,4.45,15320,112),(7,0,2.26,15320,113),(8,0,2.27,15320,114),(9,0,2.28,15320,115),(10,0,2.29,15320,116),(11,0,2.3,15320,117),(12,0,1.15,8780,112),(13,0,1.16,8780,113),(14,0,1.17,8780,114),(15,0,1.18,8780,115),(16,0,1.19,8780,116),(17,0,2.89,36117,188),(18,0,4.11,36369,188),(19,0,2.9,36336,188),(20,0,14.1,35565,188),(21,0,1.5,35852,188),(22,0,0.99,32491,188),(23,0,1.5,20321,188),(24,0,3.45,11096,188),(25,0,1.89,36117,111),(26,0,3.11,36369,111),(27,0,1.9,36336,111),(28,0,13.1,35565,111),(29,0,0.5,35852,111),(30,0,0.49,32491,111),(31,0,0.5,20321,111),(32,0,2.45,11096,111),(33,0,1.89,36117,113),(34,0,3.11,36369,113),(35,0,13.1,35565,113),(36,0,0.5,35852,113),(37,0,0.5,20321,113),(38,0,2.45,11096,113),(40,0,99.99,15320,157),(42,0,70.72,16711,112),(43,0,70.72,19829,89);
 /*!40000 ALTER TABLE `shop_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,9 +352,12 @@ CREATE TABLE `shopping_list` (
   `is_favor` tinyint(1) NOT NULL,
   `updated_date` datetime NOT NULL,
   `member_id` int(11) NOT NULL,
+  `shop_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Utilisateur_has_Produit_Utilisateur_idx` (`member_id`),
-  CONSTRAINT `fk_Utilisateur_has_Produit_Utilisateur` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_shopping_list_shop1_idx` (`shop_id`),
+  CONSTRAINT `fk_Utilisateur_has_Produit_Utilisateur` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_shopping_list_shop1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -364,7 +367,7 @@ CREATE TABLE `shopping_list` (
 
 LOCK TABLES `shopping_list` WRITE;
 /*!40000 ALTER TABLE `shopping_list` DISABLE KEYS */;
-INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,0,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,0,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,0,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,0,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,0,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,0,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,0,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,0,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,0,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,0,'2016-12-29 00:00:00',69),(22,'NewNamePowwaer',1,0,0,1,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,0,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',0,0,0,0,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',0,0,0,0,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,0,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,1,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,0,'2016-12-29 00:00:00',69),(33,'Liste Vide',1,0,0,0,'2017-01-12 22:58:31',69),(34,'LeGrandSeb3 Liste',1,0,0,0,'2017-01-12 23:24:03',69),(35,'NewLeGrandSeb4',1,0,0,0,'2017-01-12 23:26:25',69),(36,'LeGrandSeb List1',1,0,0,0,'2017-01-19 10:24:00',70),(37,'LeGrandSeb List2',1,0,0,0,'2017-01-19 10:24:00',70),(38,'LeGrandSeb List3',1,0,0,0,'2017-01-19 10:24:00',70),(39,'LeGrandSeb List4',1,0,0,0,'2017-01-19 10:24:00',70),(40,'LeGrandSeb List5',1,0,0,0,'2017-01-19 10:24:00',70),(41,'LeGrandSeb List6',1,0,0,0,'2017-01-19 10:24:00',70),(42,'LeGrandSeb List7',1,0,0,0,'2017-01-19 10:24:00',70),(43,'LeGrandSeb List8',1,0,0,0,'2017-01-19 10:24:00',70),(44,'LeGrandSeb List9',0,0,0,0,'2017-01-19 10:24:00',70),(45,'NewLeGrandSeb List9',1,0,0,0,'2017-01-19 10:31:17',70),(46,'LeGrandSeb List1',1,0,0,0,'2017-01-19 11:52:27',71),(47,'LeGrandSeb List2',1,0,0,0,'2017-01-19 11:52:27',71),(48,'LeGrandSeb List3',1,0,0,0,'2017-01-19 11:52:27',71),(49,'LeGrandSeb List4',1,0,0,0,'2017-01-19 11:52:27',71),(50,'LeGrandSeb List5',1,0,0,0,'2017-01-19 11:52:27',71),(51,'LeGrandSeb List6',1,0,0,0,'2017-01-19 11:52:27',71),(52,'LeGrandSeb List7',1,0,0,0,'2017-01-19 11:52:27',71),(53,'LeGrandSeb List8',1,0,0,0,'2017-01-19 11:52:27',71),(54,'LeGrandSeb List9',1,0,0,0,'2017-01-19 11:52:27',71);
+INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(13,'KamahoroList2',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(14,'KamahoroList3',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(15,'KamahoroList4',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(16,'KamahoroList5',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(17,'KamahoroList6',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(18,'KamahoroList7',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(19,'KamahoroList8',1,0,0,0,'2016-12-29 00:00:00',45,NULL),(20,'KamahoroList9',1,0,1,0,'2016-12-29 00:00:00',45,NULL),(21,'LeGrandSeb1',1,0,0,0,'2016-12-29 00:00:00',69,85),(22,'NewNamePowwaer',1,0,0,1,'2016-12-29 00:00:00',69,86),(23,'LeGrandSeb3',1,0,0,0,'2016-12-29 00:00:00',69,87),(24,'LeGrandSeb4',0,0,0,0,'2016-12-29 00:00:00',69,88),(25,'LeGrandSeb5',0,0,0,0,'2016-12-29 00:00:00',69,89),(26,'LeGrandSeb6',1,0,0,0,'2016-12-29 00:00:00',69,90),(27,'LeGrandSeb7',1,0,0,1,'2016-12-29 00:00:00',69,91),(28,'LeGrandSeb8',1,0,0,0,'2016-12-29 00:00:00',69,92),(33,'Liste Vide',1,0,0,0,'2017-01-12 22:58:31',69,93),(34,'LeGrandSeb3 Liste',1,0,0,0,'2017-01-12 23:24:03',69,NULL),(35,'NewLeGrandSeb4',1,0,0,0,'2017-01-12 23:26:25',69,NULL),(36,'LeGrandSeb List1',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(37,'LeGrandSeb List2',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(38,'LeGrandSeb List3',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(39,'LeGrandSeb List4',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(40,'LeGrandSeb List5',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(41,'LeGrandSeb List6',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(42,'LeGrandSeb List7',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(43,'LeGrandSeb List8',1,0,0,0,'2017-01-19 10:24:00',70,NULL),(44,'LeGrandSeb List9',0,0,0,0,'2017-01-19 10:24:00',70,NULL),(45,'NewLeGrandSeb List9',1,0,0,0,'2017-01-19 10:31:17',70,NULL),(46,'LeGrandSeb List1',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(47,'LeGrandSeb List2',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(48,'LeGrandSeb List3',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(49,'LeGrandSeb List4',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(50,'LeGrandSeb List5',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(51,'LeGrandSeb List6',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(52,'LeGrandSeb List7',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(53,'LeGrandSeb List8',1,0,0,0,'2017-01-19 11:52:27',71,NULL),(54,'LeGrandSeb List9',1,0,0,0,'2017-01-19 11:52:27',71,NULL);
 /*!40000 ALTER TABLE `shopping_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -377,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-22 17:27:40
+-- Dump completed on 2017-01-23  0:14:08

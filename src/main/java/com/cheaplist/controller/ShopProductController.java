@@ -21,7 +21,9 @@ import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.cheaplist.service.ProductService;
 import com.cheaplist.service.ShopProductService;
+import com.cheaplist.service.ShopService;
 import com.cheaplist.validator.ShopProductValidator;
 
 /**
@@ -39,7 +41,13 @@ public class ShopProductController {
 	private ShopProductService shopProductService;
 
 	@Autowired
+	private ProductService productService;
+
+	@Autowired
 	private ShopProductValidator shopProductValidator;
+
+	@Autowired
+	private ShopService shopService;
 
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
@@ -62,12 +70,16 @@ public class ShopProductController {
 				shopProductService.findPriceByProductShop(idProduct.intValue(), idShop.intValue()), HttpStatus.OK);
 	}
 
-	/**** CREATE PRICE BY PRODUCT AND BY SHOP 
-	 * @throws ExceptionMessage *****/
+	/****
+	 * CREATE PRICE BY PRODUCT AND BY SHOP
+	 * 
+	 * @throws ExceptionMessage
+	 *****/
 	@RequestMapping(value = "/", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<ShopProduct> createNewPrice(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage {
+	public ResponseEntity<ShopProduct> createNewPrice(@RequestBody ShopProduct shopProduct, BindingResult result)
+			throws ExceptionMessage {
 		shopProductValidator.validate(shopProduct, result);
-	//	System.out.println(result.getAllErrors());
+		// System.out.println(result.getAllErrors());
 		if (result.hasErrors())
 			throw new ExceptionMessage("ERROR CREATE PRICE");
 		shopProduct = shopProductService.create(shopProduct);
@@ -78,17 +90,43 @@ public class ShopProductController {
 	 * PATCH PRICE BY PRODUCT AND BY SHOP
 	 ******/
 	@JsonView(View.PriceProduct.class)
-	@RequestMapping(value = "", method = RequestMethod.PATCH, consumes = "application/json")
-	public ResponseEntity<ShopProduct>  UpdatePriceProductShop(@RequestBody ShopProduct shopProduct, BindingResult result) throws ExceptionMessage
-	{
-		shopProductValidator.validate(shopProduct, result);
+	@RequestMapping(value = "/{idProduct}/shop/{idShop}", method = RequestMethod.PATCH)
+	public ResponseEntity<ShopProduct> PatchPrices(@PathVariable Integer idProduct, @PathVariable Integer idShop,
+			@RequestBody ShopProduct shopProductJson, BindingResult result) throws ExceptionMessage {
+
+		shopProductValidator.validate(shopProductJson, result);
 		if (result.hasErrors())
 			throw new ExceptionMessage("ERROR PATCH PRICE");
-		shopProduct = shopProductService.patch(shopProduct);
-		shopProductService.update(shopProduct);
-		return new ResponseEntity<ShopProduct>(shopProduct, HttpStatus.OK);
+
+		ShopProduct shopProduct = shopProductService.findPriceByProductShop(idProduct, idShop);
+		ShopProduct newshopProduct = new ShopProduct();
+
+		/*** Il n'a pas de lignes pour ce prix ****/
+		if (shopProduct == null) {
+			newshopProduct.setProduct(productService.findById(idProduct));
+			if (newshopProduct.getProduct() == null)
+				throw new ExceptionMessage("ERROR PRODUCT ID INVALID");
+
+			newshopProduct.setShop(shopService.findById(idShop));
+			if (newshopProduct.getProduct() == null)
+				throw new ExceptionMessage("ERROR SHOP ID INVALID");
+
+			newshopProduct.setPrice(shopProductJson.getPrice());
+			newshopProduct.setRatio(0);
+
+			 newshopProduct = shopProductService.create(newshopProduct);
+			 if (newshopProduct == null) throw new ExceptionMessage("ERROR CREATE SHOPLIST PRICE");
+		} else {
+			shopProductJson.setId(shopProduct.getId());
+			shopProductJson.setProduct(productService.findById(idProduct));
+			shopProductJson.setShop(shopService.findById(idShop));
+			newshopProduct = shopProductService.update(shopProductJson);
+			if (newshopProduct == null)
+				throw new ExceptionMessage("ERROR UPDATE SHOPLIST PRICE");
+		}
+		return new ResponseEntity<ShopProduct>(newshopProduct, HttpStatus.OK);
 	}
-	
+
 	@ExceptionHandler(ExceptionMessage.class)
 	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
 		ErrorResponse error = new ErrorResponse();

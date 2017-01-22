@@ -21,17 +21,13 @@ public class ShopProductValidator implements Validator {
 	ShopProduct shopProduct = (ShopProduct) target;
 		
 	ValidationUtils.rejectIfEmpty(errors,"price","price missing");
-	ValidationUtils.rejectIfEmpty(errors,"product","product missing");	
-	ValidationUtils.rejectIfEmpty(errors,"shop","shop missing");
+	//ValidationUtils.rejectIfEmpty(errors,"product","product missing");	
+	//ValidationUtils.rejectIfEmpty(errors,"shop","shop missing");
 	System.out.println("Seb :"+errors.hasErrors());
 	if (errors.hasErrors()) return;
 	
 	if (shopProduct.getPrice() <= 0)
 		errors.rejectValue("price","PRICE MUST GREATER THAN ZERO");
-	if (shopProduct.getProduct().getId() <= 0)
-		errors.rejectValue("product.id","ID PRODUCT MUST GREATER THAN ZERO");
-	if (shopProduct.getShop().getId() <= 0)
-		errors.rejectValue("shop.id","ID SHOP MUST GREATER THAN ZERO");	
 	}
 
 }

@@ -66,8 +66,7 @@ public class ListProductController {
 	public ResponseEntity<ListProduct> ListProduct(@PathVariable Integer idList, @PathVariable Integer idElement)
 			throws ExceptionMessage {
 		ListProduct listProduct = listProductService.findProductByList(idList.intValue(), idElement.intValue());
-		if (listProduct == null)
-		{
+		if (listProduct == null) {
 			throw new ExceptionMessage("ERROR ID LIST OR ID PRODUCT NOT FOUND (code 002)");
 		}
 		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
@@ -78,15 +77,12 @@ public class ListProductController {
 	@RequestMapping(value = "/{idList}/element/{idElement}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ListProduct> PatchListProductAll(@PathVariable Integer idList,
 			@PathVariable Integer idElement, @RequestBody ListProduct listProduct) throws ExceptionMessage {
-		try
-		{
-			listProduct = listProductService.patch(idList, idElement, listProduct);			
+		try {
+			listProduct = listProductService.patch(idList, idElement, listProduct);
+		} catch (ExceptionMessage e) {
+			throw new ExceptionMessage("ERROR ListProduct Patch " + e.getErrorMessage());
 		}
-		catch (ExceptionMessage e)
-		{
-			throw new ExceptionMessage("ERROR ListProduct Patch "+e.getErrorMessage());	
-		}
-	return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
+		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 
 	}
 
@@ -110,20 +106,17 @@ public class ListProductController {
 		int productQuantity = rootNode.path("productQuantity").asInt();
 
 		/****
-		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée
-		 * un
+		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée un
 		 ***/
 		ListProduct listProduct = listProductService.findElementByListBtProduct(idList, idProduct);
 
 		// Introuvable donc on en crée un autre élement dans la liste
 		if (listProduct == null) {
-			if (productQuantity < 1)
-				productQuantity = 1;
-			listProductService.createOneElement(idList, idProduct, productQuantity);
+			if (productQuantity > 0)
+				listProductService.createOneElement(idList, idProduct, productQuantity);
 
 		} else {
 			// Si l'element est trouvé, on va l'update
-
 			if (productQuantity > 0) {
 				listProduct.setProductQuantity(productQuantity);
 				listProductService.patch(idList, listProduct.getId(), listProduct);
@@ -184,7 +177,8 @@ public class ListProductController {
 
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}", method = RequestMethod.POST)
-	public ResponseEntity<String> ListAllPrices(@PathVariable Integer idList, @RequestBody String coordinate) throws ExceptionMessage {
+	public ResponseEntity<String> ListAllPrices(@PathVariable Integer idList, @RequestBody String coordinate)
+			throws ExceptionMessage {
 		System.out.println(coordinate);
 		String answerGoogle = "";
 		ObjectMapper mapper;
@@ -198,7 +192,8 @@ public class ListProductController {
 			String lat = rootNode.path("lat").asText();
 			String lng = rootNode.path("lng").asText();
 			/** Mettre EXCEPTION ****/
-			if (lat.isEmpty() || lng.isEmpty()) throw new ExceptionMessage("ERROR JSON PACKAGE, MISSING LAT OR LNG DATA");
+			if (lat.isEmpty() || lng.isEmpty())
+				throw new ExceptionMessage("ERROR JSON PACKAGE, MISSING LAT OR LNG DATA");
 
 			String radius = "3500"; // Par defaut
 			String emblem = "Auchan|Carrefour|Cora|Leclerc|Lidl|Match|Casino";
@@ -218,13 +213,12 @@ public class ListProductController {
 			// On trie le JSON donnée par GOOGLE
 			JsonNode googleNode = mapper.readTree(new StringReader(answerGoogle));
 			mapper = new ObjectMapper();
-			arrayNode = mapper.createArrayNode();	
-			
-			if (googleNode.path("status").asText().compareTo("ZERO_RESULTS")== 0)
-			{
+			arrayNode = mapper.createArrayNode();
+
+			if (googleNode.path("status").asText().compareTo("ZERO_RESULTS") == 0) {
 				throw new ExceptionMessage("ERROR GOOGLEMAP REQUEST : ZERO RESULTS");
 			}
-			
+
 			long numberElement = listProductService.countElement(idList);
 			for (JsonNode node : googleNode.path("results")) {
 
