@@ -103,7 +103,7 @@ public class MemberController {
 
 	/***** READ ONE MEMBER : ALL LIST BY MEMBER ******/
 	@JsonView(View.MemberList.class)
-	@RequestMapping(value = "/{id}/lists")
+	@RequestMapping(value = "/{id}/lists", method = RequestMethod.GET)
 	public ResponseEntity<Member> listFindid(@PathVariable Integer id) throws ExceptionMessage {
 		Member member = memberService.findById(id.intValue());
 		if (member == null) {
@@ -111,7 +111,26 @@ public class MemberController {
 		}
 		return new ResponseEntity<Member>(member, HttpStatus.OK);
 	}
+	
+	
+	/***** READ ONE MEMBER : ALL LIST BY MEMBER ******/
+	@JsonView(View.MemberList.class)
+	@RequestMapping(value = "/{id}/lists/favor", method = RequestMethod.GET)
+	public ResponseEntity<Member> listFindidFavor(@PathVariable Integer id) throws ExceptionMessage {
+		System.out.println();
+		Member member = memberService.findById(id.intValue());
+		
+		if (member == null) {
+			throw new ExceptionMessage("MEMBER NOT FOUND");
+		}
+		
+		return new ResponseEntity<Member>(member, HttpStatus.OK);
+	}
+	
+	
 
+	
+	/***
 	/*****
 	 * DELETE A MEMBER
 	 * 

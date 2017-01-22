@@ -62,6 +62,8 @@ public class ShoppingListController {
 
 	}
 	
+
+	
 	/*** DELETE ONE LIST : SAVE A LIST AND CREATE A LIST *****/
 	@JsonView(View.List.class)
 	@RequestMapping(value = "/{idList}", method = RequestMethod.DELETE)

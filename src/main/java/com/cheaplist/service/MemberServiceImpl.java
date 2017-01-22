@@ -31,7 +31,9 @@ public class MemberServiceImpl implements MemberService {
 	@Transactional
 	public Member findById(int id) {
 		return memberRepository.findOne(id);
-	}
+	}	
+	
+	
 
 	@Override
 	@Transactional(rollbackFor = ExceptionMessage.class)
@@ -99,5 +101,6 @@ public class MemberServiceImpl implements MemberService {
 		return updatedMember;
 
 	}
+
 
 }
