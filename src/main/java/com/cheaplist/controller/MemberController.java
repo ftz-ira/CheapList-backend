@@ -65,7 +65,7 @@ public class MemberController {
 			shoppingList.setName(member.getName() + " List" + i);
 			shoppingList.setMember(member);
 			shoppingList.setIsActif(true);
-			shoppingList.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+			shoppingList.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
 			shoppingList.setIsFavor(null);
 			shoppingList.setIsClose(false);
 			shoppingList.setIsDone(false);

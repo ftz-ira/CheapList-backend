@@ -44,8 +44,7 @@ public class Member implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_date")
+		@Column(name="created_date")
 	private Date createdDate;
 
 	@JsonView(View.MemberIdentity.class)
@@ -100,7 +99,7 @@ public class Member implements Serializable {
 
 	//bi-directional many-to-one association to ShoppingSet
 	@JsonView(View.MemberList.class)
-	@OrderBy("id asc")
+	@OrderBy("updated_date asc")
 	@Where(clause = "is_Actif =1 ")
 	@OneToMany(mappedBy="member",fetch=FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;

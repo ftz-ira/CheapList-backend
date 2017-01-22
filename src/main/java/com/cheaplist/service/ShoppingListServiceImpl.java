@@ -55,7 +55,7 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 		updatedShoppingList.setName(shoppingList.getName());
 		updatedShoppingList.setIsActif(shoppingList.getIsActif());
 		updatedShoppingList.setIsClose(shoppingList.getIsClose());
-		updatedShoppingList.setCreatedDate(shoppingList.getCreatedDate());
+		updatedShoppingList.setUpdatedDate(shoppingList.getUpdatedDate());
 
 		return updatedShoppingList;
 	}

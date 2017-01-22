@@ -37,9 +37,8 @@ public class ShoppingList implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Integer id;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_date")
-	private Date createdDate;
+	@Column(name="updated_date")
+	private Date updatedDate;
 
 	@JsonView({View.List.class,View.MemberList.class})
 	@Column(name="is_actif", nullable=false, columnDefinition = "TINYINT(1)")
@@ -84,12 +83,12 @@ public class ShoppingList implements Serializable {
 		this.id = id;
 	}
 
-	public Date getCreatedDate() {
-		return this.createdDate;
+	public Date getUpdatedDate() {
+		return this.updatedDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setUpdatedDate(Date createdDate) {
+		this.updatedDate = createdDate;
 	}
 
 	public Boolean getIsActif() {

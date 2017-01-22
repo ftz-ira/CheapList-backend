@@ -1,8 +1,10 @@
+CREATE DATABASE  IF NOT EXISTS `cheaplist` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `cheaplist`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: cheaplist
+-- Host: 127.0.0.1    Database: cheaplist
 -- ------------------------------------------------------
--- Server version	5.7.15-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -68,7 +70,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'boucherie',1,1,'img/category_img/boucherie.jpg'),(2,'rotisserie',1,1,'img/category_img/rotisserie.jpg'),(3,'volaille',0,1,'img/category_img/volaille.jpg'),(4,'poissonnerie',1,1,'img/category_img/poissonnerie.jpg'),(5,'fruits frais',1,2,'img/category_img/fruits_frais.jpg'),(6,' legumes frais',1,2,'img/category_img/legumes_frais.jpg'),(7,'fruits secs',1,2,'img/category_img/fruits_secs.jpg'),(8,'legumes secs',1,2,'img/category_img/legumes_secs.jpg'),(9,'plats cuisines',1,3,'img/category_img/plats_cuisines.jpg'),(10,'pizza et tartes',1,3,'img/category_img/pizzas_et_tartes.jpg'),(11,'legumes et frites',1,3,'img/category_img/legumes_frites.jpg'),(12,'glaces',1,3,'img/category_img/glaces.jpg'),(13,'entrees et snacks',1,3,'img/category_img/entrees_snacks.jpg'),(14,'aperitifs',1,4,'img/category_img/aperitifs.jpg'),(15,'conserve',1,4,'img/category_img/conserve.jpg'),(16,'feculents',1,4,'img/category_img/feculents.jpg'),(17,'condiments',1,4,'img/category_img/condiments.jpg'),(18,'soupe et accompagnements',1,4,'img/category_img/soupe_et_accompagnements.jpg'),(19,'café et thé',1,5,'img/category_img/cafe_et_the.jpg'),(20,'confiserie',1,5,'img/category_img/confiserie.jpg'),(21,'petit dejeuner',1,5,'img/category_img/petit_dejeuner.jpg'),(22,'biscuits et gateaux',1,5,'img/category_img/biscuits_et_gateaux.jpg'),(23,'dessert et farine',1,5,'img/category_img/dessert_et_farine.jpg'),(24,'cremerie',1,6,'img/category_img/cremerie.jpg'),(25,'fromage et specialités',1,6,'img/category_img/fromage_et_specialites.jpg'),(26,'yaourt et dessert',1,6,'img/category_img/yaourt_et_dessert.jpg'),(27,'charcuterie',1,7,'img/category_img/charcuterie.jpg'),(28,'traiteur',1,7,'img/category_img/traiteur.jpg'),(29,'eaux et laits',1,8,'img/category_img/eaux_et_laits.jpg'),(30,'jus et soft drinks',1,8,'img/category_img/jus_et_soft_drinks.jpg'),(31,'bière et cidre',1,8,'img/category_img/biere_et_cidre.jpg'),(32,'apero et alcools',1,8,'img/category_img/apero_et_alcools.jpg'),(33,'la cave',1,8,'img/category_img/la_cave.jpg'),(34,'boulangerie',1,9,'img/category_img/boulangerie.jpg'),(35,'patisserie',1,9,'img/category_img/patisserie.jpg'),(36,'viennoiserie',1,9,'img/category_img/viennoiserie.jpg'),(37,'divers',1,10,'img/category_img/divers.jpg');
+INSERT INTO `category` VALUES (1,'boucherie',1,1,'img/category_img/boucherie.svg'),(2,'rotisserie',1,1,'img/category_img/rotisserie.svg'),(3,'volaille',0,1,'img/category_img/volaille.svg'),(4,'poissonnerie',1,1,'img/category_img/poissonnerie.svg'),(5,'fruits frais',1,2,'img/category_img/fruits_frais.svg'),(6,' legumes frais',1,2,'img/category_img/legumes_frais.svg'),(7,'fruits secs',1,2,'img/category_img/fruits_secs.svg'),(8,'legumes secs',1,2,'img/category_img/legumes_secs.svg'),(9,'plats cuisines',1,3,'img/category_img/plats_cuisines.svg'),(10,'pizza et tartes',1,3,'img/category_img/pizzas_et_tartes.svg'),(11,'legumes et frites',1,3,'img/category_img/legumes_frites.svg'),(12,'glaces',1,3,'img/category_img/glaces.svg'),(13,'entrees et snacks',1,3,'img/category_img/entrees_snacks.svg'),(14,'aperitifs',1,4,'img/category_img/aperitifs.svg'),(15,'conserve',1,4,'img/category_img/conserve.svg'),(16,'feculents',1,4,'img/category_img/feculents.svg'),(17,'condiments',1,4,'img/category_img/condiments.svg'),(18,'soupe et accompagnements',1,4,'img/category_img/soupe_et_accompagnements.svg'),(19,'café et thé',1,5,'img/category_img/cafe_et_the.svg'),(20,'confiserie',1,5,'img/category_img/confiserie.svg'),(21,'petit dejeuner',1,5,'img/category_img/petit_dejeuner.svg'),(22,'biscuits et gateaux',1,5,'img/category_img/biscuits_et_gateaux.svg'),(23,'dessert et farine',1,5,'img/category_img/dessert_et_farine.svg'),(24,'cremerie',1,6,'img/category_img/cremerie.svg'),(25,'fromage et specialités',1,6,'img/category_img/fromage_et_specialites.svg'),(26,'yaourt et dessert',1,6,'img/category_img/yaourt_et_dessert.svg'),(27,'charcuterie',1,7,'img/category_img/charcuterie.svg'),(28,'traiteur',1,7,'img/category_img/traiteur.svg'),(29,'eaux et laits',1,8,'img/category_img/eaux_et_laits.svg'),(30,'jus et soft drinks',1,8,'img/category_img/jus_et_soft_drinks.svg'),(31,'bière et cidre',1,8,'img/category_img/biere_et_cidre.svg'),(32,'apero et alcools',1,8,'img/category_img/apero_et_alcools.svg'),(33,'la cave',1,8,'img/category_img/la_cave.svg'),(34,'boulangerie',1,9,'img/category_img/boulangerie.svg'),(35,'patisserie',1,9,'img/category_img/patisserie.svg'),(36,'viennoiserie',1,9,'img/category_img/viennoiserie.svg'),(37,'divers',1,10,'img/category_img/divers.svg');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +91,7 @@ CREATE TABLE `list_product` (
   KEY `fk_list_has_product_list1_idx` (`list_id`),
   CONSTRAINT `fk_list_has_product_list1` FOREIGN KEY (`list_id`) REFERENCES `shopping_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_list_has_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +100,7 @@ CREATE TABLE `list_product` (
 
 LOCK TABLES `list_product` WRITE;
 /*!40000 ALTER TABLE `list_product` DISABLE KEYS */;
-INSERT INTO `list_product` VALUES (3,4,22,36117),(4,10,22,36369),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,99,22,20321),(11,10,22,11096),(16,4,23,36117),(17,10,23,36369),(18,3,23,36336),(19,2,23,35565),(20,3,23,35852),(21,2,23,32491),(22,140,23,20321),(23,10,23,11096),(27,1,22,15320),(29,3,22,35840);
+INSERT INTO `list_product` VALUES (3,4,22,36117),(4,10,22,36369),(6,3,22,36336),(7,2,22,35565),(8,3,22,35852),(9,2,22,32491),(10,99,22,20321),(11,10,22,11096),(16,4,23,36117),(17,10,23,36369),(18,3,23,36336),(19,2,23,35565),(20,3,23,35852),(21,2,23,32491),(22,140,23,20321),(23,10,23,11096),(27,1,22,15320),(29,3,22,35840),(33,15,22,35729);
 /*!40000 ALTER TABLE `list_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +116,7 @@ CREATE TABLE `member` (
   `name` varchar(45) NOT NULL,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `created_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_date` datetime NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
   `email` varchar(45) NOT NULL,
   `token` varchar(45) DEFAULT 'token',
@@ -122,7 +124,7 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`),
   KEY `fk_Utilisateur_ville1_idx` (`address_id`),
   CONSTRAINT `fk_Utilisateur_ville1` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +133,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (45,'Kamahoro','Greta','ruzindana','2017-01-03 00:00:00',1,'gkamahoro@gmail.com','token',231),(69,'LeGrandSeb','Sebastien','gretta','2017-01-03 00:00:00',1,'kywalky@gmail.com','token',232),(70,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 10:24:00',0,'kywalky@gmail.com',NULL,NULL);
+INSERT INTO `member` VALUES (45,'Kamahoro','Greta','ruzindana','2017-01-03 00:00:00',1,'gkamahoro@gmail.com','token',231),(69,'LeGrandSeb','Sebastien','gretta','2017-01-03 00:00:00',1,'kywalky@gmail.com','token',232),(70,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 10:24:00',0,'kywalky@gmail.com',NULL,NULL),(71,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 11:52:27',0,'kywalky@gmail.com',NULL,NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +246,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores','img/section_img/viandes_poissons.jpeg'),(2,'fruits et legumes','pour les vegetariens','img/section_img/fruits_et_legumes.jpeg'),(3,'surgeles','pour les faineants','img/section_img/surgeles.jpeg'),(4,'epicerie salee','on prépare l apero','img/section_img/epicerie_salee.jpeg'),(5,'epicerie sucree','pour les depressifs','img/section_img/epicerie_sucree.jpeg'),(6,'produits frais','pour les esquimau','img/section_img/produits_frais.jpeg'),(7,'charcuterie traiteur','pour les bon vivants','img/section_img/charcuterie_traiteur.jpeg'),(8,'boissons et cave','pour sa soif','img/section_img/boissons.jpeg'),(9,'pains et patisserie','la france a un icroyable talent','img/section_img/pains_et_patisserie.jpeg'),(10,'divers','poubelle seb','img/section_img/bio_et_ecologie.jpeg');
+INSERT INTO `section` VALUES (1,'viandes et poissons','pour les carnivores','img/section_img/viandes_poissons.svg'),(2,'fruits et legumes','pour les vegetariens','img/section_img/fruits_et_legumes.svg'),(3,'surgeles','pour les faineants','img/section_img/surgeles.svg'),(4,'epicerie salee','on prépare l apero','img/section_img/epicerie_salee.svg'),(5,'epicerie sucree','pour les depressifs','img/section_img/epicerie_sucree.svg'),(6,'produits frais','pour les esquimau','img/section_img/produits_frais.svg'),(7,'charcuterie traiteur','pour les bon vivants','img/section_img/charcuterie_traiteur.svg'),(8,'boissons et cave','pour sa soif','img/section_img/boissons.svg'),(9,'pains et patisserie','la france a un icroyable talent','img/section_img/pains_et_patisserie.svg'),(10,'divers','poubelle seb','img/section_img/bio_et_ecologie.svg');
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,7 +285,7 @@ CREATE TABLE `shop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `emblem` varchar(45) DEFAULT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_date` datetime NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `address_id` int(11) NOT NULL,
   `idgoogle` varchar(45) NOT NULL,
@@ -348,12 +350,12 @@ CREATE TABLE `shopping_list` (
   `is_close` tinyint(1) NOT NULL,
   `is_done` tinyint(1) NOT NULL,
   `is_favor` tinyint(1) DEFAULT NULL,
-  `created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_Utilisateur_has_Produit_Utilisateur_idx` (`member_id`),
   CONSTRAINT `fk_Utilisateur_has_Produit_Utilisateur` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -362,7 +364,7 @@ CREATE TABLE `shopping_list` (
 
 LOCK TABLES `shopping_list` WRITE;
 /*!40000 ALTER TABLE `shopping_list` DISABLE KEYS */;
-INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,NULL,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,NULL,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,NULL,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,NULL,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,NULL,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,NULL,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,NULL,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,NULL,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,NULL,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,NULL,'2016-12-29 00:00:00',69),(22,'MyListSunday',1,0,0,1,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,NULL,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',0,0,0,NULL,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',0,0,0,NULL,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,NULL,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,NULL,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,NULL,'2016-12-29 00:00:00',69),(33,'Liste Vide',1,0,0,NULL,'2017-01-12 22:58:31',69),(34,'LeGrandSeb3 Liste',1,0,0,NULL,'2017-01-12 23:24:03',69),(35,'NewLeGrandSeb4',1,0,0,NULL,'2017-01-12 23:26:25',69),(36,'LeGrandSeb List1',1,0,0,NULL,'2017-01-19 10:24:00',70),(37,'LeGrandSeb List2',1,0,0,NULL,'2017-01-19 10:24:00',70),(38,'LeGrandSeb List3',1,0,0,NULL,'2017-01-19 10:24:00',70),(39,'LeGrandSeb List4',1,0,0,NULL,'2017-01-19 10:24:00',70),(40,'LeGrandSeb List5',1,0,0,NULL,'2017-01-19 10:24:00',70),(41,'LeGrandSeb List6',1,0,0,NULL,'2017-01-19 10:24:00',70),(42,'LeGrandSeb List7',1,0,0,NULL,'2017-01-19 10:24:00',70),(43,'LeGrandSeb List8',1,0,0,NULL,'2017-01-19 10:24:00',70),(44,'LeGrandSeb List9',0,0,0,NULL,'2017-01-19 10:24:00',70),(45,'NewLeGrandSeb List9',1,0,0,NULL,'2017-01-19 10:31:17',70);
+INSERT INTO `shopping_list` VALUES (12,'KamahoroList1',1,0,0,NULL,'2016-12-29 00:00:00',45),(13,'KamahoroList2',1,0,0,NULL,'2016-12-29 00:00:00',45),(14,'KamahoroList3',1,0,0,NULL,'2016-12-29 00:00:00',45),(15,'KamahoroList4',1,0,0,NULL,'2016-12-29 00:00:00',45),(16,'KamahoroList5',1,0,0,NULL,'2016-12-29 00:00:00',45),(17,'KamahoroList6',1,0,0,NULL,'2016-12-29 00:00:00',45),(18,'KamahoroList7',1,0,0,NULL,'2016-12-29 00:00:00',45),(19,'KamahoroList8',1,0,0,NULL,'2016-12-29 00:00:00',45),(20,'KamahoroList9',1,0,1,NULL,'2016-12-29 00:00:00',45),(21,'LeGrandSeb1',1,0,0,NULL,'2016-12-29 00:00:00',69),(22,'MyListSunday',1,0,0,1,'2016-12-29 00:00:00',69),(23,'LeGrandSeb3',1,0,0,NULL,'2016-12-29 00:00:00',69),(24,'LeGrandSeb4',0,0,0,NULL,'2016-12-29 00:00:00',69),(25,'LeGrandSeb5',0,0,0,NULL,'2016-12-29 00:00:00',69),(26,'LeGrandSeb6',1,0,0,NULL,'2016-12-29 00:00:00',69),(27,'LeGrandSeb7',1,0,0,NULL,'2016-12-29 00:00:00',69),(28,'LeGrandSeb8',1,0,0,NULL,'2016-12-29 00:00:00',69),(33,'Liste Vide',1,0,0,NULL,'2017-01-12 22:58:31',69),(34,'LeGrandSeb3 Liste',1,0,0,NULL,'2017-01-12 23:24:03',69),(35,'NewLeGrandSeb4',1,0,0,NULL,'2017-01-12 23:26:25',69),(36,'LeGrandSeb List1',1,0,0,NULL,'2017-01-19 10:24:00',70),(37,'LeGrandSeb List2',1,0,0,NULL,'2017-01-19 10:24:00',70),(38,'LeGrandSeb List3',1,0,0,NULL,'2017-01-19 10:24:00',70),(39,'LeGrandSeb List4',1,0,0,NULL,'2017-01-19 10:24:00',70),(40,'LeGrandSeb List5',1,0,0,NULL,'2017-01-19 10:24:00',70),(41,'LeGrandSeb List6',1,0,0,NULL,'2017-01-19 10:24:00',70),(42,'LeGrandSeb List7',1,0,0,NULL,'2017-01-19 10:24:00',70),(43,'LeGrandSeb List8',1,0,0,NULL,'2017-01-19 10:24:00',70),(44,'LeGrandSeb List9',0,0,0,NULL,'2017-01-19 10:24:00',70),(45,'NewLeGrandSeb List9',1,0,0,NULL,'2017-01-19 10:31:17',70),(46,'LeGrandSeb List1',1,0,0,NULL,'2017-01-19 11:52:27',71),(47,'LeGrandSeb List2',1,0,0,NULL,'2017-01-19 11:52:27',71),(48,'LeGrandSeb List3',1,0,0,NULL,'2017-01-19 11:52:27',71),(49,'LeGrandSeb List4',1,0,0,NULL,'2017-01-19 11:52:27',71),(50,'LeGrandSeb List5',1,0,0,NULL,'2017-01-19 11:52:27',71),(51,'LeGrandSeb List6',1,0,0,NULL,'2017-01-19 11:52:27',71),(52,'LeGrandSeb List7',1,0,0,NULL,'2017-01-19 11:52:27',71),(53,'LeGrandSeb List8',1,0,0,NULL,'2017-01-19 11:52:27',71),(54,'LeGrandSeb List9',1,0,0,NULL,'2017-01-19 11:52:27',71);
 /*!40000 ALTER TABLE `shopping_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -375,4 +377,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-19 10:43:41
+-- Dump completed on 2017-01-22 14:49:22

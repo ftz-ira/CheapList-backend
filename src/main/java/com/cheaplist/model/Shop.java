@@ -25,7 +25,6 @@ public class Shop implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date", nullable=false)
 	private Date createdDate;
 
