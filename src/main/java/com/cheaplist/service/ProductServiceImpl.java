@@ -1,5 +1,6 @@
 package com.cheaplist.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -65,6 +66,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		
 		return updatedProduct;
+	}
+
+	@Override
+	public Product findByEan(BigInteger Ean) {
+		return productRepository.findProductsByEan(Ean);
+
 	}
 
 }
