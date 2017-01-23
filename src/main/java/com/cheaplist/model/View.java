@@ -11,6 +11,7 @@ public class View {
 	public interface GoogleShop{}	
 	public interface MemberIdentity {}
 	public interface List{}
+	public interface MemberListFav{}
 	
 	public interface MemberList {}
 	public interface ListProduct {}

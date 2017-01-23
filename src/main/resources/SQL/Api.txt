@@ -106,6 +106,12 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 	HTTP GET   http://localhost:8080/cheaplist/members/69/lists
 
+/******** Afficher la liste favori d'un membre (new)   ***********/
+	
+	Affiche les listes d'un membre :
+	
+	HTTP GET http://localhost:8080/cheaplist/members/69/listfavor
+
 
 /********* Lists **************/
 	

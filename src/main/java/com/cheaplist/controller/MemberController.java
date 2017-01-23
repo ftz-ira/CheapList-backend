@@ -114,8 +114,8 @@ public class MemberController {
 	
 	
 	/***** READ ONE MEMBER : ALL LIST BY MEMBER ******/
-	@JsonView(View.MemberList.class)
-	@RequestMapping(value = "/{id}/lists/favor", method = RequestMethod.GET)
+	@JsonView(View.MemberListFav.class)
+	@RequestMapping(value = "/{id}/listfavor", method = RequestMethod.GET)
 	public ResponseEntity<Member> listFindidFavor(@PathVariable Integer id) throws ExceptionMessage {
 		System.out.println();
 		Member member = memberService.findById(id.intValue());

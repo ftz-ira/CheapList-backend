@@ -39,7 +39,7 @@ public class Member implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.MemberIdentity.class,View.MemberList.class})
+	@JsonView({View.MemberIdentity.class,View.MemberList.class,View.MemberListFav.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -83,7 +83,7 @@ public class Member implements Serializable {
 	private Set<MemberOption> memberOptions;
 
 	//bi-directional many-to-many association to Shop
-	@JsonView(View.MemberIdentity.class)
+	@JsonView(View.MemberListFav.class)
 	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(
 		name="member_shop"
