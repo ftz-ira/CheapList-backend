@@ -235,15 +235,15 @@ public class ListProductController {
 					double resultat = MathGPS.distance(Double.parseDouble(lat), Double.parseDouble(lng), latShop,
 							lntShop, "K");
 					ObjectNode objectNode1 = mapper.createObjectNode();
-					objectNode1.put("id", shop.getId());
-					objectNode1.put("name", shop.getName());
-					objectNode1.put("distance", resultat);
+					objectNode1.put("id",shop.getId());
+					objectNode1.put("name",shop.getName());
+					objectNode1.put("distance",resultat);
 					arrayNode.add(objectNode1);
 
 					double devis = listProductService.findPrice(idList, shop.getId());
 					long missing = listProductService.findMissing(idList, shop.getId());
-					objectNode1.put("prix total", String.valueOf(devis));
-					objectNode1.put("element manquant", String.valueOf(numberElement - missing));
+					objectNode1.put("prixtotal",String.valueOf(devis));
+					objectNode1.put("elementmanquant", String.valueOf(numberElement - missing));
 				}
 			}
 
