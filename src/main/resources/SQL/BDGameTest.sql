@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `cheaplist` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `cheaplist`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: cheaplist
@@ -124,7 +122,7 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`),
   KEY `fk_Utilisateur_ville1_idx` (`address_id`),
   CONSTRAINT `fk_Utilisateur_ville1` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +131,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` VALUES (45,'Kamahoro','Greta','ruzindana','2017-01-03 00:00:00',1,'gkamahoro@gmail.com','token',231),(69,'LeGrandSeb','Sebastien','gretta','2017-01-03 00:00:00',1,'kywalky@gmail.com','token',232),(70,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 10:24:00',0,'kywalky@gmail.com',NULL,NULL),(71,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 11:52:27',0,'kywalky@gmail.com',NULL,NULL);
+INSERT INTO `member` VALUES (45,'Kamahoro','Greta','ruzindana','2017-01-03 00:00:00',1,'gkamahoro@gmail.com','token',231),(69,'LeGrandSeb','Sebastien','gretta','2017-01-03 00:00:00',1,'kywalky@gmail.com','token',232),(70,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 10:24:00',0,'kywalky@gmail.com',NULL,NULL),(71,'LeGrandSeb','Sebastien','jesuisquundieu','2017-01-19 11:52:27',0,'kywalky@gmail.com',NULL,NULL),(72,'Tony','TonyLogin','TonyPass','2017-01-23 22:26:21',1,'tony@email.com',NULL,NULL),(73,'Tony','TonyLogin','TonyPass','2017-01-23 22:27:04',1,'tony@email.com',NULL,NULL),(74,'Tony','TonyLogin','TonyPass','2017-01-23 22:27:52',1,'tony@email.com',NULL,NULL),(75,'Sebastien','SebLogin','SebPass','2017-01-23 22:31:16',1,'seb@gmail.com',NULL,NULL),(76,'Jonathan','JonLogin','JonPass','2017-01-23 22:31:44',1,'jon@msn.com',NULL,NULL),(77,'Lucile','LucLogin','LucPass','2017-01-23 22:32:12',1,'luc@gmail.com',NULL,NULL),(78,'Lisa','LisLogin','LisPass','2017-01-23 22:32:36',1,'lis@email.com',NULL,NULL);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +356,7 @@ CREATE TABLE `shopping_list` (
   KEY `fk_shopping_list_shop1_idx` (`shop_id`),
   CONSTRAINT `fk_Utilisateur_has_Produit_Utilisateur` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_shopping_list_shop1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,4 +378,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-23  0:14:08
+-- Dump completed on 2017-01-23 23:05:26
