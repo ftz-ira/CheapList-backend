@@ -228,13 +228,14 @@ Par exemple :
 	{  
 	 "isFavor": true
 	}
-
+ 
 /**** AJOUTER UN PRODUIT VIA LE CODE BARRE ***********/
+(modification de l'url)
 HTTP POST : http://localhost:8080/cheaplist/products
 
 {
 "idEan" :3038359002465,
-
-"idCategory" : 37
+"idCategory" : 37,
+"idList" : 22
 }
 

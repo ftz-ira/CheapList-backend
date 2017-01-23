@@ -18,18 +18,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
+import com.cheaplist.model.ListProduct;
 import com.cheaplist.model.Product;
-import com.cheaplist.model.Shop;
 import com.cheaplist.model.View;
 import com.cheaplist.service.CategoryService;
+import com.cheaplist.service.ListProductService;
 import com.cheaplist.service.ProductService;
-import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 //Fix d'urgence
 @CrossOrigin(origins = "*")
@@ -42,6 +40,9 @@ public class ProductController {
 
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ListProductService listProductService;
 
 	/****
 	 * READ ONE PRODUCT
@@ -82,8 +83,16 @@ public class ProductController {
 		JsonNode rootNode = mapper.readTree(new StringReader(ProductJson));
 		String idEan = rootNode.path("idEan").asText();
 		Integer idCategory = rootNode.path("idCategory").asInt();
+		Integer idList = rootNode.path("idList").asInt();
 
+		
+		
 		// System.out.println(idCategory);
+		/*** IdList Validation  ****/
+		if (idList == 0)
+			throw new ExceptionMessage("ERROR IDLIST MISSING");
+		
+		
 		/*** EAN VALIDATION *****/
 		if (idEan.isEmpty())
 			throw new ExceptionMessage("ERROR EAN MISSING");
@@ -97,30 +106,42 @@ public class ProductController {
 
 		/*** On verifie que le produit n'existe pas deja dans notre BDD ***/
 		Product product = productService.findByEan(new BigInteger(idEan));
-		if (product != null)
-			throw new ExceptionMessage("PRODUCT EXISTS IN BDD");
+		if (product == null) {
+			/*** On verifie qu'il existe bien dans OpenFactFood *****/
+			RestTemplate restTemplate = new RestTemplate();
+			String answerOpenFactFood = restTemplate
+					.getForObject("https://fr.openfoodfacts.org/api/v0/produit/" + idEan + ".json", String.class);
 
-		/*** On verifie qu'il existe bien dans OpenFactFood *****/
-		RestTemplate restTemplate = new RestTemplate();
-		String answerOpenFactFood = restTemplate
-				.getForObject("https://fr.openfoodfacts.org/api/v0/produit/" + idEan + ".json", String.class);
+			JsonNode RootNode = mapper.readTree(new StringReader(answerOpenFactFood));
 
-		JsonNode RootNode = mapper.readTree(new StringReader(answerOpenFactFood));
-
-		if (RootNode.path("status").asInt() == 0) {
-			throw new ExceptionMessage("OPENFACTFOOD PRODUIT NOT FOUND");
+			if (RootNode.path("status").asInt() == 0) {
+				throw new ExceptionMessage("OPENFACTFOOD PRODUIT NOT FOUND");
+			}
+			product = new Product();
+			product.setBrand(RootNode.path("product").path("brands").asText().split(",")[0]);
+			product.setName(RootNode.path("product").path("product_name_fr").asText());
+			product.setEan(new BigInteger(idEan));
+			product.setImplementation("");
+			product.setUnitName(RootNode.path("product").path("quantity").asText());
+			product.setUrl(RootNode.path("product").path("image_url").asText());
+			product.setCategory(categoryService.findById(idCategory));
+			product = productService.create(product);
+			if (product == null)
+				throw new ExceptionMessage("ERROR CREATE PRODUCT");
 		}
-		product = new Product();
-		product.setBrand(RootNode.path("product").path("brands").asText().split(",")[0]);
-		product.setName(RootNode.path("product").path("product_name_fr").asText());
-		product.setEan(new BigInteger(idEan));
-		product.setImplementation("");
-		product.setUnitName(RootNode.path("product").path("quantity").asText());
-		product.setUrl(RootNode.path("product").path("image_url").asText());
-		product.setCategory(categoryService.findById(idCategory));
-		product = productService.create(product);
-		if (product == null)
-			throw new ExceptionMessage("ERROR CREATE PRODUCT");
+
+		// Si le product est déja enregistré ou vient juste d'être créer, on
+		// l'ajoute dans les élements de la liste
+		ListProduct listProduct = listProductService.findElementByListBtProduct(idList,product.getId());
+		if (listProduct == null ) 
+			{
+			listProductService.createOneElement(idList,product.getId(),1);
+			}
+		else
+			{ 
+			listProduct.setProductQuantity(listProduct.getProductQuantity()+1);;
+			listProductService.update(listProduct);
+			}
 		return new ResponseEntity<Product>(product, HttpStatus.OK);
 
 	}
