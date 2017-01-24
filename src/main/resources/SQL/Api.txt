@@ -18,7 +18,8 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 /************* CATEGORIES **************/
 /**************************************/
-
+/***** VOIR TOUTES LES CATEGORIES *******/
+HTTP GET :  http://localhost:8080/cheaplist/categories/
 
 
 
@@ -53,7 +54,9 @@ Mise à jour des commandes autorisées en URL (HTTP Methode Filtré&e):
 
 /****** AJOUTER / MODIFIER LE PRIX D'UN PRODUIT D'UN MAGASIN magasin (PATCH Powwa)********/
 
-	HTTP PATCH : http://localhost:8080/cheaplist/prices/
+	Type: http://localhost:8080/cheaplist/prices/{idproduct}/shop/{idshop}
+	HTTP PATCH : http://localhost:8080/cheaplist/prices/8780/shop/113
+
 
 	 {
 	    "price": 99.99
@@ -92,6 +95,7 @@ Si il existe, il modifie le tuple sans crée un autre.
 	Mise à jour d'un membre : 
 
 	HTTP PATCH http://localhost:8080/cheaplist/members/69
+(attention fonctionne uniquement sur les membres encore actifs)
 
 	{
 	  "email": "kywalky@gmail.com",
@@ -108,7 +112,7 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 /******** Afficher la liste favori d'un membre (new)   ***********/
 	
-	Affiche les listes d'un membre :
+	Affiche la liste des magasins favoris:
 	
 	HTTP GET http://localhost:8080/cheaplist/members/69/listfavor
 
@@ -144,7 +148,7 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 /****** SUPPRIMER UNE LISTE (elle est enregisté et une nouvelle liste est remis en place) ******/
 
-	HTTP DELETE : http://localhost:8080/cheaplist/lists/32
+	HTTP DELETE : http://localhost:8080/cheaplist/lists/100
 
 
 /****** AFFICHER UN ELEMENT PAR SON ID LIST (attention c'est l'ID de l'element) ********/
@@ -156,21 +160,25 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 	HTTP PAtch : http://localhost:8080/cheaplist/lists/22/element/10
 
+		http://localhost:8080/cheaplist/lists/{idList}/element/{idElement}
+
 	Exemple JSON:
 
 	{ 
-	"id": 10, 
 	"productQuantity": 55
 	}
 
 
 /**** AJOUTER UN ELEMENT DANS UNE LISTE *****/
+
+/*** BUG A CORRIGER PLUS TARD ***/ 
 	Ici , on ajoute un element avec le produit ID n° 11096 et la quantité :
 
 	HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/
+	HTTP PUT: http://localhost:8080/cheaplist/lists/{idList}/element/
 
-	JSON FORMAT :
-	
+
+	JSON FORMAT :	
 	{
 	"idProduct" : 11096,
 	"productQuantity" : 10
@@ -195,6 +203,8 @@ Si il existe, il modifie le tuple sans crée un autre.
 	}
 
 /**** PATCH FRANTZ********/
+
+/*** AJOUTER/MODIFIER/SUPPRIMER UN ELEMENT ou LA QUANTITY(si l'element existe déja) ou supprime si la quantity est 0.
 
 	HTTP PATCH : http://localhost:8080/cheaplist/lists/22/frantz
 
@@ -230,7 +240,6 @@ Par exemple :
 	}
  
 /**** AJOUTER UN PRODUIT VIA LE CODE BARRE ***********/
-(modification de l'url)
 HTTP POST : http://localhost:8080/cheaplist/products
 
 {

@@ -41,13 +41,13 @@ public class Product implements Serializable {
 	private String name;
 
 	@Column(name = "unit_name", nullable = false, length = 45)
-	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class })
 	private String unitName;
 
 	@JsonView({ View.CategoryProduct.class, View.Product.class })
 	private float volume;
 
-	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class })
 	
 	private String url;
 	

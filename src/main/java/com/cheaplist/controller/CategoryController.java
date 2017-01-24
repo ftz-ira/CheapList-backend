@@ -1,5 +1,7 @@
 package com.cheaplist.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,15 @@ public class CategoryController {
 		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
 
+	/*** READ ALL CATEGORY *****/
+	@JsonView(View.Category.class)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ResponseEntity<List <Category>> categoryAll() throws ExceptionMessage {
+		List<Category> category = categoryService.findAll();
+		return new ResponseEntity<List<Category>>(category, HttpStatus.OK);
+	}
+	
+	
 	/*** READ ALL PRODUCT BY CATEGORY ****/
 	@JsonView(View.CategoryProduct.class)
 	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)

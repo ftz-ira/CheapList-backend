@@ -82,7 +82,7 @@ public class ShoppingListController {
 	 shoppingList.setIsActif(true);
 	 shoppingList.setListProducts(null);
 	 shoppingList.setUpdatedDate(new Timestamp(System.currentTimeMillis()));
-	 shoppingList.setIsFavor(null);
+	 shoppingList.setIsFavor(false);
 	 shoppingList.setIsClose(false);
 	 shoppingList.setName("New"+shoppingList.getName());
 	 shoppingListService.create(shoppingList);
