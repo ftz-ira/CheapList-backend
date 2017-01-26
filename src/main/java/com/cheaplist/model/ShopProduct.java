@@ -22,7 +22,7 @@ public class ShopProduct implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView({View.ProductShop.class,View.PriceProduct.class})
+	@JsonView({View.ProductShop.class,View.PriceProduct.class,View.ShopTime.class})
 	private Double price;
 
 	private float ratio;

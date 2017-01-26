@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ListProduct;
+import com.cheaplist.model.Member;
 import com.cheaplist.model.Product;
 import com.cheaplist.model.View;
 import com.cheaplist.service.CategoryService;
@@ -83,14 +84,6 @@ public class ProductController {
 		JsonNode rootNode = mapper.readTree(new StringReader(ProductJson));
 		String idEan = rootNode.path("idEan").asText();
 		Integer idCategory = rootNode.path("idCategory").asInt();
-		Integer idList = rootNode.path("idList").asInt();
-
-		
-		
-		// System.out.println(idCategory);
-		/*** IdList Validation  ****/
-		if (idList == 0)
-			throw new ExceptionMessage("ERROR IDLIST MISSING");
 		
 		
 		/*** EAN VALIDATION *****/
@@ -129,21 +122,27 @@ public class ProductController {
 			if (product == null)
 				throw new ExceptionMessage("ERROR CREATE PRODUCT");
 		}
-
-		// Si le product est déja enregistré ou vient juste d'être créer, on
-		// l'ajoute dans les élements de la liste
-		ListProduct listProduct = listProductService.findElementByListBtProduct(idList,product.getId());
-		if (listProduct == null ) 
-			{
-			listProductService.createOneElement(idList,product.getId(),1);
-			}
-		else
-			{ 
-			listProduct.setProductQuantity(listProduct.getProductQuantity()+1);;
-			listProductService.update(listProduct);
-			}
 		return new ResponseEntity<Product>(product, HttpStatus.OK);
 
 	}
+	
+	@RequestMapping(value = "/{idProduct}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> RemoveOneMember(@PathVariable Integer idProduct) throws ExceptionMessage {
+		Product product = productService.findById(idProduct);
+		if (product == null) {
+			throw new ExceptionMessage("PRODUCT NOT DELETE, PRODUCT ID NOT FOUND");
+		}
+		try
+		{
+			productService.delete(product.getId());
+				
+		}
+		catch (Exception e)
+		{
+			throw new ExceptionMessage("PRODUCT NOT DELETE, FOREIGN KEY EXCEPTION");
+		}
+		return new ResponseEntity<String>("PRODUCT DELETED", HttpStatus.OK);
+	}
+
 
 }

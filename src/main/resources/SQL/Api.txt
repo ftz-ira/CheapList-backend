@@ -40,6 +40,13 @@ HTTP GET :  http://localhost:8080/cheaplist/categories/
 	HTTP GET : http://localhost:8080/cheaplist/products/8780
 
 
+
+/****** SUPPRIMER UN PRODUIT *******/
+
+	HTTP DELETE : http://localhost:8080/cheaplist/products/8780
+
+(attention aux FOREIGN KEY Exception)
+
 /********  PRICES     ***************************/
 
 
@@ -135,9 +142,9 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 	{  
 	"isActif": true,
-	  "isClose": false,
-	  "isDone": false,
-	  "isFavor": true, 
+	 "isClose": false,
+	 "isDone": false,
+	 "isFavor": true, 
 	 "name": "Seasb"
 	}
 
@@ -239,12 +246,11 @@ Par exemple :
 	 "isFavor": true
 	}
  
-/**** AJOUTER UN PRODUIT VIA LE CODE BARRE ***********/
+/**** AJOUTER UN PRODUIT VIA LE CODE BARRE ***********/ (PATCHER)
 HTTP POST : http://localhost:8080/cheaplist/products
 
 {
 "idEan" :3038359002465,
 "idCategory" : 37,
-"idList" : 22
 }
 

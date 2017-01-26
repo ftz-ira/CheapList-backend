@@ -19,17 +19,17 @@ public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.MemberList.class,View.PriceProduct.class})
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.MemberList.class,View.PriceProduct.class,View.ShopTime.class})
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	@JsonView({ View.CategoryProduct.class, View.Product.class, View.MemberList.class })
+	@JsonView({  View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.MemberList.class,View.ShopTime.class })
 	@Column(length = 90)
 	private String brand;
 
 	@Column(nullable = false)
-	@JsonView({ View.CategoryProduct.class, View.Product.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ShopTime.class })
 	private BigInteger ean;
 
 	@Column(length = 90)
@@ -37,17 +37,17 @@ public class Product implements Serializable {
 	private String implementation;
 
 	@Column(nullable = false, length = 45)
-	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.MemberList.class})
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.MemberList.class,View.ShopTime.class})
 	private String name;
 
 	@Column(name = "unit_name", nullable = false, length = 45)
-	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.ShopTime.class })
 	private String unitName;
 
 	@JsonView({ View.CategoryProduct.class, View.Product.class })
 	private float volume;
 
-	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class })
+	@JsonView({ View.CategoryProduct.class, View.Product.class,View.ListProduct.class,View.ShopTime.class })
 	
 	private String url;
 	
@@ -62,8 +62,8 @@ public class Product implements Serializable {
 	private Category category;
 
 	// bi-directional many-to-one association to ShopProduct
-	@JsonView(View.ProductShop.class)
-	@OneToMany(mappedBy = "product")
+	@JsonView({View.ProductShop.class,View.ShopTime.class})
+	@OneToMany(mappedBy = "product",fetch=FetchType.EAGER)
 	private Set<ShopProduct> shopProducts;
 
 	public Product() {
@@ -169,6 +169,11 @@ public class Product implements Serializable {
 
 	public void setShopProducts(Set<ShopProduct> shopProducts) {
 		this.shopProducts = shopProducts;
+	}
+	
+	public void cleanShopProducts()
+	{
+		this.shopProducts.clear();
 	}
 
 	public ShopProduct addShopProduct(ShopProduct shopProduct) {

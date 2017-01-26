@@ -12,6 +12,7 @@ public class View {
 	public interface MemberIdentity {}
 	public interface List{}
 	public interface MemberListFav{}
+	public interface ShopTime{}
 	
 	public interface MemberList {}
 	public interface ListProduct {}

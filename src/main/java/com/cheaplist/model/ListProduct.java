@@ -3,6 +3,7 @@ package com.cheaplist.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import com.cheaplist.model.View.ShopTime;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
@@ -16,16 +17,16 @@ public class ListProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@JsonView({View.ListProduct.class,View.MemberList.class,View.ShopTime.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@JsonView({View.ListProduct.class,View.MemberList.class,View.ShopTime.class})
 	@Column(name="product_quantity", nullable=false)
 	private Integer productQuantity;
 	
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@JsonView({View.ListProduct.class,View.MemberList.class,View.ShopTime.class})
 	@Column(name="is_inbasket", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean isInBasket;
 	
@@ -37,7 +38,7 @@ public class ListProduct implements Serializable {
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
-	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@JsonView({View.ListProduct.class,View.MemberList.class,View.ShopTime.class})
 	@JoinColumn(name="product_id", nullable=false)
 	private Product product;
 

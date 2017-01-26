@@ -19,9 +19,12 @@ import org.springframework.web.client.RestTemplate;
 import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
 import com.cheaplist.model.ListProduct;
+import com.cheaplist.model.Product;
 import com.cheaplist.model.Shop;
+import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
+import com.cheaplist.service.ShopProductService;
 import com.cheaplist.service.ShopService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -39,6 +42,9 @@ public class ListProductController {
 
 	@Autowired
 	private ListProductService listProductService;
+
+	@Autowired
+	private ShopProductService shopProductService;
 
 	@Autowired
 	private ShopService shopService;
@@ -128,9 +134,12 @@ public class ListProductController {
 		return new ResponseEntity<List<ListProduct>>(listProductService.findProductsByList(idList), HttpStatus.OK);
 	}
 
-	/*** ADD ONE ELEMENT FROM ONE LIST 
-	 * @throws IOException 
-	 * @throws JsonProcessingException ***/
+	/***
+	 * ADD ONE ELEMENT FROM ONE LIST
+	 * 
+	 * @throws IOException
+	 * @throws JsonProcessingException
+	 ***/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<List<ListProduct>> AddOneElement(@PathVariable Integer idList, @RequestBody String addElement)
@@ -269,6 +278,34 @@ public class ListProductController {
 		}
 
 		return new ResponseEntity<String>(answerJson, HttpStatus.OK);
+
+	}
+
+	/***
+	 * 
+	 * SHOPTIME TEMPLATE
+	 * 
+	 * @param ex
+	 * @return
+	 */
+	@JsonView(View.ShopTime.class)
+	@RequestMapping(value = "/{idList}/shoptime/{idShop}", method = RequestMethod.GET)
+	public ResponseEntity<List<ListProduct>> ListAllProductWithPrices(@PathVariable Integer idList,
+			@PathVariable Integer idShop) {
+		List<ListProduct> listProductList = listProductService.findProductsByList(idList);
+		// Pour chaque élement de la liste
+		for (ListProduct listProduct : listProductList) {
+			// On recupere le produit
+			Product product = listProduct.getProduct();
+			product.cleanShopProducts();
+			ShopProduct shopProduct = shopProductService.findPriceByProductShop(product.getId(), idShop);
+			if (shopProduct != null) {
+			//	System.out.println("Test:"+product.getId());
+				listProduct.getProduct().addShopProduct(shopProduct);
+			}
+
+		}
+		return new ResponseEntity<List<ListProduct>> (listProductList, HttpStatus.OK);
 
 	}
 
