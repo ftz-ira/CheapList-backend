@@ -292,6 +292,8 @@ public class ListProductController {
 	@RequestMapping(value = "/{idList}/shoptime/{idShop}", method = RequestMethod.GET)
 	public ResponseEntity<List<ListProduct>> ListAllProductWithPrices(@PathVariable Integer idList,
 			@PathVariable Integer idShop) {
+		
+		
 		List<ListProduct> listProductList = listProductService.findProductsByList(idList);
 		// Pour chaque élement de la liste
 		for (ListProduct listProduct : listProductList) {

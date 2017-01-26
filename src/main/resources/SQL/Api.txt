@@ -33,8 +33,6 @@ HTTP GET :  http://localhost:8080/cheaplist/categories/
 /************ PRODUCT *****************/
 /**************************************/
 
-
-
 /****** FICHE D'IDENTITE D'UN PRODUIT *******/
 
 	HTTP GET : http://localhost:8080/cheaplist/products/8780
@@ -253,4 +251,13 @@ HTTP POST : http://localhost:8080/cheaplist/products
 "idEan" :3038359002465,
 "idCategory" : 37,
 }
+
+
+/***** PRICE D'UNE LISTE COMPLETE EN FONCTION DU SHOP ******/
+
+// 
+HTTP GET :http://localhost:8080/cheaplist/lists/{idList}/shoptime/{idShop}
+
+HTTP GET :http://localhost:8080/cheaplist/lists/22/shoptime/111
+
 
