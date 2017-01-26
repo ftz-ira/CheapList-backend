@@ -47,7 +47,14 @@ public class ShoppingListController {
 	@JsonView(View.List.class)
 	@RequestMapping(value = "/{idList}", method = RequestMethod.PATCH, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<ShoppingList> patchShoppingList(@PathVariable Integer idList,	@RequestBody ShoppingList shoppingList) throws ExceptionMessage {
+		try
+		{
 		shoppingList = shoppingListService.patch(idList,shoppingList);
+		}
+		catch (ExceptionMessage e)
+		{
+			throw new ExceptionMessage("ERROR UPDATE SHOPPING LIST :");
+		}
 		if (shoppingList == null) throw new ExceptionMessage("ERROR IDLIST OR IDSHOPPINGLIST NOT FIND");
 		 return new ResponseEntity<ShoppingList>(shoppingList, HttpStatus.OK);
 	}

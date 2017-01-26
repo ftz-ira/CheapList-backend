@@ -25,6 +25,10 @@ public class ListProduct implements Serializable {
 	@Column(name="product_quantity", nullable=false)
 	private Integer productQuantity;
 	
+	@JsonView({View.ListProduct.class,View.MemberList.class})
+	@Column(name="is_inbasket", nullable = false, columnDefinition = "TINYINT(1)")
+	private Boolean isInBasket;
+	
 	//bi-directional many-to-one association to ShoppingList
 	//@JsonView(View.ListProduct.class)
 	@ManyToOne
@@ -70,6 +74,14 @@ public class ListProduct implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Boolean getIsInBasket() {
+		return isInBasket;
+	}
+
+	public void setIsInBasket(Boolean isInBasket) {
+		this.isInBasket = isInBasket;
 	}
 
 }

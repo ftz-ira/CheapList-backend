@@ -44,7 +44,7 @@ public class Member implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-		@Column(name="created_date")
+	@Column(name="created_date")
 	private Date createdDate;
 
 	@JsonView(View.MemberIdentity.class)

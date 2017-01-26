@@ -20,7 +20,7 @@ public class Shop implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.PriceProduct.class,View.MemberListFav.class})
+	@JsonView({View.PriceProduct.class,View.MemberListFav.class,View.List.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;
@@ -34,7 +34,7 @@ public class Shop implements Serializable {
 	@Column(name="is_active", nullable = false, columnDefinition = "TINYINT(1)")
 	private Boolean isActive;
 
-	@JsonView({View.PriceProduct.class,View.GoogleShop.class,View.MemberListFav.class})
+	@JsonView({View.PriceProduct.class,View.GoogleShop.class,View.MemberListFav.class,View.List.class})
 	@Column(nullable=false, length=45)
 	private String name;
 

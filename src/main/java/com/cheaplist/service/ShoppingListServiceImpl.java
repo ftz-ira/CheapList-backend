@@ -3,10 +3,13 @@ package com.cheaplist.service;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cheaplist.exception.ExceptionMessage;
+import com.cheaplist.model.Shop;
 import com.cheaplist.model.ShoppingList;
 import com.cheaplist.repository.ShoppingListRepository;
 
@@ -15,6 +18,9 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 
 	@Resource
 	private ShoppingListRepository shoppingListRepository;
+	
+	@Autowired
+	private ShopService shopService;
 
 	@Override
 	@Transactional
@@ -77,6 +83,14 @@ public class ShoppingListServiceImpl implements ShoppingListService {
 			oldshoppingList.setIsDone(shoppingList.getIsDone());
 		if (shoppingList.getName() != null)
 			oldshoppingList.setName(shoppingList.getName());
+		
+		if (shoppingList.getShop() != null)
+			{
+			int idShop = shoppingList.getShop().getId();
+			Shop shop = shopService.findById(idShop);
+			if (shop == null) throw new ExceptionMessage("ERROR IdShop Introuvable");
+			oldshoppingList.setShop(shop);
+			}
 
 		return oldshoppingList;
 	}

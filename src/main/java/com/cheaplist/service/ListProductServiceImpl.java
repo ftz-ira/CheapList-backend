@@ -92,22 +92,22 @@ public class ListProductServiceImpl implements ListProductService {
 	@Override
 	@Transactional(rollbackFor = ExceptionMessage.class)
 	public ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ExceptionMessage {
-		System.out.println("Test ID:" + idList);
 		ListProduct updatedListProduct = listProductRepository.findProductByList(idList, idElement);
 		if (updatedListProduct == null)
 			throw new ExceptionMessage();
 
-		if (listProduct.getProduct() != null) 
+		if (listProduct.getProduct() != null)
 			updatedListProduct.setProduct(listProduct.getProduct());
-		
 
-		if (listProduct.getProductQuantity() != null) 
+		if (listProduct.getProductQuantity() != null)
 			updatedListProduct.setProductQuantity(listProduct.getProductQuantity());
-		
 
-		if (listProduct.getShoppingList() != null) 
+		if (listProduct.getShoppingList() != null)
 			updatedListProduct.setShoppingList(listProduct.getShoppingList());
-		
+
+		if (listProduct.getIsInBasket() != null)
+			updatedListProduct.setIsInBasket(listProduct.getIsInBasket());
+
 		return updatedListProduct;
 	}
 
@@ -145,6 +145,5 @@ public class ListProductServiceImpl implements ListProductService {
 	public ListProduct findElementByListBtProduct(int idList, int idProduct) {
 		return listProductRepository.findElementByListBtProduct(idList, idProduct);
 	}
-
 
 }

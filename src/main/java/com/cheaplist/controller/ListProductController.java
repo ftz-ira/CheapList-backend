@@ -80,7 +80,7 @@ public class ListProductController {
 		try {
 			listProduct = listProductService.patch(idList, idElement, listProduct);
 		} catch (ExceptionMessage e) {
-			throw new ExceptionMessage("ERROR ListProduct Patch " + e.getErrorMessage());
+			throw new ExceptionMessage("ERROR ListProduct Patch ");
 		}
 		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
 
@@ -106,7 +106,8 @@ public class ListProductController {
 		int productQuantity = rootNode.path("productQuantity").asInt();
 
 		/****
-		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée un
+		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée
+		 * un
 		 ***/
 		ListProduct listProduct = listProductService.findElementByListBtProduct(idList, idProduct);
 
@@ -127,30 +128,35 @@ public class ListProductController {
 		return new ResponseEntity<List<ListProduct>>(listProductService.findProductsByList(idList), HttpStatus.OK);
 	}
 
-	/*** ADD ONE ELEMENT FROM ONE LIST ***/
+	/*** ADD ONE ELEMENT FROM ONE LIST 
+	 * @throws IOException 
+	 * @throws JsonProcessingException ***/
 	@JsonView(View.ListProduct.class)
 	@RequestMapping(value = "/{idList}/element/", method = RequestMethod.PUT, consumes = "application/json", produces = "application/json")
-	public ResponseEntity<ListProduct> AddOneElement(@PathVariable Integer idList, @RequestBody String addElement) {
+	public ResponseEntity<List<ListProduct>> AddOneElement(@PathVariable Integer idList, @RequestBody String addElement)
+			throws ExceptionMessage, JsonProcessingException, IOException {
 
 		ObjectMapper mapper = new ObjectMapper();
 		ListProduct listProduct = null;
+		List<ListProduct> listProductList = null;
 		JsonNode rootNode;
 
-		try {
-			rootNode = mapper.readTree(new StringReader(addElement));
-			int productQuantity = rootNode.path("productQuantity").asInt();
-			int idProduct = rootNode.path("idProduct").asInt();
-			// Si le JSON est incorrect
-			if (productQuantity < 1 || idProduct < 1)
-				return null;
-			listProduct = listProductService.createOneElement(idList, idProduct, productQuantity);
-			System.out.println(listProduct.getId());
-		} catch (IOException | ExceptionMessage e) {
-			e.printStackTrace();
-			return null;
-		}
+		rootNode = mapper.readTree(new StringReader(addElement));
+		int productQuantity = rootNode.path("productQuantity").asInt();
+		int idProduct = rootNode.path("idProduct").asInt();
+		// Si le JSON est incorrect
+		if (productQuantity < 1 || idProduct < 1)
+			throw new ExceptionMessage("ERROR ProductQuantity or IdProduct ERROR");
 
-		return new ResponseEntity<ListProduct>(listProduct, HttpStatus.OK);
+		if (listProductService.findElementByListBtProduct(idList, idProduct) != null)
+			throw new ExceptionMessage("ERROR ELEMENT ALREADY LIST");
+
+		listProduct = listProductService.createOneElement(idList, idProduct, productQuantity);
+		listProductList = listProductService.findProductsByList(idList);
+
+		System.out.println(listProduct.getId());
+		return new ResponseEntity<List<ListProduct>>(listProductList, HttpStatus.OK);
+
 	}
 
 	/***
@@ -234,16 +240,25 @@ public class ListProductController {
 
 					double resultat = MathGPS.distance(Double.parseDouble(lat), Double.parseDouble(lng), latShop,
 							lntShop, "K");
-					ObjectNode objectNode1 = mapper.createObjectNode();
-					objectNode1.put("id",shop.getId());
-					objectNode1.put("name",shop.getName());
-					objectNode1.put("distance",resultat);
-					arrayNode.add(objectNode1);
 
 					double devis = listProductService.findPrice(idList, shop.getId());
-					long missing = listProductService.findMissing(idList, shop.getId());
-					objectNode1.put("prixtotal",String.valueOf(devis));
-					objectNode1.put("elementmanquant", String.valueOf(numberElement - missing));
+
+					// Si le total du devis est �gal � 0, alors on ne retient
+					// pas la solution pour Google Estimate
+					if (devis != 0) {
+
+						long missing = listProductService.findMissing(idList, shop.getId());
+						ObjectNode objectNode1 = mapper.createObjectNode();
+						objectNode1.put("idshop", shop.getId());
+						objectNode1.put("name", shop.getName());
+						objectNode1.put("adresse",
+								shop.getAddress().getStreetName() + "," + shop.getAddress().getCity());
+						objectNode1.put("distance", resultat);
+						objectNode1.put("totalprice", String.valueOf(devis));
+						objectNode1.put("missingelement", String.valueOf(numberElement - missing));
+						arrayNode.add(objectNode1);
+					}
+
 				}
 			}
 
