@@ -128,6 +128,13 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 	HTTP GET  http://localhost:8080/cheaplist/members/69/lists
 
+/***** SHOPTIME ***************+/
+
+HTTP GET : http://localhost:8080/cheaplist/lists/{idList}/shoptime/{idShop}
+
+
+HTTP GET : http://localhost:8080/cheaplist/lists/22/shoptime/112
+
 
 /***** Affiche les produits d'une ID List ********/
 
@@ -175,8 +182,6 @@ Si il existe, il modifie le tuple sans crée un autre.
 
 
 /**** AJOUTER UN ELEMENT DANS UNE LISTE *****/
-
-/*** BUG A CORRIGER PLUS TARD ***/ 
 	Ici , on ajoute un element avec le produit ID n° 11096 et la quantité :
 
 	HTTP PUT: http://localhost:8080/cheaplist/lists/22/element/

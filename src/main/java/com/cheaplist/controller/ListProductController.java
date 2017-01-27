@@ -242,7 +242,7 @@ public class ListProductController {
 				String idgoogle = node.path("id").asText();
 				Shop shop = shopService.findShopByIdgoogle(idgoogle);
 
-				// Pour chaque magasin trouvé
+				// Pour chaque magasin trouve
 				if (shop != null) {
 					double latShop = shop.getAddress().getLag();
 					double lntShop = shop.getAddress().getLng();
