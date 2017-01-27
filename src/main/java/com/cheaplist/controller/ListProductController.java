@@ -26,6 +26,7 @@ import com.cheaplist.model.View;
 import com.cheaplist.service.ListProductService;
 import com.cheaplist.service.ShopProductService;
 import com.cheaplist.service.ShopService;
+import com.cheaplist.service.ShoppingListService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -48,6 +49,9 @@ public class ListProductController {
 
 	@Autowired
 	private ShopService shopService;
+
+	@Autowired
+	private ShoppingListService shoppingListService;
 
 	/*
 	 * @Autowired private ListProductValidator listProductValidator;
@@ -289,25 +293,34 @@ public class ListProductController {
 	 * @return
 	 */
 	@JsonView(View.ShopTime.class)
-	@RequestMapping(value = "/{idList}/shoptime/{idShop}", method = RequestMethod.GET)
-	public ResponseEntity<List<ListProduct>> ListAllProductWithPrices(@PathVariable Integer idList,
-			@PathVariable Integer idShop) {
-		
-		
+	@RequestMapping(value = "/{idList}/shoptime/", method = RequestMethod.GET)
+	public ResponseEntity<List<ListProduct>> ListAllProductWithPrices(@PathVariable Integer idList) {
+
 		List<ListProduct> listProductList = listProductService.findProductsByList(idList);
+				
+		Shop shop = shoppingListService.findById(idList).getShop();
+				
+		Integer idShop =0;
+		if (shop != null) idShop = shop.getId();
+		System.out.println(idShop);
+
 		// Pour chaque élement de la liste
+
 		for (ListProduct listProduct : listProductList) {
 			// On recupere le produit
 			Product product = listProduct.getProduct();
 			product.cleanShopProducts();
-			ShopProduct shopProduct = shopProductService.findPriceByProductShop(product.getId(), idShop);
-			if (shopProduct != null) {
-			//	System.out.println("Test:"+product.getId());
-				listProduct.getProduct().addShopProduct(shopProduct);
-			}
+
+			
+				ShopProduct shopProduct = shopProductService.findPriceByProductShop(product.getId(), idShop);
+				if (shopProduct != null) {
+					// System.out.println("Test:"+product.getId());
+					listProduct.getProduct().addShopProduct(shopProduct);
+				}
+			
 
 		}
-		return new ResponseEntity<List<ListProduct>> (listProductList, HttpStatus.OK);
+		return new ResponseEntity<List<ListProduct>>(listProductList, HttpStatus.OK);
 
 	}
 
