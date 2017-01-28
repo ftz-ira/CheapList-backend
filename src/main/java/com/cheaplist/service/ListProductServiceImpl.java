@@ -46,6 +46,7 @@ public class ListProductServiceImpl implements ListProductService {
 			throw new ExceptionMessage();
 
 		ListProduct createdListProduct = new ListProduct();
+		createdListProduct.setIsInBasket(false);
 		createdListProduct.setProduct(product);
 		createdListProduct.setProductQuantity(quantity);
 		createdListProduct.setShoppingList(shoppingList);

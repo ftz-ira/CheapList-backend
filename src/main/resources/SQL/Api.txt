@@ -133,7 +133,7 @@ Si il existe, il modifie le tuple sans crée un autre.
 HTTP GET : http://localhost:8080/cheaplist/lists/{idList}/shoptime/{idShop}
 
 
-HTTP GET : http://localhost:8080/cheaplist/lists/22/shoptime/112
+HTTP GET : http://localhost:8080/cheaplist/lists/22/shoptime/
 
 
 /***** Affiche les produits d'une ID List ********/
@@ -263,6 +263,6 @@ HTTP POST : http://localhost:8080/cheaplist/products
 // 
 HTTP GET :http://localhost:8080/cheaplist/lists/{idList}/shoptime/{idShop}
 
-HTTP GET :http://localhost:8080/cheaplist/lists/22/shoptime/111
+HTTP GET :http://localhost:8080/cheaplist/lists/22/shoptime/
 
 
