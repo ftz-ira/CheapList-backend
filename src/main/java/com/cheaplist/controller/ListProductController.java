@@ -256,14 +256,16 @@ public class ListProductController {
 
 					double devis = listProductService.findPrice(idList, shop.getId());
 
-					// Si le total du devis est égal à 0, alors on ne retient
+					// Si le total du devis est ï¿½gal ï¿½ 0, alors on ne retient
 					// pas la solution pour Google Estimate
 					if (devis != 0) {
 
 						long missing = listProductService.findMissing(idList, shop.getId());
+						String name=shoppingListService.findById(idList).getName();
 						ObjectNode objectNode1 = mapper.createObjectNode();
 						objectNode1.put("idshop", shop.getId());
 						objectNode1.put("name", shop.getName());
+						objectNode1.put("nameList",name);
 						objectNode1.put("adresse",
 								shop.getAddress().getStreetName() + "," + shop.getAddress().getCity());
 						objectNode1.put("distance", resultat);
@@ -304,7 +306,7 @@ public class ListProductController {
 		if (shop != null) idShop = shop.getId();
 		System.out.println(idShop);
 
-		// Pour chaque élement de la liste
+		// Pour chaque ï¿½lement de la liste
 
 		for (ListProduct listProduct : listProductList) {
 			// On recupere le produit
