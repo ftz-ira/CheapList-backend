@@ -2,6 +2,7 @@ package com.cheaplist.controller;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cheaplist.exception.ErrorResponse;
 import com.cheaplist.exception.ExceptionMessage;
+import com.cheaplist.model.Category;
 import com.cheaplist.model.Product;
 import com.cheaplist.model.Shop;
 import com.cheaplist.model.ShopProduct;
 import com.cheaplist.model.View;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.cheaplist.service.CategoryService;
 import com.cheaplist.service.ProductService;
 import com.cheaplist.service.ShopProductService;
 import com.cheaplist.service.ShopService;
@@ -40,6 +43,9 @@ import com.cheaplist.validator.ShopProductValidator;
 @RestController
 @RequestMapping(value = "/prices")
 public class ShopProductController {
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@Autowired
 	private ShopProductService shopProductService;
@@ -137,32 +143,46 @@ public class ShopProductController {
 	@RequestMapping(value = "/bot/{id}/{price}", method = RequestMethod.GET)
 	public ResponseEntity<String> productAllPrice(@PathVariable Integer id, @PathVariable String price)
 			throws ExceptionMessage {
-		Product product = productService.findById(id.intValue());
+		
+		Category category = categoryService.findById(id.intValue());
+		Set<Product> ListProduct = category.getProducts();
+		
+		for (Product product : ListProduct)
+		{
+			System.out.println("**** PRODUCT *****"+product.getId());
+			List<Shop> ListShop = shopService.findAll();
+			double prices = Double.parseDouble(price.split(",")[0])*1+Double.parseDouble(price.split(",")[1])*0.01;
+		//	System.out.println(price+"  :"+prices);
+			Random random = new Random();
+			for (Shop shop : ListShop) {
+				// 5-10% que le produit n'est pas dans le magasin
+				int firstChoice = random.nextInt(100); 
+				if (firstChoice > 5) {
+					// Le prix du même produit varie entre -7,5 / +7,5% en fonction
+					// des magasins
+					double multiplication = 1-((double)(10 - random.nextInt(15)) / 100);
+					ShopProduct shopProduct = new ShopProduct();
+					shopProduct.setPrice((double) ((int) (prices * multiplication * 100)) / 100);
+					System.out.println(shopProduct.getPrice());
+					shopProduct.setProduct(product);
+					shopProduct.setShop(shop);
+					shopProduct.setRatio(0);
+				//	shopProductService.create(shopProduct);					
+				}
+
+			}
+			
+			
+			
+			
+			
+		}
+		
+	/*	Product product = productService.findById(id.intValue());
 		if (product == null)
 			throw new ExceptionMessage("ID PRODUCT NOT FIND");
-		List<Shop> ListShop = shopService.findAll();
-		double prices = Double.parseDouble(price);
-		System.out.println(price+"  :"+prices);
-		Random random = new Random();
-		for (Shop shop : ListShop) {
-			// 5-10% que le produit n'est pas dans le magasin
-			int firstChoice = random.nextInt(100);
-
-			if (firstChoice > 5) {
-				// Le prix du même produit varie entre -7,5 / +7,5% en fonction
-				// des magasins
-				double multiplication = 1-((double)(10 - random.nextInt(15)) / 100);
-				System.out.println(prices*multiplication);
-				ShopProduct shopProduct = new ShopProduct();
-				shopProduct.setPrice(prices*multiplication);
-				shopProduct.setProduct(product);
-				shopProduct.setShop(shop);
-				shopProduct.setRatio(0);
-				shopProductService.create(shopProduct);	
-			
-			}
-
-		}
+		*/
+		
 
 		return new ResponseEntity<String>("PRICE OKAY", HttpStatus.OK);
 	}

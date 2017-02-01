@@ -212,7 +212,7 @@ CREATE TABLE `product` (
   PRIMARY KEY (`id`),
   KEY `fk_product_category1_idx` (`category_id`),
   CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=36382 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36356 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ CREATE TABLE `shop_product` (
   KEY `fk_Produit_has_magasin_Produit1_idx` (`product_id`),
   CONSTRAINT `fk_Produit_has_magasin_Produit1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Produit_has_magasin_magasin1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -380,4 +380,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-31 23:11:41
+-- Dump completed on 2017-02-01 22:31:26
