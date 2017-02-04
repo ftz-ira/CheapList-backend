@@ -39,6 +39,13 @@ public class ProductServiceImpl implements ProductService {
 		if (deletedProduct == null)
 			throw new ExceptionMessage();
 		
+		if (deletedProduct.getImplementation().length() == 0)
+		{
+			System.out.println("Check Security");
+			throw new ExceptionMessage();
+		}
+
+		
 		productRepository.delete(deletedProduct);
 		return deletedProduct;
 	}

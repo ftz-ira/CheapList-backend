@@ -41,6 +41,7 @@ public class ListProductServiceImpl implements ListProductService {
 	public ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ExceptionMessage {
 		ShoppingList shoppingList = shoppingListService.findById(idShoppingList);
 		Product product = productService.findById(idproduct);
+		product.setImplementation("");
 
 		if (shoppingList == null || product == null)
 			throw new ExceptionMessage();

@@ -312,8 +312,6 @@ public class ListProductController {
 			// On recupere le produit
 			Product product = listProduct.getProduct();
 			product.cleanShopProducts();
-
-			
 				ShopProduct shopProduct = shopProductService.findPriceByProductShop(product.getId(), idShop);
 				if (shopProduct != null) {
 					// System.out.println("Test:"+product.getId());

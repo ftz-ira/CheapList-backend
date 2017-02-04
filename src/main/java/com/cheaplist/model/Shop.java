@@ -20,7 +20,7 @@ public class Shop implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@JsonView({View.PriceProduct.class,View.MemberListFav.class,View.List.class,View.MemberList.class})
+	@JsonView({View.PriceProduct.class,View.MemberListFav.class,View.List.class,View.MemberList.class,View.ShopTime.class})
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
 	private int id;

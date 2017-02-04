@@ -114,7 +114,7 @@ public class ProductController {
 			product.setBrand(RootNode.path("product").path("brands").asText().split(",")[0]);
 			product.setName(RootNode.path("product").path("product_name_fr").asText());
 			product.setEan(new BigInteger(idEan));
-			product.setImplementation("");
+			product.setImplementation("openfactfood");
 			product.setUnitName(RootNode.path("product").path("quantity").asText());
 			product.setUrl(RootNode.path("product").path("image_url").asText());
 			product.setCategory(categoryService.findById(idCategory));

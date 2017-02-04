@@ -35,7 +35,7 @@ public class ShopProduct implements Serializable {
 
 	//bi-directional many-to-one association to Shop
 //	@JsonView(View.ProductShop.class)
-	@JsonView(View.PriceProduct.class)
+	@JsonView({View.PriceProduct.class,View.ShopTime.class})
 	@ManyToOne
 	@JoinColumn(name="shop_id", nullable=false)
 	private Shop shop;
