@@ -71,7 +71,7 @@ public class ShoppingList implements Serializable {
 	@JoinColumn(name="member_id", nullable=false)
 	private Member member;
 	
-	@JsonView({View.MemberList.class,View.List.class})
+	@JsonView({View.MemberList.class,View.List.class,View.ShopTime.class})
 	@ManyToOne (fetch=FetchType.EAGER)
 	@JoinColumn(name="shop_id")
 	private Shop shop;

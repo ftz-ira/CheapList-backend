@@ -144,7 +144,7 @@ public class ListProductServiceImpl implements ListProductService {
 	}
 
 	@Override
-	public ListProduct findElementByListBtProduct(int idList, int idProduct) {
+	public List<ListProduct> findElementByListBtProduct(int idList, int idProduct) {
 		return listProductRepository.findElementByListBtProduct(idList, idProduct);
 	}
 

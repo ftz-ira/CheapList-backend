@@ -25,7 +25,7 @@ public class Address implements Serializable {
 
 	@Column(nullable=false, length=45)
 	//@JsonView(View.ShopAddress.class})
-	@JsonView({View.MemberIdentity.class,View.GoogleShop.class,View.MemberList.class})
+	@JsonView({View.MemberIdentity.class,View.GoogleShop.class,View.MemberList.class,View.List.class})
 	private String city;
 
 	//@JsonView(View.ShopAddress.class})
@@ -37,7 +37,7 @@ public class Address implements Serializable {
 	private double lng;
 
 //	@JsonView({View.MemberIdentity.class,View.ShopAddress.class})
-	@JsonView({View.MemberIdentity.class,View.GoogleShop.class,View.MemberList.class})
+	@JsonView({View.MemberIdentity.class,View.GoogleShop.class,View.MemberList.class,View.List.class})
 	@Column(name="street_name")
 	private String streetName;
 

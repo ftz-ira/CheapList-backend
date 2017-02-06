@@ -15,7 +15,7 @@ public interface ListProductService {
 
 	/*** CUSTOM METHOD ***/
 	List<ListProduct> findProductsByList(int idList);
-	ListProduct findElementByListBtProduct(int idList,int idProduct);
+	List<ListProduct> findElementByListBtProduct(int idList,int idProduct);
 	ListProduct findProductByList(int idList, int idProduct);
 	ListProduct patch(int idList, int idElement, ListProduct listProduct) throws ExceptionMessage;
 	ListProduct createOneElement(int idShoppingList, int idproduct, int quantity) throws ExceptionMessage;

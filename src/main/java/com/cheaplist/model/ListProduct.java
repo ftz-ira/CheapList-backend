@@ -31,7 +31,7 @@ public class ListProduct implements Serializable {
 	private Boolean isInBasket;
 	
 	//bi-directional many-to-one association to ShoppingList
-	//@JsonView(View.ListProduct.class)
+	@JsonView(View.ShopTime.class)
 	@ManyToOne
 	@JoinColumn(name="list_id", nullable=false)
 	private ShoppingList shoppingList;

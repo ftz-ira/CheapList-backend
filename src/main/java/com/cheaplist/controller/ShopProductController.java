@@ -167,7 +167,7 @@ public class ShopProductController {
 					shopProduct.setProduct(product);
 					shopProduct.setShop(shop);
 					shopProduct.setRatio(0);
-				//	shopProductService.create(shopProduct);					
+					shopProductService.create(shopProduct);					
 				}
 
 			}

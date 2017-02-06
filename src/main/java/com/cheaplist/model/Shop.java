@@ -43,7 +43,7 @@ public class Shop implements Serializable {
 	private Set<Member> members;
 
 	//bi-directional many-to-one association to Address
-	@JsonView({View.GoogleShop.class,View.MemberList.class})
+	@JsonView({View.GoogleShop.class,View.MemberList.class,View.List.class})
 	@OneToOne(fetch=FetchType.EAGER, cascade={CascadeType.ALL})
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;

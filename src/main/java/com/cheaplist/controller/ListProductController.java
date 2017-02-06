@@ -2,7 +2,9 @@ package com.cheaplist.controller;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ import com.cheaplist.service.ShoppingListService;
 import com.cheaplist.utility.MathGPS;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -119,14 +122,16 @@ public class ListProductController {
 		 * ETAPE ONE : ON cherche si il existe un élement.. sinon on en crée
 		 * un
 		 ***/
-		ListProduct listProduct = listProductService.findElementByListBtProduct(idList, idProduct);
+		List<ListProduct> ListlistProduct = listProductService.findElementByListBtProduct(idList, idProduct);
+	
 
 		// Introuvable donc on en crée un autre élement dans la liste
-		if (listProduct == null) {
+		if (ListlistProduct.isEmpty() == true) {
 			if (productQuantity > 0)
 				listProductService.createOneElement(idList, idProduct, productQuantity);
 
 		} else {
+			ListProduct listProduct = ListlistProduct.get(0);	
 			// Si l'element est trouvé, on va l'update
 			if (productQuantity > 0) {
 				listProduct.setProductQuantity(productQuantity);
@@ -134,6 +139,19 @@ public class ListProductController {
 			} else {
 				listProductService.delete(listProduct.getId());
 			}
+		}
+		try
+		{
+			// Correctif Bug
+			for (int i=1;ListlistProduct.size() > i;i++)
+			{
+				ListProduct listProduct2 = ListlistProduct.get(i);
+				listProductService.delete(listProduct2.getId());
+			}
+		}
+		catch(Exception e)
+		{
+			
 		}
 		return new ResponseEntity<List<ListProduct>>(listProductService.findProductsByList(idList), HttpStatus.OK);
 	}
@@ -275,11 +293,11 @@ public class ListProductController {
 					}
 
 				}
-			}
-
+			}	
 			answerJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(arrayNode);
 
 		} catch (IOException e) {
+			System.out.println("Exception"+e.getMessage());
 
 		}
 

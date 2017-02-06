@@ -3,6 +3,8 @@ package com.cheaplist.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.Set;
